@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from restaurants.models import Restaurant
 from .models import CustomUser, UserProfile
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -14,10 +16,12 @@ logger = logging.getLogger(__name__)
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, validators=[validate_password])
     profile = serializers.DictField(write_only=True)
+    restaurant_id = serializers.IntegerField(required=False)
+
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'password', 'first_name', 'last_name', 'role', 'profile')
+        fields = ('email', 'password', 'first_name', 'last_name', 'role', 'profile', 'restaurant_id')
 
     def validate_email(self, value):
         try:
@@ -36,19 +40,28 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile', {})
+        restaurant_id = validated_data.pop('restaurant_id', None)
         password = validated_data.pop('password')
         email = validated_data.get('email')
-
-        logger.info(f"[Inscription] Tentative d’inscription de {email} avec rôle {validated_data.get('role')}")
 
         user = CustomUser.objects.create(**validated_data)
         user.set_password(password)
         user.save()
 
+        # Profil utilisateur
         UserProfile.objects.filter(user=user).update(**profile_data)
 
-        logger.info(f"[Inscription] Utilisateur {email} créé avec succès")
+        # Associe le restaurateur à un restaurant s'il en a indiqué un
+        if user.role == 'RESTAURATEUR' and restaurant_id:
+            try:
+                restaurant = Restaurant.objects.get(id=restaurant_id)
+                restaurant.owner = user
+                restaurant.save()
+            except Restaurant.DoesNotExist:
+                raise serializers.ValidationError("Restaurant non trouvé.")
+
         return user
+
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
