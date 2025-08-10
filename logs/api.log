@@ -72,3 +72,1750 @@ INFO 2025-08-03 21:55:01,456 django.utils.autoreload - /app/accounts/views.py ch
 INFO 2025-08-03 21:55:02,354 django.utils.autoreload - Watching for file changes with StatReloader
 INFO 2025-08-03 21:55:29,144 django.utils.autoreload - /app/accounts/urls.py changed, reloading.
 INFO 2025-08-03 21:55:30,794 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-03 22:07:01,223 django.server - "PUT //api/accounts/me/update/ HTTP/1.1" 200 123
+INFO 2025-08-03 22:50:20,089 django.utils.autoreload - /app/config/urls.py changed, reloading.
+INFO 2025-08-03 22:50:22,424 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-04 13:42:17,043 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-04 13:44:13,114 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-04 13:44:14,139 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-04 14:01:26,513 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-04 14:01:29,921 django.server - "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4170
+INFO 2025-08-04 14:01:30,024 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:30,061 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:30,072 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:30,095 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:30,114 django.server - "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:30,149 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:30,180 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:40,410 django.server - "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-04 14:01:40,627 django.server - "GET /admin/ HTTP/1.1" 200 7943
+INFO 2025-08-04 14:01:40,786 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:40,787 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:40,830 django.server - "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:40,850 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:40,874 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:40,885 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:41,584 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:41,613 django.server - "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-08-04 14:01:41,614 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+ERROR 2025-08-04 14:01:45,005 django.request - Internal Server Error: /admin/restaurants/restaurant/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "restaurants_restaurant" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "restaurants_restaurant"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/options.py", line 2024, in changelist_view
+    cl = self.get_changelist_instance(request)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/options.py", line 867, in get_changelist_instance
+    return ChangeList(
+           ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/views/main.py", line 146, in __init__
+    self.get_results(request)
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/views/main.py", line 313, in get_results
+    result_count = paginator.count
+                   ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/paginator.py", line 110, in count
+    return c()
+           ^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "restaurants_restaurant" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "restaurants_restaurant"
+                                          ^
+
+ERROR 2025-08-04 14:01:45,022 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 500 180953
+INFO 2025-08-04 14:01:49,386 django.server - "GET /admin/ HTTP/1.1" 200 7943
+INFO 2025-08-05 09:44:18,694 django.utils.autoreload - /app/restaurants/admin.py changed, reloading.
+INFO 2025-08-05 09:44:22,912 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-05 09:49:15,703 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-05 09:51:10,876 django.server - "GET /admin/ HTTP/1.1" 200 7339
+INFO 2025-08-05 09:51:11,000 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:11,015 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:11,026 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:11,028 django.server - "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:11,031 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:11,035 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:11,455 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:11,491 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:11,492 django.server - "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-08-05 09:51:13,693 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 9347
+INFO 2025-08-05 09:51:13,796 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-08-05 09:51:13,807 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-08-05 09:51:13,809 django.server - "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-08-05 09:51:13,821 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-08-05 09:51:13,873 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-08-05 09:51:13,874 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-08-05 09:51:13,876 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-08-05 09:51:13,881 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-08-05 09:51:13,899 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-08-05 09:51:13,913 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-08-05 09:51:13,928 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 09:51:14,079 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-08-05 09:51:14,143 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-08-05 09:51:14,145 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-08-05 09:51:16,820 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 19492
+INFO 2025-08-05 09:51:16,882 django.server - "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-08-05 09:51:16,898 django.server - "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-08-05 09:51:16,903 django.server - "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-08-05 09:51:16,906 django.server - "GET /static/admin/js/inlines.js HTTP/1.1" 200 15628
+INFO 2025-08-05 09:51:16,907 django.server - "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-08-05 09:51:16,927 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 09:51:16,991 django.server - "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+INFO 2025-08-05 09:51:17,003 django.server - "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-08-05 09:51:17,079 django.server - "GET /static/admin/img/inline-delete.svg HTTP/1.1" 200 537
+INFO 2025-08-05 09:51:17,101 django.server - "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-08-05 10:30:56,482 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-05 10:30:59,884 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-05 10:31:45,512 django.utils.autoreload - /app/restaurants/admin.py changed, reloading.
+INFO 2025-08-05 10:31:46,782 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-05 10:32:12,866 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 23280
+INFO 2025-08-05 10:32:12,995 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 10:32:44,244 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 10687
+INFO 2025-08-05 10:32:44,296 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 10:32:46,120 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 10102
+INFO 2025-08-05 10:32:46,190 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 10:33:05,817 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 10102
+INFO 2025-08-05 10:33:05,884 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 10:33:07,393 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 10687
+INFO 2025-08-05 10:33:07,475 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 10:33:10,111 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 23280
+INFO 2025-08-05 10:33:10,164 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 10:41:20,846 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 23280
+INFO 2025-08-05 10:41:20,909 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 10:44:08,447 django.utils.autoreload - /app/restaurants/admin.py changed, reloading.
+INFO 2025-08-05 10:44:11,737 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-05 10:44:28,963 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 26391
+INFO 2025-08-05 10:44:29,025 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 11:01:00,952 django.server - "POST /admin/restaurants/restaurant/add/ HTTP/1.1" 200 28013
+INFO 2025-08-05 11:01:01,027 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 11:01:24,786 django.server - "POST /admin/restaurants/restaurant/add/ HTTP/1.1" 200 27841
+INFO 2025-08-05 11:01:24,867 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 11:01:46,678 django.server - "POST /admin/restaurants/restaurant/add/ HTTP/1.1" 302 0
+INFO 2025-08-05 11:01:46,741 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 13581
+INFO 2025-08-05 11:01:46,778 django.server - "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-08-05 11:01:46,793 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 11:01:46,914 django.server - "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-08-05 11:09:24,951 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 26391
+INFO 2025-08-05 11:09:25,049 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 11:13:26,757 django.server - "POST /admin/restaurants/restaurant/add/ HTTP/1.1" 302 0
+INFO 2025-08-05 11:13:26,803 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14190
+INFO 2025-08-05 11:13:26,885 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-05 13:20:25,685 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-05 13:32:47,777 django.request - Not Found: /accounts/login/
+WARNING 2025-08-05 13:32:47,784 django.server - "POST //accounts/login/ HTTP/1.1" 404 2536
+WARNING 2025-08-05 13:33:14,873 django.request - Bad Request: /api/accounts/login/
+WARNING 2025-08-05 13:33:14,876 django.server - "POST //api/accounts/login/ HTTP/1.1" 400 76
+INFO 2025-08-05 13:51:18,118 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 574
+INFO 2025-08-05 13:52:13,042 django.server - "GET //api/accounts/me/ HTTP/1.1" 200 248
+WARNING 2025-08-05 13:55:20,060 django.request - Not Found: /info
+WARNING 2025-08-05 13:55:20,064 django.server - "POST //info HTTP/1.1" 404 2503
+INFO 2025-08-05 13:56:00,743 django.server - "POST //api/accounts/register/ HTTP/1.1" 201 34
+WARNING 2025-08-05 13:56:18,383 django.request - Bad Request: /api/accounts/register/
+WARNING 2025-08-05 13:56:18,384 django.server - "POST //api/accounts/register/ HTTP/1.1" 400 57
+INFO 2025-08-05 13:59:52,536 django.server - "PUT ///api/accounts/me/update/ HTTP/1.1" 200 123
+INFO 2025-08-05 14:06:35,761 django.server - "GET //api/restaurants/ HTTP/1.1" 200 192
+ERROR 2025-08-05 14:06:51,812 django.request - Internal Server Error: /api/restaurants/restaurants/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `opening_time_weekday` is not valid for model `Restaurant` in `restaurants.serializers.RestaurantSerializer`.
+ERROR 2025-08-05 14:06:51,842 django.server - "GET /api/restaurants/restaurants/ HTTP/1.1" 500 144506
+WARNING 2025-08-05 14:18:02,813 django.request - Method Not Allowed: /api/restaurants/
+WARNING 2025-08-05 14:18:02,814 django.server - "POST //api/restaurants/ HTTP/1.1" 405 41
+WARNING 2025-08-05 14:26:04,226 django.request - Unauthorized: /api/restaurants/
+WARNING 2025-08-05 14:26:04,230 django.server - "GET //api/restaurants/ HTTP/1.1" 401 183
+INFO 2025-08-05 14:26:23,147 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-05 14:26:42,519 django.server - "GET //api/restaurants/ HTTP/1.1" 200 192
+ERROR 2025-08-05 14:31:05,537 django.request - Internal Server Error: /api/restaurants/restaurants/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `opening_time_weekday` is not valid for model `Restaurant` in `restaurants.serializers.RestaurantSerializer`.
+ERROR 2025-08-05 14:31:05,545 django.server - "GET ///api/restaurants/restaurants/ HTTP/1.1" 500 144668
+ERROR 2025-08-05 14:31:12,200 django.request - Internal Server Error: /api/restaurants/restaurants/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `opening_time_weekday` is not valid for model `Restaurant` in `restaurants.serializers.RestaurantSerializer`.
+ERROR 2025-08-05 14:31:12,205 django.server - "GET //api/restaurants/restaurants/ HTTP/1.1" 500 144668
+ERROR 2025-08-05 14:31:20,028 django.request - Internal Server Error: /api/restaurants/restaurants/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `opening_time_weekday` is not valid for model `Restaurant` in `restaurants.serializers.RestaurantSerializer`.
+ERROR 2025-08-05 14:31:20,031 django.server - "GET /api/restaurants/restaurants/ HTTP/1.1" 500 144668
+INFO 2025-08-05 14:31:59,455 django.utils.autoreload - /app/restaurants/urls.py changed, reloading.
+INFO 2025-08-05 14:32:04,479 django.utils.autoreload - Watching for file changes with StatReloader
+ERROR 2025-08-05 14:32:10,193 django.request - Internal Server Error: /api/restaurants/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `opening_time_weekday` is not valid for model `Restaurant` in `restaurants.serializers.RestaurantSerializer`.
+ERROR 2025-08-05 14:32:10,203 django.server - "GET //api/restaurants/ HTTP/1.1" 500 144476
+ERROR 2025-08-05 14:32:40,402 django.request - Internal Server Error: /api/restaurants/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `opening_time_weekday` is not valid for model `Restaurant` in `restaurants.serializers.RestaurantSerializer`.
+ERROR 2025-08-05 14:32:40,406 django.server - "GET /api/restaurants/ HTTP/1.1" 500 144476
+INFO 2025-08-05 14:34:31,557 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-05 14:34:33,018 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-05 14:34:35,696 django.server - "GET /api/restaurants/ HTTP/1.1" 200 1504
+WARNING 2025-08-05 14:38:03,337 django.request - Not Found: /api/reservations/
+WARNING 2025-08-05 14:38:03,338 django.server - "GET /api/reservations/ HTTP/1.1" 404 2541
+WARNING 2025-08-05 14:38:30,466 django.request - Not Found: /api/reservations/
+WARNING 2025-08-05 14:38:30,468 django.server - "GET /api/reservations/ HTTP/1.1" 404 2541
+WARNING 2025-08-05 14:39:32,778 django.request - Not Found: /api/reservations/
+WARNING 2025-08-05 14:39:32,780 django.server - "POST /api/reservations/ HTTP/1.1" 404 2542
+INFO 2025-08-05 14:40:29,537 django.utils.autoreload - /app/restaurants/urls.py changed, reloading.
+INFO 2025-08-05 14:40:30,911 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-05 14:40:33,668 django.request - Not Found: /api/reservations/
+WARNING 2025-08-05 14:40:33,672 django.server - "POST /api/reservations/ HTTP/1.1" 404 2542
+INFO 2025-08-07 09:12:27,916 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-07 09:26:09,815 django.request - Unauthorized: /api/restaurants/reservations/
+WARNING 2025-08-07 09:26:09,817 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 401 183
+ERROR 2025-08-07 09:26:23,130 django.request - Internal Server Error: /api/accounts/login/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "accounts_customuser" does not exist
+LINE 1: ..._staff", "accounts_customuser"."date_joined" FROM "accounts_...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/accounts/views.py", line 20, in post
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 225, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 447, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/app/accounts/serializers.py", line 62, in validate
+    user = authenticate(email=email, password=password)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 114, in authenticate
+    user = backend.authenticate(request, **credentials)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/backends.py", line 65, in authenticate
+    user = UserModel._default_manager.get_by_natural_key(username)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/base_user.py", line 37, in get_by_natural_key
+    return self.get(**{self.model.USERNAME_FIELD: username})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 629, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 366, in __len__
+    self._fetch_all()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "accounts_customuser" does not exist
+LINE 1: ..._staff", "accounts_customuser"."date_joined" FROM "accounts_...
+                                                             ^
+
+ERROR 2025-08-07 09:26:23,158 django.server - "POST //api/accounts/login/ HTTP/1.1" 500 182861
+ERROR 2025-08-07 09:37:19,859 django.request - Internal Server Error: /admin/restaurants/restaurant/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 244, in _get_session
+    return self._session_cache
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/sites.py", line 234, in inner
+    if not self.has_permission(request):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+                                               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 55, in __getitem__
+    return self._session[key]
+           ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 249, in _get_session
+    self._session_cache = self.load()
+                          ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/db.py", line 55, in load
+    s = self._get_session_from_db()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/db.py", line 34, in _get_session_from_db
+    return self.model.objects.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 629, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 366, in __len__
+    self._fetch_all()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+ERROR 2025-08-07 09:37:19,869 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 500 192881
+WARNING 2025-08-07 09:37:20,842 django.request - Not Found: /favicon.ico
+WARNING 2025-08-07 09:37:20,843 django.server - "GET /favicon.ico HTTP/1.1" 404 2523
+ERROR 2025-08-07 09:37:24,368 django.request - Internal Server Error: /admin/restaurants/restaurant/add/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 244, in _get_session
+    return self._session_cache
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/sites.py", line 234, in inner
+    if not self.has_permission(request):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+                                               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 55, in __getitem__
+    return self._session[key]
+           ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 249, in _get_session
+    self._session_cache = self.load()
+                          ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/db.py", line 55, in load
+    s = self._get_session_from_db()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/db.py", line 34, in _get_session_from_db
+    return self.model.objects.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 629, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 366, in __len__
+    self._fetch_all()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+ERROR 2025-08-07 09:37:24,371 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 500 192918
+ERROR 2025-08-07 09:37:28,720 django.request - Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 244, in _get_session
+    return self._session_cache
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/sites.py", line 265, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/sites.py", line 234, in inner
+    if not self.has_permission(request):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+                                               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 55, in __getitem__
+    return self._session[key]
+           ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 249, in _get_session
+    self._session_cache = self.load()
+                          ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/db.py", line 55, in load
+    s = self._get_session_from_db()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/db.py", line 34, in _get_session_from_db
+    return self.model.objects.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 629, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 366, in __len__
+    self._fetch_all()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+ERROR 2025-08-07 09:37:28,724 django.server - "GET /admin/ HTTP/1.1" 500 192503
+INFO 2025-08-07 09:48:37,495 django.server - "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-08-07 09:48:37,540 django.server - "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4170
+INFO 2025-08-07 09:48:37,579 django.server - "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-08-07 09:48:37,588 django.server - "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-08-07 09:48:37,594 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-08-07 09:48:37,604 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-08-07 09:48:37,604 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-08-07 09:48:37,606 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-08-07 09:48:38,055 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-08-07 09:48:51,199 django.server - "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4348
+INFO 2025-08-07 09:48:55,300 django.server - "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4348
+WARNING 2025-08-07 09:58:25,321 django.request - Bad Request: /api/accounts/login/
+WARNING 2025-08-07 09:58:25,323 django.server - "POST //api/accounts/login/ HTTP/1.1" 400 55
+INFO 2025-08-07 09:58:35,235 django.server - "POST //api/accounts/register/ HTTP/1.1" 201 34
+WARNING 2025-08-07 09:58:40,703 django.request - Bad Request: /api/accounts/login/
+WARNING 2025-08-07 09:58:40,704 django.server - "POST //api/accounts/login/ HTTP/1.1" 400 55
+INFO 2025-08-07 09:59:23,671 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+WARNING 2025-08-07 09:59:39,071 django.request - Unauthorized: /api/restaurants/
+WARNING 2025-08-07 09:59:39,072 django.server - "GET /api/restaurants/ HTTP/1.1" 401 183
+INFO 2025-08-07 09:59:46,754 django.server - "GET /api/restaurants/ HTTP/1.1" 200 192
+INFO 2025-08-07 09:59:59,318 django.server - "GET //api/restaurants/ HTTP/1.1" 200 192
+INFO 2025-08-07 10:30:16,164 django.server - "GET //api/restaurants/ HTTP/1.1" 200 192
+INFO 2025-08-07 10:31:28,524 django.utils.autoreload - /app/restaurants/urls.py changed, reloading.
+INFO 2025-08-07 10:31:30,398 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-07 10:31:48,698 django.request - Not Found: /api/restaurants/room/
+WARNING 2025-08-07 10:31:48,699 django.server - "GET /api/restaurants/room/ HTTP/1.1" 404 11759
+INFO 2025-08-07 10:35:06,329 django.server - "GET //api/restaurants/restaurants/ HTTP/1.1" 200 2
+WARNING 2025-08-07 10:35:30,675 django.request - Unauthorized: /api/restaurants/rooms/
+WARNING 2025-08-07 10:35:30,676 django.server - "GET //api/restaurants/rooms/ HTTP/1.1" 401 183
+INFO 2025-08-07 10:35:49,952 django.server - "GET //api/restaurants/rooms/ HTTP/1.1" 200 2
+INFO 2025-08-07 10:36:51,106 django.server - "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4348
+INFO 2025-08-07 10:36:51,127 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:36:51,142 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:36:51,148 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:36:51,153 django.server - "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:36:51,154 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:36:51,157 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:36:51,405 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:37:00,286 django.server - "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4348
+INFO 2025-08-07 10:37:13,665 django.server - "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4348
+INFO 2025-08-07 10:37:46,465 django.server - "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4348
+INFO 2025-08-07 10:43:41,589 django.server - "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-07 10:43:41,622 django.server - "GET /admin/ HTTP/1.1" 200 7339
+INFO 2025-08-07 10:43:41,649 django.server - "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-08-07 10:43:41,973 django.server - "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-08-07 10:43:41,974 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-08-07 10:43:47,625 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 10687
+INFO 2025-08-07 10:43:47,668 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-08-07 10:43:47,704 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-08-07 10:43:47,709 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-08-07 10:43:47,723 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-08-07 10:43:47,732 django.server - "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-08-07 10:43:47,733 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-08-07 10:43:47,734 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-08-07 10:43:47,745 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 10:43:47,749 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-08-07 10:43:47,750 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-08-07 10:43:47,768 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-08-07 10:43:47,896 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-08-07 10:43:47,934 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-08-07 10:43:47,935 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-08-07 10:43:50,643 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 26391
+INFO 2025-08-07 10:43:50,685 django.server - "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-08-07 10:43:50,687 django.server - "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-08-07 10:43:50,689 django.server - "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-08-07 10:43:50,689 django.server - "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-08-07 10:43:50,689 django.server - "GET /static/admin/js/inlines.js HTTP/1.1" 200 15628
+INFO 2025-08-07 10:43:50,710 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 10:43:50,836 django.server - "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+INFO 2025-08-07 10:43:50,837 django.server - "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-08-07 10:43:50,919 django.server - "GET /static/admin/img/inline-delete.svg HTTP/1.1" 200 537
+INFO 2025-08-07 10:43:50,940 django.server - "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-08-07 10:48:09,019 django.server - "POST /admin/restaurants/restaurant/add/ HTTP/1.1" 302 0
+INFO 2025-08-07 10:48:09,058 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 13581
+INFO 2025-08-07 10:48:09,113 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:48:09,128 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:48:09,128 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:48:09,129 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:48:09,130 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:48:09,146 django.server - "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-08-07 10:48:09,168 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 10:48:09,386 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:48:09,417 django.server - "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-08-07 10:49:13,534 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 26391
+INFO 2025-08-07 10:49:13,598 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 10:53:57,263 django.server - "POST /admin/restaurants/restaurant/add/ HTTP/1.1" 302 0
+INFO 2025-08-07 10:53:57,308 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14190
+INFO 2025-08-07 10:53:57,396 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,400 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,401 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,403 django.server - "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,404 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,411 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,414 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,417 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,425 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,428 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 10:53:57,436 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,730 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,764 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,766 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-08-07 10:53:57,768 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-08-07 10:54:09,546 django.server - "GET //api/restaurants/restaurants/ HTTP/1.1" 200 1550
+INFO 2025-08-07 10:54:17,921 django.server - "GET //api/restaurants/rooms/ HTTP/1.1" 200 411
+WARNING 2025-08-07 11:03:20,049 django.request - Unauthorized: /api/restaurants/reservations/
+WARNING 2025-08-07 11:03:20,050 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 401 183
+INFO 2025-08-07 11:03:37,082 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+INFO 2025-08-07 11:04:18,264 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 201 187
+INFO 2025-08-07 11:06:04,195 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 200 189
+WARNING 2025-08-07 11:09:26,263 django.request - Not Found: /api/restaurants/reservations/10/cancel/
+WARNING 2025-08-07 11:09:26,264 django.server - "POST //api/restaurants/reservations/10/cancel/ HTTP/1.1" 404 52
+WARNING 2025-08-07 11:10:18,982 django.request - Not Found: /api/restaurants/reservations/10/cancel/
+WARNING 2025-08-07 11:10:18,983 django.server - "POST //api/restaurants/reservations/10/cancel/ HTTP/1.1" 404 52
+INFO 2025-08-07 11:10:23,656 django.server - "POST //api/restaurants/reservations/1/cancel/ HTTP/1.1" 200 48
+INFO 2025-08-07 11:21:18,015 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 201 199
+WARNING 2025-08-07 11:21:51,365 django.request - Forbidden: /api/restaurants/reservations/3/moderate/
+WARNING 2025-08-07 11:21:51,367 django.server - "POST //api/restaurants/reservations/3/moderate/ HTTP/1.1" 403 63
+INFO 2025-08-07 11:27:51,329 django.server - "POST //api/accounts/register/ HTTP/1.1" 201 34
+INFO 2025-08-07 11:32:28,404 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-07 11:32:55,016 django.request - Not Found: /api/restaurants/reservations/3/moderate/
+WARNING 2025-08-07 11:32:55,017 django.server - "POST //api/restaurants/reservations/3/moderate/ HTTP/1.1" 404 52
+WARNING 2025-08-07 11:33:22,319 django.request - Not Found: /api/restaurants/reservations/2/moderate/
+WARNING 2025-08-07 11:33:22,320 django.server - "POST //api/restaurants/reservations/2/moderate/ HTTP/1.1" 404 52
+WARNING 2025-08-07 11:38:54,588 django.request - Unauthorized: /api/restaurants/reservations/
+WARNING 2025-08-07 11:38:54,589 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 401 183
+WARNING 2025-08-07 11:39:26,824 django.request - Forbidden: /api/restaurants/reservations/
+WARNING 2025-08-07 11:39:26,825 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 403 63
+INFO 2025-08-07 11:39:51,719 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+WARNING 2025-08-07 11:40:14,314 django.request - Bad Request: /api/restaurants/reservations/
+WARNING 2025-08-07 11:40:14,316 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 400 92
+INFO 2025-08-07 11:40:39,462 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 201 199
+WARNING 2025-08-07 11:40:49,268 django.request - Unauthorized: /api/restaurants/reservations/my_reservations/
+WARNING 2025-08-07 11:40:49,270 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 401 183
+INFO 2025-08-07 11:40:58,396 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 200 591
+WARNING 2025-08-07 11:41:23,478 django.request - Not Found: /api/restaurants/reservations/2/moderate/
+WARNING 2025-08-07 11:41:23,479 django.server - "POST //api/restaurants/reservations/2/moderate/ HTTP/1.1" 404 52
+WARNING 2025-08-07 11:58:41,425 django.request - Not Found: /api/restaurants/reservations/2/moderate/
+WARNING 2025-08-07 11:58:41,427 django.server - "POST //api/restaurants/reservations/2/moderate/ HTTP/1.1" 404 52
+INFO 2025-08-07 12:08:19,435 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-07 12:08:22,033 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-07 12:08:34,512 django.request - Unauthorized: /api/restaurants/reservations/2/moderate/
+WARNING 2025-08-07 12:08:34,513 django.server - "POST //api/restaurants/reservations/2/moderate/ HTTP/1.1" 401 183
+INFO 2025-08-07 12:08:56,988 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-07 12:09:32,057 django.server - "POST //api/restaurants/reservations/2/moderate/ HTTP/1.1" 200 54
+INFO 2025-08-07 12:09:41,583 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 200 593
+INFO 2025-08-07 12:15:41,030 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 12:15:42,490 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:15:46,520 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 12:15:47,720 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:17:20,245 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-07 12:17:21,148 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:17:48,569 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 13952
+INFO 2025-08-07 12:17:48,612 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,625 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,626 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,631 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,633 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,638 django.server - "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,638 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,641 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,643 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,648 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,650 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,657 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:17:48,661 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,669 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,691 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,694 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:48,698 django.server - "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:49,014 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:49,015 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:49,048 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:49,051 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:49,054 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:49,055 django.server - "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,299 django.server - "GET /admin/restaurants/restaurant/1/change/ HTTP/1.1" 200 29116
+INFO 2025-08-07 12:17:51,320 django.server - "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,337 django.server - "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,337 django.server - "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,338 django.server - "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,338 django.server - "GET /static/admin/js/inlines.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,353 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:17:51,455 django.server - "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,457 django.server - "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,520 django.server - "GET /static/admin/img/inline-delete.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:17:51,538 django.server - "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:18:00,104 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 14434
+INFO 2025-08-07 12:18:00,161 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:18:31,608 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 13952
+INFO 2025-08-07 12:18:31,652 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:19:42,776 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 13952
+INFO 2025-08-07 12:19:42,852 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:19:46,958 django.server - "GET /admin/restaurants/restaurant/1/change/ HTTP/1.1" 200 29116
+INFO 2025-08-07 12:19:47,036 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:31:36,171 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 12:31:37,657 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:32:34,456 django.utils.autoreload - /app/restaurants/admin.py changed, reloading.
+INFO 2025-08-07 12:32:35,897 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:34:35,327 django.utils.autoreload - /app/accounts/serializers.py changed, reloading.
+INFO 2025-08-07 12:34:36,797 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:35:10,041 django.utils.autoreload - /app/accounts/serializers.py changed, reloading.
+INFO 2025-08-07 12:35:10,774 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:35:51,270 django.utils.autoreload - /app/accounts/serializers.py changed, reloading.
+INFO 2025-08-07 12:35:52,038 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:49:26,765 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:51:01,274 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 12:51:02,443 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:52:03,740 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 12:52:05,915 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 12:52:38,616 django.server - "GET /admin HTTP/1.1" 301 0
+INFO 2025-08-07 12:52:38,688 django.server - "GET /admin/ HTTP/1.1" 200 8138
+INFO 2025-08-07 12:52:38,732 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:38,738 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:38,750 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:38,753 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:38,754 django.server - "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:38,754 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:39,175 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:39,188 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:39,188 django.server - "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:41,996 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14166
+INFO 2025-08-07 12:52:42,058 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,060 django.server - "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,060 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,060 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,061 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,065 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,069 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,074 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,074 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,074 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,081 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:52:42,085 django.server - "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,189 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,209 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,212 django.server - "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:42,212 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,282 django.server - "GET /admin/restaurants/restaurant/1/change/ HTTP/1.1" 200 29116
+INFO 2025-08-07 12:52:45,301 django.server - "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,316 django.server - "GET /static/admin/js/inlines.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,317 django.server - "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,318 django.server - "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,318 django.server - "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,331 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:52:45,420 django.server - "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,421 django.server - "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,475 django.server - "GET /static/admin/img/inline-delete.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:52:45,493 django.server - "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-08-07 12:53:10,812 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14166
+INFO 2025-08-07 12:53:14,538 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14166
+INFO 2025-08-07 12:53:14,572 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:53:17,207 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 14434
+INFO 2025-08-07 12:53:17,252 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:53:19,095 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14166
+INFO 2025-08-07 12:53:19,140 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:53:33,986 django.server - "GET /admin/restaurants/restaurant/1/change/ HTTP/1.1" 200 29116
+INFO 2025-08-07 12:53:34,035 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:53:41,340 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14166
+INFO 2025-08-07 12:53:41,393 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 12:53:43,549 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 26391
+INFO 2025-08-07 12:53:43,606 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 13:00:44,644 django.server - "GET /admin/restaurants/restaurant/add/ HTTP/1.1" 200 26391
+INFO 2025-08-07 13:00:44,706 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 13:01:19,217 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14166
+INFO 2025-08-07 13:01:24,628 django.server - "GET /admin/restaurants/restaurant/1/change/ HTTP/1.1" 200 29116
+INFO 2025-08-07 13:01:24,668 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 13:10:19,917 django.server - "GET /admin/restaurants/restaurant/1/change/ HTTP/1.1" 200 29116
+INFO 2025-08-07 13:10:19,989 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 13:13:00,778 django.utils.autoreload - /app/restaurants/admin.py changed, reloading.
+INFO 2025-08-07 13:13:02,102 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 13:13:04,111 django.server - "GET /admin/restaurants/restaurant/1/change/ HTTP/1.1" 200 29887
+INFO 2025-08-07 13:13:04,177 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 13:13:16,354 django.server - "POST /admin/restaurants/restaurant/1/change/ HTTP/1.1" 302 0
+INFO 2025-08-07 13:13:16,397 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14434
+INFO 2025-08-07 13:13:16,452 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 13:13:19,444 django.server - "GET /admin/restaurants/restaurant/2/change/ HTTP/1.1" 200 32320
+INFO 2025-08-07 13:13:19,490 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-07 13:13:37,391 django.server - "POST /admin/restaurants/restaurant/2/change/ HTTP/1.1" 302 0
+INFO 2025-08-07 13:13:37,425 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 14466
+INFO 2025-08-07 13:13:37,473 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-08-07 13:19:10,750 django.request - Unauthorized: /api/restaurants/restaurants/1/reservations/
+WARNING 2025-08-07 13:19:10,751 django.server - "GET //api/restaurants/restaurants/1/reservations/ HTTP/1.1" 401 183
+INFO 2025-08-07 13:19:25,420 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-07 13:20:00,146 django.server - "GET //api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 191
+INFO 2025-08-07 13:33:34,278 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-07 13:33:38,033 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 13:33:46,190 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-07 13:33:47,974 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 13:34:43,763 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-07 13:34:45,127 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 13:40:56,111 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-07 13:40:57,530 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 13:41:54,733 django.server - "GET //api/restaurants/restaurants/1/reservations/?status=CONFIRMED/ HTTP/1.1" 200 191
+INFO 2025-08-07 13:47:21,371 django.server - "GET //api/restaurants/restaurants/1/reservations/?status=CONFIRMED/ HTTP/1.1" 200 191
+INFO 2025-08-07 13:47:27,887 django.server - "GET //api/restaurants/restaurants/1/reservations/?status=/ HTTP/1.1" 200 191
+INFO 2025-08-07 13:48:01,273 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-07 13:48:03,066 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 13:49:03,039 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-07 13:49:04,485 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 13:49:08,141 django.server - "GET //api/restaurants/restaurants/1/reservations/?status=/ HTTP/1.1" 200 2
+INFO 2025-08-07 13:49:20,216 django.server - "GET //api/restaurants/restaurants/1/reservations/?status=CONFIRMED/ HTTP/1.1" 200 2
+WARNING 2025-08-07 13:52:43,734 django.request - Not Found: /api/restaurants/restaurants/<id>/dashboard/
+WARNING 2025-08-07 13:52:43,735 django.server - "GET //api/restaurants/restaurants/%3Cid%3E/dashboard/?date=2025-10-10 HTTP/1.1" 404 11857
+WARNING 2025-08-07 13:52:51,888 django.request - Not Found: /api/restaurants/restaurants/<id>/dashboard/
+WARNING 2025-08-07 13:52:51,893 django.server - "GET //api/restaurants/restaurants/%3Cid%3E/dashboard/?date=2025-10-10/ HTTP/1.1" 404 11858
+WARNING 2025-08-07 13:54:02,743 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-08-07 13:54:02,745 django.server - "GET //api/restaurants/restaurants/1/dashboard/?date=2025-10-10/ HTTP/1.1" 401 183
+INFO 2025-08-07 13:54:18,182 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-07 13:54:40,566 django.request - Bad Request: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-08-07 13:54:40,567 django.server - "GET //api/restaurants/restaurants/1/dashboard/?date=2025-10-10/ HTTP/1.1" 400 36
+INFO 2025-08-07 13:55:54,937 django.server - "GET //api/restaurants/restaurants/1/dashboard/?date=2025-10-10 HTTP/1.1" 200 143
+WARNING 2025-08-07 14:09:50,879 django.request - Unauthorized: /api/restaurants/reservations/my_reservations/
+WARNING 2025-08-07 14:09:50,882 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 401 183
+WARNING 2025-08-07 14:10:00,968 django.request - Unauthorized: /api/restaurants/reservations/my_reservations/
+WARNING 2025-08-07 14:10:00,969 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 401 183
+INFO 2025-08-07 14:11:01,684 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-07 14:11:55,861 django.request - Forbidden: /api/restaurants/reservations/statistics/
+WARNING 2025-08-07 14:11:55,863 django.server - "GET //api/restaurants/reservations/statistics/ HTTP/1.1" 403 63
+INFO 2025-08-07 14:12:18,195 django.server - "GET //api/restaurants/restaurants/1/dashboard/?date=2025-10-10 HTTP/1.1" 200 143
+INFO 2025-08-07 14:13:50,200 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+INFO 2025-08-07 14:14:15,591 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 200 593
+INFO 2025-08-07 14:17:06,932 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 14:17:09,586 django.utils.autoreload - Watching for file changes with StatReloader
+ERROR 2025-08-07 14:17:18,584 django.request - Internal Server Error: /api/restaurants/reservations/my_reservations/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/restaurants/views.py", line 46, in my_reservations
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `restaurant_name` is not valid for model `Reservation` in `restaurants.serializers.ReservationSerializer`.
+ERROR 2025-08-07 14:17:18,600 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 500 141269
+INFO 2025-08-07 14:17:39,171 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 14:17:39,933 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 14:17:42,154 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 200 593
+INFO 2025-08-07 14:17:57,829 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 14:17:58,682 django.utils.autoreload - Watching for file changes with StatReloader
+ERROR 2025-08-07 14:18:03,746 django.request - Internal Server Error: /api/restaurants/reservations/my_reservations/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/restaurants/views.py", line 46, in my_reservations
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `restaurant_name` is not valid for model `Reservation` in `restaurants.serializers.ReservationSerializer`.
+ERROR 2025-08-07 14:18:03,760 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 500 141269
+INFO 2025-08-07 14:27:39,588 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 14:27:41,111 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 14:27:42,641 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 200 714
+INFO 2025-08-07 14:46:39,743 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 14:46:41,578 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 14:47:07,639 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 14:47:08,478 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 14:47:32,134 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 14:47:33,022 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:11:31,389 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 15:11:32,890 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:11:58,102 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 15:11:58,968 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:14:38,271 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:14:39,767 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:15:38,421 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:15:39,239 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:15:48,707 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:15:49,727 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:16:46,862 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:16:50,349 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:19:30,731 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-07 15:19:31,486 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:34:59,433 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:36:46,765 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:36:57,417 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+INFO 2025-08-07 15:37:15,111 django.server - "GET //api/restaurants/restaurants/ HTTP/1.1" 200 1550
+INFO 2025-08-07 15:37:33,918 django.server - "GET //api/restaurants/rooms/ HTTP/1.1" 200 411
+ERROR 2025-08-07 15:38:26,213 django.request - Internal Server Error: /api/restaurants/reservations/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column restaurants_reservation.full_restaurant does not exist
+LINE 1: ...ts_reservation"."end_time" > '12:00:00'::time AND "restauran...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 18, in create
+    serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 225, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 447, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/app/restaurants/serializers.py", line 93, in validate
+    if conflicts.exists():
+       ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1296, in exists
+    return self.query.has_results(using=self.db)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 674, in has_results
+    return compiler.has_results()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1591, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column restaurants_reservation.full_restaurant does not exist
+LINE 1: ...ts_reservation"."end_time" > '12:00:00'::time AND "restauran...
+                                                             ^
+
+ERROR 2025-08-07 15:38:26,229 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 500 160531
+INFO 2025-08-07 15:39:05,820 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 201 265
+ERROR 2025-08-07 15:39:59,463 django.request - Internal Server Error: /api/restaurants/reservations/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 20, in create
+    headers = self.get_success_headers(serializer.data)
+                                       ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 573, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 540, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/fields.py", line 1870, in to_representation
+    return method(value)
+           ^^^^^^^^^^^^^
+  File "/app/restaurants/serializers.py", line 47, in get_room_name
+    return obj.room.name
+           ^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'name'
+ERROR 2025-08-07 15:39:59,468 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 500 113188
+INFO 2025-08-07 15:41:42,419 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:41:44,012 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:41:52,642 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:41:53,761 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:42:18,029 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:42:18,852 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:42:29,902 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:42:30,718 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:42:33,965 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-07 15:42:34,980 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-07 15:42:37,492 django.server - "POST //api/restaurants/reservations/ HTTP/1.1" 201 242
+WARNING 2025-08-07 15:49:58,735 django.request - Unauthorized: /api/restaurants/reservations/my_reservations/
+WARNING 2025-08-07 15:49:58,739 django.server - "GET //api/restaurants/reservations/my_reservations/ HTTP/1.1" 401 183
+INFO 2025-08-08 14:22:12,251 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-08 14:22:16,050 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 14:22:32,065 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-08 14:22:32,954 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 14:22:44,239 django.utils.autoreload - /app/restaurants/permissions.py changed, reloading.
+INFO 2025-08-08 14:22:45,259 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 14:23:04,013 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-08 14:23:04,967 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 14:23:15,601 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-08 14:23:16,644 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 14:24:20,771 django.utils.autoreload - /app/restaurants/urls.py changed, reloading.
+INFO 2025-08-08 14:24:21,982 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 14:40:37,116 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-08 14:41:18,172 django.request - Unsupported Media Type: /api/restaurants/evenements/
+WARNING 2025-08-08 14:41:18,173 django.server - "POST //api/restaurants/evenements/ HTTP/1.1" 415 62
+INFO 2025-08-08 14:44:37,612 django.server - "POST //api/restaurants/evenements/ HTTP/1.1" 201 228
+INFO 2025-08-08 14:45:51,692 django.server - "GET //api/restaurants/evenements/ HTTP/1.1" 200 230
+WARNING 2025-08-08 14:46:20,869 django.request - Not Found: /api/restaurants/1/evenements/
+WARNING 2025-08-08 14:46:20,871 django.server - "POST //api/restaurants/1/evenements/ HTTP/1.1" 404 13394
+WARNING 2025-08-08 14:46:41,724 django.request - Not Found: /api/restaurants/restaurants/1/evenements/
+WARNING 2025-08-08 14:46:41,726 django.server - "POST //api/restaurants/restaurants/1/evenements/ HTTP/1.1" 404 13430
+WARNING 2025-08-08 14:46:57,549 django.request - Not Found: /api/restaurants/restaurants/1/evenements/
+WARNING 2025-08-08 14:46:57,550 django.server - "GET //api/restaurants/restaurants/1/evenements/ HTTP/1.1" 404 13429
+WARNING 2025-08-08 14:49:49,531 django.request - Not Found: /api/restaurants/restaurants/1/evenements/
+WARNING 2025-08-08 14:49:49,532 django.server - "GET //api/restaurants/restaurants/1/evenements/ HTTP/1.1" 404 13429
+INFO 2025-08-08 14:57:39,991 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-08 14:57:42,086 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 14:57:47,713 django.server - "GET //api/restaurants/restaurants/1/evenements/ HTTP/1.1" 200 230
+INFO 2025-08-08 23:33:59,764 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-08 23:34:02,197 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 23:34:08,271 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-08 23:34:09,647 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 23:34:22,494 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-08 23:34:23,981 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 23:35:18,517 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-08 23:35:19,460 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 23:38:20,703 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-08 23:38:21,614 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 23:40:28,343 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-08 23:40:29,126 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 23:40:45,136 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-08 23:40:46,209 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-08 23:41:45,578 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-08 23:42:27,555 django.server - "POST //api/restaurants/evenements/ HTTP/1.1" 201 347
+WARNING 2025-08-08 23:44:34,173 django.request - Not Found: /api/restaurants/evenements/{id}/publish/
+WARNING 2025-08-08 23:44:34,175 django.server - "POST //api/restaurants/evenements/%7Bid%7D/publish/ HTTP/1.1" 404 23
+INFO 2025-08-08 23:44:54,606 django.server - "POST //api/restaurants/evenements/2/publish/ HTTP/1.1" 200 33
+INFO 2025-08-08 23:46:26,678 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+INFO 2025-08-08 23:46:49,829 django.server - "POST //api/restaurants/evenements/2/register/ HTTP/1.1" 201 36
+WARNING 2025-08-08 23:47:18,311 django.request - Bad Request: /api/restaurants/evenements/2/register/
+WARNING 2025-08-08 23:47:18,312 django.server - "POST //api/restaurants/evenements/2/register/ HTTP/1.1" 400 28
+INFO 2025-08-08 23:47:28,721 django.server - "POST //api/restaurants/evenements/2/unregister/ HTTP/1.1" 200 40
+WARNING 2025-08-08 23:48:47,005 django.request - Forbidden: /api/restaurants/evenements/{id}/close/
+WARNING 2025-08-08 23:48:47,006 django.server - "POST //api/restaurants/evenements/%7Bid%7D/close/ HTTP/1.1" 403 63
+INFO 2025-08-08 23:49:33,841 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-08 23:50:03,226 django.request - Not Found: /api/restaurants/evenements/{id}/close/
+WARNING 2025-08-08 23:50:03,229 django.server - "POST //api/restaurants/evenements/%7Bid%7D/close/ HTTP/1.1" 404 23
+INFO 2025-08-08 23:50:11,425 django.server - "POST //api/restaurants/evenements/2/close/ HTTP/1.1" 200 41
+WARNING 2025-08-08 23:50:17,532 django.request - Bad Request: /api/restaurants/evenements/2/register/
+WARNING 2025-08-08 23:50:17,532 django.server - "POST //api/restaurants/evenements/2/register/ HTTP/1.1" 400 35
+INFO 2025-08-09 00:09:44,048 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-09 00:09:45,454 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:10:03,764 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-09 00:10:04,812 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:10:18,693 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-09 00:10:19,371 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:11:16,678 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-09 00:11:17,841 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:40:19,587 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-09 00:40:21,042 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:41:31,093 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-09 00:41:32,510 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:42:09,642 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-09 00:42:10,982 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:43:49,759 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-09 00:43:51,032 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:50:15,871 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-09 00:50:17,302 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 00:58:35,886 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-09 00:58:36,841 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-09 01:03:55,598 django.request - Unauthorized: /api/restaurants/evenements/2/invite/
+WARNING 2025-08-09 01:03:55,600 django.server - "POST //api/restaurants/evenements/2/invite/ HTTP/1.1" 401 183
+INFO 2025-08-09 01:04:13,441 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-09 01:05:18,148 django.server - "POST //api/restaurants/evenements/2/invite/ HTTP/1.1" 201 223
+INFO 2025-08-09 01:15:02,136 django.server - "POST //api/restaurants/evenements/2/invite/ HTTP/1.1" 201 223
+INFO 2025-08-09 01:21:28,670 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-09 01:21:30,974 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 01:21:46,997 django.server - "POST //api/restaurants/evenements/2/invite/ HTTP/1.1" 201 223
+WARNING 2025-08-09 01:22:26,659 django.request - Not Found: /events/invite/accept
+WARNING 2025-08-09 01:22:26,662 django.server - "GET /events/invite/accept?token=SMeBhMQSN0LE3QgLj9oOS2nxsIj2XD1Eo2gNOmVAGjo HTTP/1.1" 404 2600
+INFO 2025-08-09 01:26:01,882 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+WARNING 2025-08-09 01:26:28,615 django.request - Bad Request: /api/restaurants/evenements/2/accept_invite/
+WARNING 2025-08-09 01:26:28,617 django.server - "POST //api/restaurants/evenements/2/accept_invite/ HTTP/1.1" 400 26
+INFO 2025-08-09 01:27:07,091 django.server - "POST //api/restaurants/evenements/2/accept_invite/ HTTP/1.1" 201 58
+INFO 2025-08-09 22:05:45,034 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-09 22:05:47,653 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 22:06:05,200 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-09 22:06:05,881 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 22:07:45,435 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-09 22:07:46,940 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 22:08:07,717 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-09 22:08:08,834 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 22:08:20,551 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-09 22:08:21,467 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 22:08:31,014 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-09 22:08:32,070 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 22:08:45,418 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-09 22:08:46,914 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-09 22:10:02,709 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-09 22:10:24,740 django.server - "GET //api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-08-09 22:11:39,404 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+INFO 2025-08-09 22:12:03,939 django.server - "GET //api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 82
