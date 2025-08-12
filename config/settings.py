@@ -44,10 +44,10 @@ INSTALLED_APPS = [
 
     'accounts',
     'restaurants',
+    'menu',
 
     'rest_framework',
     'rest_framework_simplejwt',
-
 ]
 
 MIDDLEWARE = [
