@@ -475,4 +475,3 @@ class EvenementViewSet(viewsets.ModelViewSet):
             event.save()
 
         return Response({"status": "Désinscription effectuée."})
-

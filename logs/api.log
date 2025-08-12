@@ -1819,3 +1819,39 @@ INFO 2025-08-09 22:10:02,709 django.server - "POST //api/accounts/login/ HTTP/1.
 INFO 2025-08-09 22:10:24,740 django.server - "GET //api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
 INFO 2025-08-09 22:11:39,404 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
 INFO 2025-08-09 22:12:03,939 django.server - "GET //api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 82
+INFO 2025-08-10 21:20:23,432 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-10 21:20:27,631 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-10 21:26:14,502 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-10 21:26:15,854 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-10 21:28:28,119 django.utils.autoreload - /app/config/urls.py changed, reloading.
+INFO 2025-08-10 21:28:29,209 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-10 21:52:13,619 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-10 22:05:50,072 django.utils.autoreload - /app/menu/serializers.py changed, reloading.
+INFO 2025-08-10 22:05:52,100 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-10 22:07:18,230 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-10 22:07:32,537 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+WARNING 2025-08-10 22:08:22,588 django.request - Forbidden: /api/menu/allergens/
+WARNING 2025-08-10 22:08:22,597 django.server - "POST //api/menu/allergens/ HTTP/1.1" 403 63
+INFO 2025-08-10 22:08:57,639 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-10 22:09:31,431 django.request - Unsupported Media Type: /api/menu/allergens/
+WARNING 2025-08-10 22:09:31,433 django.server - "POST //api/menu/allergens/ HTTP/1.1" 415 62
+WARNING 2025-08-10 22:09:42,439 django.request - Bad Request: /api/menu/allergens/
+WARNING 2025-08-10 22:09:42,442 django.server - "POST //api/menu/allergens/ HTTP/1.1" 400 72
+INFO 2025-08-10 22:10:28,225 django.server - "POST //api/menu/allergens/ HTTP/1.1" 201 41
+WARNING 2025-08-10 22:12:59,052 django.request - Bad Request: /api/menu/allergens/
+WARNING 2025-08-10 22:12:59,062 django.server - "POST //api/menu/allergens/ HTTP/1.1" 400 72
+INFO 2025-08-10 22:13:12,348 django.server - "POST //api/menu/products/ HTTP/1.1" 201 155
+WARNING 2025-08-10 22:13:35,855 django.request - Bad Request: /api/menu/products/
+WARNING 2025-08-10 22:13:35,857 django.server - "POST //api/menu/products/ HTTP/1.1" 400 59
+INFO 2025-08-10 22:15:59,519 django.server - "GET //api/menu/allergens/ HTTP/1.1" 200 43
+WARNING 2025-08-10 22:18:21,360 django.request - Bad Request: /api/menu/allergens/
+WARNING 2025-08-10 22:18:21,366 django.server - "POST //api/menu/allergens/ HTTP/1.1" 400 72
+WARNING 2025-08-10 22:18:38,867 django.request - Bad Request: /api/menu/dishes/
+WARNING 2025-08-10 22:18:38,869 django.server - "POST //api/menu/dishes/ HTTP/1.1" 400 58
+INFO 2025-08-11 14:55:33,663 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-11 14:56:06,301 django.request - Unauthorized: /api/menu/dishes/
+WARNING 2025-08-11 14:56:06,302 django.server - "POST //api/menu/dishes/ HTTP/1.1" 401 183
+INFO 2025-08-11 14:56:20,371 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-11 14:56:54,865 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 245
+INFO 2025-08-11 15:04:50,124 django.utils.autoreload - /app/menu/serializers.py changed, reloading.
+INFO 2025-08-11 15:04:51,426 django.utils.autoreload - Watching for file changes with StatReloader
