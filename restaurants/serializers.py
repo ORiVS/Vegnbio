@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from django.db.models import Q
 from .models import Restaurant, Room, Reservation, Evenement, EvenementRegistration, EventInvite
 from datetime import datetime
 from django.utils import timezone
@@ -58,49 +60,74 @@ class ReservationSerializer(serializers.ModelSerializer):
     def validate(self, data):
         start = data['start_time']
         end = data['end_time']
-        date = data['date']
+        date_ = data['date']
         full_restaurant = data.get('full_restaurant', False)
         restaurant = data.get('restaurant')
         room = data.get('room')
 
+        # 1) pas de passé
+        today = timezone.localdate()
+        now_t = timezone.localtime().time()
+        if date_ < today:
+            raise serializers.ValidationError("Impossible de réserver dans le passé.")
+        if date_ == today and end <= now_t:
+            raise serializers.ValidationError("Le créneau est déjà passé aujourd'hui.")
+
+        # 2) cible
         if full_restaurant and not restaurant:
             raise serializers.ValidationError("Vous devez spécifier un restaurant pour réserver l'ensemble.")
-
         if not full_restaurant and not room:
             raise serializers.ValidationError("Vous devez spécifier une salle pour réserver.")
+        if not full_restaurant and room:
+            restaurant = room.restaurant
+            data['restaurant'] = restaurant
 
-        # ⛔ Réservation de restaurant entier → bloquer toutes les salles déjà prises
+        # 3) horaires d'ouverture
+        if start >= end:
+            raise serializers.ValidationError("L'heure de début doit être avant l'heure de fin.")
+        if not restaurant:
+            raise serializers.ValidationError("Restaurant introuvable pour valider les horaires d'ouverture.")
+        if not restaurant.is_time_range_within_opening(date_, start, end):
+            raise serializers.ValidationError("Créneau hors horaires d'ouverture du restaurant.")
+
+        # 4) conflits “restaurant entier” vs “salles”
+        # full_restaurant -> bloquer salles (en excluant self.instance)
         if full_restaurant:
             conflicts = Reservation.objects.filter(
                 restaurant=restaurant,
-                date=date,
+                date=date_,
                 start_time__lt=end,
                 end_time__gt=start,
-                full_restaurant=False  # une salle a été réservée
+                full_restaurant=False
             )
+            if self.instance:
+                conflicts = conflicts.exclude(pk=self.instance.pk)
             if conflicts.exists():
                 raise serializers.ValidationError(
-                    "Des salles sont déjà réservées sur ce créneau. Impossible de réserver tout le restaurant.")
+                    "Des salles sont déjà réservées sur ce créneau. Impossible de réserver tout le restaurant."
+                )
 
-        # ⛔ Réservation d'une salle → vérifier si restaurant entier déjà réservé
+        # salle -> bloqué si resto entier déjà réservé
         if not full_restaurant and room:
-            restaurant = room.restaurant
             conflicts = Reservation.objects.filter(
                 restaurant=restaurant,
-                date=date,
+                date=date_,
                 start_time__lt=end,
                 end_time__gt=start,
                 full_restaurant=True
             )
+            if self.instance:
+                conflicts = conflicts.exclude(pk=self.instance.pk)
             if conflicts.exists():
                 raise serializers.ValidationError(
-                    "Ce restaurant est déjà réservé en entier sur ce créneau. Impossible de réserver une salle.")
+                    "Ce restaurant est déjà réservé en entier sur ce créneau. Impossible de réserver une salle."
+                )
 
-        # ⛔ Chevauchement dans la même salle
+        # chevauchement même salle
         if not full_restaurant and room:
             conflicts = Reservation.objects.filter(
                 room=room,
-                date=date,
+                date=date_,
                 start_time__lt=end,
                 end_time__gt=start,
             )
@@ -109,27 +136,51 @@ class ReservationSerializer(serializers.ModelSerializer):
             if conflicts.exists():
                 raise serializers.ValidationError("Cette salle est déjà réservée sur ce créneau.")
 
-        # Si le client réserve une salle, on déduit le restaurant automatiquement
+        # 5) événements bloquants (si tu utilises is_blocking sur Evenement)
+        from .models import Evenement
+        ev_qs = Evenement.objects.filter(
+            restaurant=restaurant,
+            date=date_,
+            is_blocking=True,
+            start_time__lt=end,
+            end_time__gt=start,
+            status__in=["PUBLISHED", "FULL"]  # DRAFT n'empêche pas
+        )
+        # si l'événement cible une salle précise, on ne bloque que cette salle
         if not full_restaurant and room:
-            data['restaurant'] = room.restaurant
+            ev_qs = ev_qs.filter(Q(room__isnull=True) | Q(room=room))
+        # si full_restaurant, tout event bloquant du resto suffit
+        if ev_qs.exists():
+            raise serializers.ValidationError("Créneau indisponible (événement bloquant).")
 
         return data
+
 
 class EvenementSerializer(serializers.ModelSerializer):
     restaurant_name = serializers.CharField(source='restaurant.name', read_only=True)
     current_registrations = serializers.IntegerField(source='registrations.count', read_only=True)
+    published_at = serializers.DateTimeField(read_only=True)
+    full_at = serializers.DateTimeField(read_only=True)
+    cancelled_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Evenement
         fields = [
-            'id', 'restaurant', 'restaurant_name',
-            'title', 'description', 'type',
-            'date', 'start_time', 'end_time',
-            'capacity', 'current_registrations',
-            'is_public', 'status',
-            'is_blocking', 'room',
-            'rrule'
+            'id','restaurant','restaurant_name',
+            'title','description','type',
+            'date','start_time','end_time',
+            'capacity','current_registrations',
+            'is_public','status',
+            'is_blocking','room','rrule',
+            'published_at','full_at','cancelled_at',
+            'created_at','updated_at'
         ]
+        read_only_fields = [
+            'status','current_registrations',
+            'published_at','full_at','cancelled_at',
+            'created_at','updated_at'
+        ]
+
 
     def validate(self, data):
         # start < end

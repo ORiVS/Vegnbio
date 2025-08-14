@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from datetime import time
+from datetime import time, timedelta
 
 User = settings.AUTH_USER_MODEL
 
@@ -53,6 +53,45 @@ class Restaurant(models.Model):
         verbose_name = "Restaurant"
         verbose_name_plural = "Restaurants"
         ordering = ['name']
+
+    def opening_times_for_weekday(self, weekday: int):
+        if weekday in [0, 1, 2, 3]:
+            return (self.opening_time_mon_to_thu, self.closing_time_mon_to_thu)
+        if weekday == 4:
+            return (self.opening_time_friday, self.closing_time_friday)
+        if weekday == 5:
+            return (self.opening_time_saturday, self.closing_time_saturday)
+        return (self.opening_time_sunday, self.closing_time_sunday)
+
+    def is_time_range_within_opening(self, date_, start_t: time, end_t: time) -> bool:
+        """
+        Vérifie si [start_t, end_t] le 'date_' donné est dans les horaires d'ouverture.
+        Gère deux cas:
+          1) créneau dans la plage du jour (avec ou sans overnight)
+          2) créneau après minuit couvert par la fermeture overnight de la veille
+        Hypothèse: la réservation ne traverse pas minuit (start_t < end_t).
+        """
+        wd = date_.weekday()
+        open_t, close_t = self.opening_times_for_weekday(wd)
+
+        def in_range_same_day(open_t, close_t, st, et):
+            if close_t > open_t:
+                return (st >= open_t) and (et <= close_t)
+            # overnight (ex: 09:00 → 01:00 le lendemain)
+            return (st >= open_t) and (et <= time(23, 59, 59))
+
+        ok_today = in_range_same_day(open_t, close_t, start_t, end_t)
+
+        # spill après minuit couvert par la veille
+        from datetime import time as ttime
+        prev_open, prev_close = self.opening_times_for_weekday((wd - 1) % 7)
+        is_prev_overnight = prev_close <= prev_open
+        ok_prev_spill = False
+        if is_prev_overnight:
+            if (start_t >= ttime(0, 0, 0)) and (end_t <= prev_close):
+                ok_prev_spill = True
+
+        return ok_today or ok_prev_spill
 
 class Room(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='rooms')
@@ -108,30 +147,6 @@ class Reservation(models.Model):
     class Meta:
         ordering = ['-date', 'start_time']
 
-class Evenement(models.Model):
-    TYPE_CHOICES = [
-        ("ANNIVERSAIRE", "Anniversaire"),
-        ("CONFERENCE", "Conférence"),
-        ("SEMINAIRE", "Séminaire"),
-        ("ANIMATION", "Animation"),
-        ("AUTRE", "Autre"),
-    ]
-
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='evenements')
-    title = models.CharField(max_length=100)
-    description = models.TextField()
-    date = models.DateField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    type = models.CharField(max_length=50, choices=TYPE_CHOICES)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
-
-    def clean(self):
-        if self.start_time >= self.end_time:
-            raise ValidationError("L'heure de début doit être avant l'heure de fin.")
-
-    def __str__(self):
-        return f"{self.title} ({self.date} - {self.restaurant.name})"
 
 class Evenement(models.Model):
     TYPE_CHOICES = [
@@ -218,9 +233,8 @@ class EventInvite(models.Model):
     def save(self, *args, **kwargs):
         if not self.token:
             self.token = secrets.token_urlsafe(32)[:64]
-        # Optionnel: auto-expiration à J+14 si pas fourni
         if self.expires_at is None:
-            self.expires_at = timezone.now() + timezone.timedelta(days=14)
+            self.expires_at = timezone.now() + timedelta(days=14)
         super().save(*args, **kwargs)
 
     def is_valid(self):

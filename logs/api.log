@@ -1855,3 +1855,435 @@ INFO 2025-08-11 14:56:20,371 django.server - "POST //api/accounts/login/ HTTP/1.
 INFO 2025-08-11 14:56:54,865 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 245
 INFO 2025-08-11 15:04:50,124 django.utils.autoreload - /app/menu/serializers.py changed, reloading.
 INFO 2025-08-11 15:04:51,426 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-11 15:29:04,682 django.request - Unauthorized: /api/menu/allergens/
+WARNING 2025-08-11 15:29:04,683 django.server - "POST //api/menu/allergens/ HTTP/1.1" 401 183
+WARNING 2025-08-11 15:29:27,489 django.request - Unauthorized: /api/menu/allergens/
+WARNING 2025-08-11 15:29:27,490 django.server - "POST //api/menu/allergens/ HTTP/1.1" 401 183
+INFO 2025-08-11 15:29:36,635 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-11 15:29:51,586 django.server - "POST //api/menu/allergens/ HTTP/1.1" 201 37
+INFO 2025-08-11 15:30:00,754 django.server - "POST //api/menu/allergens/ HTTP/1.1" 201 38
+INFO 2025-08-11 15:30:07,996 django.server - "POST //api/menu/allergens/ HTTP/1.1" 201 48
+INFO 2025-08-11 15:30:13,501 django.server - "POST //api/menu/allergens/ HTTP/1.1" 201 37
+INFO 2025-08-12 09:23:00,546 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-12 09:23:34,195 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+WARNING 2025-08-12 09:26:51,775 django.request - Bad Request: /api/menu/dishes/
+WARNING 2025-08-12 09:26:51,776 django.server - "POST //api/menu/dishes/ HTTP/1.1" 400 72
+WARNING 2025-08-12 09:27:36,265 django.request - Forbidden: /api/menu/allergens/
+WARNING 2025-08-12 09:27:36,266 django.server - "POST //api/menu/allergens/ HTTP/1.1" 403 63
+INFO 2025-08-12 09:27:48,653 django.server - "GET //api/menu/allergens/ HTTP/1.1" 200 207
+INFO 2025-08-12 09:28:56,581 django.server - "POST //api/menu/products/ HTTP/1.1" 201 146
+INFO 2025-08-12 09:29:19,906 django.server - "POST //api/menu/products/ HTTP/1.1" 201 145
+INFO 2025-08-12 09:29:55,339 django.server - "POST //api/menu/products/ HTTP/1.1" 201 157
+INFO 2025-08-12 09:30:37,133 django.server - "POST //api/menu/products/ HTTP/1.1" 201 140
+INFO 2025-08-12 09:31:03,642 django.server - "POST //api/menu/products/ HTTP/1.1" 201 149
+INFO 2025-08-12 09:33:01,559 django.server - "GET //api/menu/products/ HTTP/1.1" 200 899
+INFO 2025-08-12 09:33:46,961 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 293
+INFO 2025-08-12 09:35:25,348 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 310
+INFO 2025-08-12 09:36:42,679 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 241
+INFO 2025-08-12 09:37:14,926 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 224
+WARNING 2025-08-12 09:49:55,629 django.request - Bad Request: /api/menu/dish-availability/
+WARNING 2025-08-12 09:49:55,630 django.server - "POST //api/menu/dish-availability/ HTTP/1.1" 400 75
+INFO 2025-08-12 09:50:28,641 django.server - "GET //api/menu/dishes/ HTTP/1.1" 200 1319
+WARNING 2025-08-12 09:53:32,894 django.request - Unauthorized: /api/menu/dish-availability/
+WARNING 2025-08-12 09:53:32,896 django.server - "POST //api/menu/dish-availability/ HTTP/1.1" 401 183
+WARNING 2025-08-12 09:53:45,683 django.request - Unauthorized: /api/menu/dish-availability/
+WARNING 2025-08-12 09:53:45,686 django.server - "POST //api/menu/dish-availability/ HTTP/1.1" 401 183
+WARNING 2025-08-12 09:54:15,491 django.request - Unauthorized: /api/menu/dish-availability/
+WARNING 2025-08-12 09:54:15,493 django.server - "POST //api/menu/dish-availability/ HTTP/1.1" 401 183
+WARNING 2025-08-12 10:16:41,237 django.request - Unauthorized: /api/menu/dish-availability/
+WARNING 2025-08-12 10:16:41,239 django.server - "POST //api/menu/dish-availability/ HTTP/1.1" 401 183
+INFO 2025-08-12 10:16:49,862 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-12 10:17:05,026 django.server - "POST //api/menu/dish-availability/ HTTP/1.1" 201 73
+INFO 2025-08-12 10:17:53,013 django.server - "POST //api/menu/dish-availability/ HTTP/1.1" 201 72
+ERROR 2025-08-12 10:18:45,397 django.request - Internal Server Error: /api/menu/dish-availability/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+                                    ^^^^^^^^^^^^^^^^^^^
+  File "/app/menu/views.py", line 89, in get_queryset
+    qs = qs.filter(date=p["date"])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1493, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1511, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1518, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1646, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1678, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1588, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1415, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/lookups.py", line 38, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/lookups.py", line 410, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/lookups.py", line 96, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 1537, in get_prep_value
+    return self.to_python(value)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 1503, in to_python
+    raise exceptions.ValidationError(
+django.core.exceptions.ValidationError: ['“2025-10-06/” value has an invalid date format. It must be in YYYY-MM-DD format.']
+ERROR 2025-08-12 10:18:45,429 django.server - "GET //api/menu/dish-availability/?restaurant=1&date=2025-10-06/ HTTP/1.1" 500 150391
+INFO 2025-08-12 10:18:52,491 django.server - "GET //api/menu/dish-availability/?restaurant=1&date=2025-10-06 HTTP/1.1" 200 75
+WARNING 2025-08-12 10:39:55,491 django.request - Unauthorized: /api/menu/menus/
+WARNING 2025-08-12 10:39:55,493 django.server - "POST //api/menu/menus/ HTTP/1.1" 401 183
+WARNING 2025-08-12 10:40:04,490 django.request - Unauthorized: /api/menu/menus/
+WARNING 2025-08-12 10:40:04,491 django.server - "POST //api/menu/menus/ HTTP/1.1" 401 183
+WARNING 2025-08-12 10:40:50,447 django.request - Bad Request: /api/menu/menus/
+WARNING 2025-08-12 10:40:50,448 django.server - "POST //api/menu/menus/ HTTP/1.1" 400 179
+INFO 2025-08-12 10:42:15,983 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 332
+WARNING 2025-08-12 10:42:49,876 django.request - Not Found: /api/menu/menus/{menu_id}/publish/
+WARNING 2025-08-12 10:42:49,877 django.server - "POST //api/menu/menus/%7Bmenu_id%7D/publish/ HTTP/1.1" 404 23
+INFO 2025-08-12 10:43:03,091 django.server - "POST //api/menu/menus/1/publish/ HTTP/1.1" 200 27
+WARNING 2025-08-12 10:52:21,123 django.request - Unauthorized: /api/menu/menus/
+WARNING 2025-08-12 10:52:21,124 django.server - "POST //api/menu/menus/ HTTP/1.1" 401 183
+INFO 2025-08-12 10:52:51,658 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+WARNING 2025-08-12 10:53:12,705 django.request - Forbidden: /api/menu/menus/
+WARNING 2025-08-12 10:53:12,706 django.server - "POST //api/menu/menus/ HTTP/1.1" 403 63
+WARNING 2025-08-12 10:53:23,115 django.request - Forbidden: /api/menu/menus/
+WARNING 2025-08-12 10:53:23,119 django.server - "POST //api/menu/menus/ HTTP/1.1" 403 63
+WARNING 2025-08-12 10:56:24,303 django.request - Unauthorized: /api/menu/menus/
+WARNING 2025-08-12 10:56:24,305 django.server - "POST //api/menu/menus/ HTTP/1.1" 401 183
+INFO 2025-08-12 10:57:18,890 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-12 10:57:43,879 django.request - Bad Request: /api/menu/menus/
+WARNING 2025-08-12 10:57:43,880 django.server - "POST //api/menu/menus/ HTTP/1.1" 400 61
+INFO 2025-08-12 10:57:54,303 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 327
+INFO 2025-08-12 10:58:29,016 django.server - "POST //api/menu/menus/2/publish/ HTTP/1.1" 200 27
+INFO 2025-08-12 10:58:34,022 django.server - "POST //api/menu/menus/2/publish/ HTTP/1.1" 200 27
+INFO 2025-08-12 10:59:26,807 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 317
+INFO 2025-08-12 10:59:48,086 django.server - "POST //api/menu/menus/3/publish/ HTTP/1.1" 200 27
+INFO 2025-08-12 11:00:31,388 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 281
+INFO 2025-08-12 11:00:44,473 django.server - "POST //api/menu/menus/4/publish/ HTTP/1.1" 200 27
+INFO 2025-08-12 11:07:25,600 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 281
+INFO 2025-08-12 11:07:35,799 django.server - "POST //api/menu/menus/5/publish/ HTTP/1.1" 200 27
+INFO 2025-08-12 11:17:11,824 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 269
+INFO 2025-08-12 11:17:35,788 django.server - "POST //api/menu/menus/6/publish/ HTTP/1.1" 200 27
+INFO 2025-08-12 11:18:24,992 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 289
+INFO 2025-08-12 11:18:37,739 django.server - "POST //api/menu/menus/7/publish/ HTTP/1.1" 200 27
+WARNING 2025-08-12 13:33:22,842 django.request - Unauthorized: /api/menu/allergens/
+WARNING 2025-08-12 13:33:22,844 django.server - "POST //api/menu/allergens/ HTTP/1.1" 401 183
+WARNING 2025-08-12 13:33:50,928 django.request - Unauthorized: /api/menu/allergens/
+WARNING 2025-08-12 13:33:50,930 django.server - "POST //api/menu/allergens/ HTTP/1.1" 401 183
+WARNING 2025-08-12 13:34:00,448 django.request - Unauthorized: /api/menu/allergens/
+WARNING 2025-08-12 13:34:00,449 django.server - "POST //api/menu/allergens/ HTTP/1.1" 401 183
+INFO 2025-08-12 13:34:11,444 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-12 13:34:41,140 django.request - Unauthorized: /api/menu/allergens/
+WARNING 2025-08-12 13:34:41,142 django.server - "POST //api/menu/allergens/ HTTP/1.1" 401 183
+INFO 2025-08-12 13:34:52,492 django.server - "POST //api/menu/allergens/ HTTP/1.1" 201 43
+INFO 2025-08-12 13:35:14,526 django.server - "POST //api/menu/allergens/ HTTP/1.1" 201 41
+INFO 2025-08-12 13:35:37,446 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 223
+INFO 2025-08-12 13:35:54,231 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 231
+INFO 2025-08-12 13:36:03,172 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 215
+INFO 2025-08-12 13:36:11,745 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 216
+INFO 2025-08-12 13:36:20,625 django.server - "POST //api/menu/dishes/ HTTP/1.1" 201 209
+INFO 2025-08-12 13:37:00,278 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 335
+WARNING 2025-08-12 13:37:08,876 django.request - Bad Request: /api/menu/menus/
+WARNING 2025-08-12 13:37:08,877 django.server - "POST //api/menu/menus/ HTTP/1.1" 400 61
+WARNING 2025-08-12 13:37:16,461 django.request - Bad Request: /api/menu/menus/
+WARNING 2025-08-12 13:37:16,462 django.server - "POST //api/menu/menus/ HTTP/1.1" 400 61
+INFO 2025-08-12 13:37:34,398 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 323
+INFO 2025-08-12 13:37:51,252 django.server - "POST //api/menu/menus/ HTTP/1.1" 201 359
+INFO 2025-08-12 13:38:00,679 django.server - "POST //api/menu/menus/8/publish/ HTTP/1.1" 200 27
+INFO 2025-08-12 13:38:08,542 django.server - "POST //api/menu/menus/9/publish/ HTTP/1.1" 200 27
+INFO 2025-08-12 13:38:14,738 django.server - "POST //api/menu/menus/10/publish/ HTTP/1.1" 200 27
+WARNING 2025-08-12 14:00:06,910 django.request - Not Found: /favicon.ico
+WARNING 2025-08-12 14:00:06,914 django.server - "GET /favicon.ico HTTP/1.1" 404 2675
+INFO 2025-08-12 22:29:13,154 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-12 22:29:19,010 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-12 22:33:51,184 django.server - "POST //api/accounts/register/ HTTP/1.1" 201 34
+WARNING 2025-08-12 22:34:17,598 django.request - Bad Request: /api/accounts/login/
+WARNING 2025-08-12 22:34:17,599 django.server - "POST //api/accounts/login/ HTTP/1.1" 400 55
+WARNING 2025-08-12 22:34:27,276 django.request - Bad Request: /api/accounts/register/
+WARNING 2025-08-12 22:34:27,277 django.server - "POST //api/accounts/register/ HTTP/1.1" 400 57
+INFO 2025-08-12 22:34:42,850 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-12 22:37:46,202 django.request - Bad Request: /api/market/offers/
+WARNING 2025-08-12 22:37:46,204 django.server - "POST //api/market/offers/ HTTP/1.1" 400 80
+INFO 2025-08-12 22:38:26,135 django.server - "POST //api/market/offers/ HTTP/1.1" 201 400
+INFO 2025-08-12 22:51:56,867 django.server - "POST //api/market/offers/1/publish/ HTTP/1.1" 200 22
+WARNING 2025-08-12 22:53:04,771 django.request - Unauthorized: /api/menu/allergens/
+WARNING 2025-08-12 22:53:04,775 django.server - "GET //api/menu/allergens/ HTTP/1.1" 401 183
+INFO 2025-08-12 22:58:34,317 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 573
+INFO 2025-08-12 22:59:23,460 django.server - "GET //api/menu/allergens/ HTTP/1.1" 200 293
+INFO 2025-08-12 22:59:56,279 django.server - "POST //api/market/offers/ HTTP/1.1" 201 370
+INFO 2025-08-12 23:01:16,765 django.server - "POST //api/market/offers/2/publish/ HTTP/1.1" 200 22
+ERROR 2025-08-12 23:04:44,204 django.request - Internal Server Error: /api/market/offers/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+                                    ^^^^^^^^^^^^^^^^^^^
+  File "/app/market/views.py", line 56, in get_queryset
+    qs = qs.order_by("price")
+         ^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'order_by'
+ERROR 2025-08-12 23:04:44,219 django.server - "GET //api/market/offers/?is_bio=true&region=%C3%8Ele-de-France&available_on=2025-10-10&exclude_allergens=SOJA&sort=price HTTP/1.1" 500 93167
+WARNING 2025-08-12 23:05:19,147 django.request - Unauthorized: /api/market/offers/
+WARNING 2025-08-12 23:05:19,151 django.server - "GET //api/market/offers/?is_bio=true&region=%C3%8Ele-de-France&available_on=2025-10-10&exclude_allergens=SOJA&sort=price HTTP/1.1" 401 183
+INFO 2025-08-12 23:05:40,527 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+ERROR 2025-08-12 23:06:31,752 django.request - Internal Server Error: /api/market/offers/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+                                    ^^^^^^^^^^^^^^^^^^^
+  File "/app/market/views.py", line 56, in get_queryset
+    qs = qs.order_by("price")
+         ^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'order_by'
+ERROR 2025-08-12 23:06:31,762 django.server - "GET //api/market/offers/?is_bio=true&region=%C3%8Ele-de-France&available_on=2025-10-10&exclude_allergens=SOJA&sort=price HTTP/1.1" 500 93333
+INFO 2025-08-12 23:06:57,546 django.server - "GET //api/market/offers/?is_bio=true&region=%C3%8Ele-de-France&available_on=2025-10-10&exclude_allergens=SOJA&sort=price/ HTTP/1.1" 200 406
+WARNING 2025-08-12 23:08:00,370 django.request - Not Found: / /api/market/offers/compare
+WARNING 2025-08-12 23:08:00,373 django.server - "GET /%20/api/market/offers/compare?ids=1,2 HTTP/1.1" 404 2887
+WARNING 2025-08-12 23:08:07,672 django.request - Not Found: / /api/market/offers/compare
+WARNING 2025-08-12 23:08:07,675 django.server - "GET /%20/api/market/offers/compare?ids=1,2/ HTTP/1.1" 404 2888
+INFO 2025-08-12 23:08:21,928 django.server - "GET //api/market/offers/compare?ids=1,2/ HTTP/1.1" 301 0
+INFO 2025-08-12 23:08:22,019 django.server - "GET /api/market/offers/compare/?ids=1,2/ HTTP/1.1" 200 406
+INFO 2025-08-12 23:10:15,924 django.server - "GET //api/market/offers/compare?ids=1,2,5/ HTTP/1.1" 301 0
+INFO 2025-08-12 23:10:16,004 django.server - "GET /api/market/offers/compare/?ids=1,2,5/ HTTP/1.1" 200 781
+INFO 2025-08-12 23:15:15,124 django.server - "POST //api/market/offers/2/import_to_product/ HTTP/1.1" 200 36
+INFO 2025-08-12 23:19:25,663 django.server - "POST //api/market/reviews/ HTTP/1.1" 201 120
+INFO 2025-08-12 23:20:23,902 django.server - "GET /admin HTTP/1.1" 301 0
+INFO 2025-08-12 23:20:24,148 django.server - "GET /admin/ HTTP/1.1" 200 8914
+INFO 2025-08-12 23:20:24,244 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-12 23:20:24,284 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-12 23:20:24,288 django.server - "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-08-12 23:20:24,294 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-12 23:20:24,300 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-12 23:20:24,305 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:20:25,071 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:20:25,092 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-08-12 23:20:25,094 django.server - "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+WARNING 2025-08-12 23:20:25,280 django.request - Not Found: /favicon.ico
+WARNING 2025-08-12 23:20:25,288 django.server - "GET /favicon.ico HTTP/1.1" 404 2829
+INFO 2025-08-12 23:20:28,244 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-08-12 23:20:28,246 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-08-12 23:28:32,781 django.utils.autoreload - /app/market/admin.py changed, reloading.
+INFO 2025-08-12 23:28:36,295 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-12 23:34:48,274 django.utils.autoreload - /app/market/admin.py changed, reloading.
+INFO 2025-08-12 23:34:50,336 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-12 23:43:12,871 django.utils.autoreload - /app/market/admin.py changed, reloading.
+INFO 2025-08-12 23:43:18,931 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-12 23:43:57,687 django.utils.autoreload - /app/accounts/admin.py changed, reloading.
+INFO 2025-08-12 23:43:59,497 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-12 23:44:19,611 django.utils.autoreload - /app/menu/admin.py changed, reloading.
+INFO 2025-08-12 23:44:23,704 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-12 23:44:27,543 django.utils.autoreload - /app/menu/admin.py changed, reloading.
+INFO 2025-08-12 23:44:31,755 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-12 23:44:52,453 django.server - "GET /admin/ HTTP/1.1" 200 16434
+INFO 2025-08-12 23:45:02,234 django.server - "GET /admin/menu/allergen/ HTTP/1.1" 200 18318
+INFO 2025-08-12 23:45:03,192 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,202 django.server - "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,226 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,230 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,230 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,252 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,256 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,262 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,274 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,289 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,301 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:45:03,554 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,604 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:03,609 django.server - "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:12,276 django.server - "GET /admin/menu/allergen/4/change/ HTTP/1.1" 200 15853
+INFO 2025-08-12 23:45:12,319 django.server - "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:12,320 django.server - "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:12,343 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:45:12,516 django.server - "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:12,523 django.server - "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:14,065 django.server - "GET /admin/menu/allergen/ HTTP/1.1" 200 18318
+INFO 2025-08-12 23:45:17,232 django.server - "GET /admin/menu/dishavailability/ HTTP/1.1" 200 19193
+INFO 2025-08-12 23:45:17,317 django.server - "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-08-12 23:45:17,339 django.server - "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:17,353 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:45:17,738 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-08-12 23:45:25,271 django.server - "GET /admin/menu/dishavailability/?o= HTTP/1.1" 200 19138
+INFO 2025-08-12 23:45:25,331 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:45:27,254 django.server - "GET /admin/menu/dishavailability/?o=4 HTTP/1.1" 200 19394
+INFO 2025-08-12 23:45:27,326 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:46:27,799 django.server - "GET /admin/menu/dishavailability/2/change/?_changelist_filters=o%3D4 HTTP/1.1" 200 20244
+INFO 2025-08-12 23:46:27,864 django.server - "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:46:27,864 django.server - "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:46:27,889 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:46:28,155 django.server - "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-08-12 23:46:47,890 django.server - "POST /admin/menu/dishavailability/2/change/?_changelist_filters=o%3D4 HTTP/1.1" 302 0
+INFO 2025-08-12 23:46:47,944 django.server - "GET /admin/menu/dishavailability/?o=4 HTTP/1.1" 200 19688
+INFO 2025-08-12 23:46:48,017 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:46:53,785 django.server - "GET /admin/menu/dishavailability/1/change/?_changelist_filters=o%3D4 HTTP/1.1" 200 20227
+INFO 2025-08-12 23:46:53,838 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:46:58,708 django.server - "POST /admin/menu/dishavailability/1/change/?_changelist_filters=o%3D4 HTTP/1.1" 302 0
+INFO 2025-08-12 23:46:58,764 django.server - "GET /admin/menu/dishavailability/?o=4 HTTP/1.1" 200 19686
+INFO 2025-08-12 23:46:58,826 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:47:05,361 django.server - "GET /admin/menu/dishavailability/2/change/?_changelist_filters=o%3D4 HTTP/1.1" 200 20244
+INFO 2025-08-12 23:47:05,412 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:47:17,730 django.server - "POST /admin/menu/dishavailability/2/change/?_changelist_filters=o%3D4 HTTP/1.1" 302 0
+INFO 2025-08-12 23:47:17,788 django.server - "GET /admin/menu/dishavailability/?o=4 HTTP/1.1" 200 19689
+INFO 2025-08-12 23:47:17,840 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:47:34,272 django.server - "GET /admin/menu/dish/ HTTP/1.1" 200 20003
+INFO 2025-08-12 23:47:34,333 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:47:42,696 django.server - "GET /admin/menu/dish/3/change/ HTTP/1.1" 200 21006
+INFO 2025-08-12 23:47:42,741 django.server - "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-08-12 23:47:42,742 django.server - "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-08-12 23:47:42,761 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:47:43,059 django.server - "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-08-12 23:47:58,412 django.server - "POST /admin/menu/dish/3/change/ HTTP/1.1" 302 0
+INFO 2025-08-12 23:47:58,487 django.server - "GET /admin/menu/dish/ HTTP/1.1" 200 20209
+INFO 2025-08-12 23:47:58,565 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:48:00,991 django.server - "GET /admin/menu/menu/ HTTP/1.1" 200 20688
+INFO 2025-08-12 23:48:01,312 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:48:07,610 django.server - "GET /admin/menu/menu/8/change/ HTTP/1.1" 200 31240
+INFO 2025-08-12 23:48:07,682 django.server - "GET /static/admin/css/autocomplete.css HTTP/1.1" 200 9185
+INFO 2025-08-12 23:48:07,746 django.server - "GET /static/admin/js/inlines.js HTTP/1.1" 304 0
+INFO 2025-08-12 23:48:07,761 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:48:07,762 django.server - "GET /static/admin/js/vendor/select2/i18n/en.js HTTP/1.1" 200 844
+INFO 2025-08-12 23:48:07,763 django.server - "GET /static/admin/css/vendor/select2/select2.css HTTP/1.1" 200 17358
+INFO 2025-08-12 23:48:07,764 django.server - "GET /static/admin/js/autocomplete.js HTTP/1.1" 200 1060
+INFO 2025-08-12 23:48:07,783 django.server - "GET /static/admin/js/vendor/select2/select2.full.js HTTP/1.1" 200 173566
+INFO 2025-08-12 23:48:26,341 django.server - "POST /admin/menu/menu/8/change/ HTTP/1.1" 302 0
+INFO 2025-08-12 23:48:26,407 django.server - "GET /admin/menu/menu/ HTTP/1.1" 200 20896
+INFO 2025-08-12 23:48:26,486 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-12 23:48:29,092 django.server - "GET /admin/menu/product/ HTTP/1.1" 200 19704
+INFO 2025-08-12 23:48:29,186 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-13 00:16:47,156 django.server - "GET /admin/menu/product/ HTTP/1.1" 200 19704
+INFO 2025-08-13 00:16:47,256 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-13 00:16:50,124 django.server - "GET /admin/menu/product/2/change/ HTTP/1.1" 200 19352
+INFO 2025-08-13 00:16:50,189 django.server - "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-08-13 00:16:50,190 django.server - "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-08-13 00:16:50,220 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-13 00:16:50,483 django.server - "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-08-13 00:17:07,155 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 22046
+INFO 2025-08-13 00:17:07,211 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-13 00:17:16,169 django.server - "GET /admin/restaurants/reservation/6/change/ HTTP/1.1" 200 23937
+INFO 2025-08-13 00:17:16,212 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-13 00:17:16,368 django.server - "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-08-13 00:17:26,410 django.server - "GET /static/admin/img/calendar-icons.svg HTTP/1.1" 200 2455
+INFO 2025-08-13 00:17:34,054 django.server - "POST /admin/restaurants/reservation/6/change/ HTTP/1.1" 302 0
+INFO 2025-08-13 00:17:34,102 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 22357
+INFO 2025-08-13 00:17:34,159 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 09:56:09,727 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 09:58:06,562 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-14 09:58:08,380 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 09:59:52,668 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 09:59:54,986 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:00:08,540 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:00:10,920 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:00:23,924 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:00:25,732 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:00:54,997 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:00:57,202 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:01:49,211 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:01:51,380 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:02:21,282 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:02:23,186 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:03:04,547 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:03:07,606 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:03:36,030 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:03:38,182 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:03:53,297 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:03:54,655 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:15:34,878 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-14 10:15:36,254 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:16:45,703 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-14 10:16:48,143 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:18:21,069 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:18:23,957 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:18:30,931 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:18:32,575 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:20:34,337 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-14 10:20:35,910 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:20:41,680 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-14 10:20:44,913 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:34:56,558 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-14 10:34:58,942 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:35:26,692 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-14 10:35:28,298 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:36:54,554 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-08-14 10:36:56,432 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:38:15,087 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:38:16,323 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:38:25,773 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:38:27,455 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:39:02,638 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-08-14 10:39:04,285 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:47:02,464 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-14 10:47:04,225 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 10:47:51,212 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-08-14 10:47:52,265 django.utils.autoreload - Watching for file changes with StatReloader
