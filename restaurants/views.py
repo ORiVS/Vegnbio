@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.utils import timezone
 
 from django.db import transaction
 from rest_framework import viewsets, permissions, status
@@ -373,7 +374,8 @@ class EvenementViewSet(viewsets.ModelViewSet):
         # Passage à FULL si on atteint la capacité
         if event.capacity is not None and event.registrations.count() >= event.capacity:
             event.status = 'FULL'
-            event.save()
+            event.full_at = timezone.now()
+            event.save(update_fields=['status', 'full_at', 'updated_at'])
             notify_event_full(event)
 
         return Response({"status": "Invitation acceptée, inscription confirmée."}, status=201)
@@ -386,6 +388,7 @@ class EvenementViewSet(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
 
     # ----- Actions Restaurateur -----
+
     @action(detail=True, methods=['post'])
     def publish(self, request, pk=None):
         obj = self.get_object()
@@ -394,8 +397,9 @@ class EvenementViewSet(viewsets.ModelViewSet):
         if obj.status not in ['DRAFT', 'CANCELLED']:
             return Response({"detail": "Déjà publié ou complet."}, status=400)
         obj.status = 'PUBLISHED'
-        obj.save()
-        return Response({"status": "Évènement publié."})
+        obj.published_at = timezone.now()
+        obj.save(update_fields=['status', 'published_at', 'updated_at'])
+        return Response({"status": "Évènement publié.", "published_at": obj.published_at})
 
     @action(detail=True, methods=['post'])
     def cancel(self, request, pk=None):
@@ -403,9 +407,10 @@ class EvenementViewSet(viewsets.ModelViewSet):
         if obj.restaurant.owner != request.user:
             return Response({"detail": "Accès interdit."}, status=403)
         obj.status = 'CANCELLED'
-        obj.save()
+        obj.cancelled_at = timezone.now()
+        obj.save(update_fields=['status', 'cancelled_at', 'updated_at'])
         notify_event_cancelled(obj)
-        return Response({"status": "Évènement annulé."})
+        return Response({"status": "Évènement annulé.", "cancelled_at": obj.cancelled_at})
 
     @action(detail=True, methods=['post'])
     def close(self, request, pk=None):
@@ -413,9 +418,10 @@ class EvenementViewSet(viewsets.ModelViewSet):
         if obj.restaurant.owner != request.user:
             return Response({"detail": "Accès interdit."}, status=403)
         obj.status = 'FULL'
-        obj.save()
+        obj.full_at = timezone.now()
+        obj.save(update_fields=['status', 'full_at', 'updated_at'])
         notify_event_full(obj)
-        return Response({"status": "Évènement marqué complet."})
+        return Response({"status": "Évènement marqué complet.", "full_at": obj.full_at})
 
     @action(detail=True, methods=['post'])
     def reopen(self, request, pk=None):
@@ -423,7 +429,8 @@ class EvenementViewSet(viewsets.ModelViewSet):
         if obj.restaurant.owner != request.user:
             return Response({"detail": "Accès interdit."}, status=403)
         obj.status = 'PUBLISHED'
-        obj.save()
+        # published_at peut rester le timestamp initial; on met juste à jour updated_at
+        obj.save(update_fields=['status', 'updated_at'])
         return Response({"status": "Évènement réouvert."})
 
     # ----- Actions Client -----
