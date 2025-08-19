@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import SupplierOffer, OfferReview, OfferReport
+from .models import SupplierOffer, OfferReview, OfferReport, OfferComment
+
 
 # ---------- Inlines ----------
 
@@ -99,3 +100,10 @@ class OfferReportAdmin(admin.ModelAdmin):
     @admin.action(description="Mark as ACTION_TAKEN")
     def mark_action_taken(self, request, queryset):
         queryset.update(status="ACTION_TAKEN")
+
+@admin.register(OfferComment)
+class OfferCommentAdmin(admin.ModelAdmin):
+    list_display = ("id","offer","author","is_public","is_edited","created_at")
+    list_filter = ("is_public", ("created_at", admin.DateFieldListFilter))
+    search_fields = ("content","offer__product_name","author__email")
+    autocomplete_fields = ("offer","author")

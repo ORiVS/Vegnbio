@@ -3,10 +3,11 @@ from django.db.models import Q
 from django.utils.dateparse import parse_date
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
+from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 
-from .models import SupplierOffer, OfferReview, OfferReport
-from .serializers import SupplierOfferSerializer, OfferReviewSerializer, OfferReportSerializer
+from .models import SupplierOffer, OfferReview, OfferReport, OfferComment
+from .serializers import SupplierOfferSerializer, OfferReviewSerializer, OfferReportSerializer, OfferCommentSerializer
 from .permissions import IsSupplier, IsRestaurateur, IsAdminVegNBio
 from menu.models import Product, Allergen  # import pour import_to_product
 
@@ -111,6 +112,44 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
             prod.allergens.set(list(offer.allergens.all()))
         return Response({"status":"imported", "product_id": prod.id})
 
+    @action(detail=True, methods=["post"], permission_classes=[permissions.IsAuthenticated])
+    def flag(self, request, pk=None):
+        """
+        Tout utilisateur authentifié peut signaler une offre.
+        Body: { "reason": "...", "details": "..." }
+        """
+        offer = self.get_object()
+        reason = request.data.get("reason")
+        details = request.data.get("details", "")
+        if not reason:
+            return Response({"detail": "reason requis."}, status=400)
+
+        # créer un report
+        OfferReport.objects.create(
+            offer=offer,
+            reporter=request.user,
+            reason=reason,
+            details=details
+        )
+        # marquer l'offre comme FLAGGED
+        offer.status = "FLAGGED"
+        offer.save(update_fields=["status"])
+        return Response({"status": "flagged"}, status=201)
+
+    @action(detail=True, methods=["post"], permission_classes=[permissions.IsAuthenticated, IsAdminVegNBio()])
+    def moderate_status(self, request, pk=None):
+        """
+        Admin: remettre le statut d'une offre après revue.
+        Body: { "status": "PUBLISHED" | "UNLISTED" | "DRAFT" }
+        """
+        offer = self.get_object()
+        new_status = request.data.get("status")
+        if new_status not in ["PUBLISHED", "UNLISTED", "DRAFT"]:
+            return Response({"detail": "status invalide."}, status=400)
+        offer.status = new_status
+        offer.save(update_fields=["status"])
+        return Response({"status": offer.status})
+
 
 class OfferReviewViewSet(viewsets.ModelViewSet):
     queryset = OfferReview.objects.select_related("offer","author").all()
@@ -148,3 +187,43 @@ class OfferReportViewSet(viewsets.ModelViewSet):
         report.status = action
         report.save()
         return Response({"status": report.status})
+
+class IsAuthorOrAdmin(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        role = getattr(request.user, "role", None)
+        return obj.author == request.user or role == "ADMIN"
+
+
+class OfferCommentViewSet(viewsets.ModelViewSet):
+    queryset = OfferComment.objects.select_related("offer", "author").all()
+    serializer_class = OfferCommentSerializer
+
+    def get_permissions(self):
+        if self.action in ["create", "update", "partial_update", "destroy"]:
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        # filtre public par défaut
+        if not (self.request.user.is_authenticated and getattr(self.request.user, "role", None) == "ADMIN"):
+            qs = qs.filter(is_public=True)
+        # filtre par offre ?offer=ID
+        offer_id = self.request.query_params.get("offer")
+        if offer_id:
+            qs = qs.filter(offer_id=offer_id)
+        return qs
+
+    def perform_update(self, serializer):
+        obj = self.get_object()
+        # author ou admin
+        role = getattr(self.request.user, "role", None)
+        if not (obj.author == self.request.user or role == "ADMIN"):
+            return Response({"detail": "Accès interdit."}, status=403)
+        serializer.save(is_edited=True)
+
+    def perform_destroy(self, instance):
+        role = getattr(self.request.user, "role", None)
+        if not (instance.author == self.request.user or role == "ADMIN"):
+            return Response({"detail": "Accès interdit."}, status=403)
+        return super().perform_destroy(instance)
