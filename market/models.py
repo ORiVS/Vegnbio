@@ -79,3 +79,19 @@ class OfferReport(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+class OfferComment(models.Model):
+    offer = models.ForeignKey(SupplierOffer, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="offer_comments")
+    content = models.TextField()
+    is_public = models.BooleanField(default=True)
+    is_edited = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.offer_id}"
+

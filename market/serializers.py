@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SupplierOffer, OfferReview, OfferReport, REGION_IDF, REGIONS_ALLOWED
+from .models import SupplierOffer, OfferReview, OfferReport, REGION_IDF, REGIONS_ALLOWED, OfferComment
 from menu.models import Allergen, Product  # import Product pour l'import direct
 
 class SupplierOfferSerializer(serializers.ModelSerializer):
@@ -52,3 +52,16 @@ class OfferReportSerializer(serializers.ModelSerializer):
         model = OfferReport
         fields = ["id","offer","reporter","reason","details","status","created_at"]
         read_only_fields = ["status","created_at"]
+
+class OfferCommentSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = OfferComment
+        fields = ["id", "offer", "author", "content", "is_public", "is_edited", "created_at", "updated_at"]
+        read_only_fields = ["is_edited", "created_at", "updated_at"]
+
+    def validate_content(self, v):
+        if not v or not v.strip():
+            raise serializers.ValidationError("Le commentaire ne peut pas être vide.")
+        return v

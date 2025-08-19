@@ -2287,3 +2287,382 @@ INFO 2025-08-14 10:47:02,464 django.utils.autoreload - /app/restaurants/views.py
 INFO 2025-08-14 10:47:04,225 django.utils.autoreload - Watching for file changes with StatReloader
 INFO 2025-08-14 10:47:51,212 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
 INFO 2025-08-14 10:47:52,265 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:11:46,669 django.utils.autoreload - /app/market/models.py changed, reloading.
+INFO 2025-08-14 11:11:49,586 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:12:09,583 django.utils.autoreload - /app/market/serializers.py changed, reloading.
+INFO 2025-08-14 11:12:11,696 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:12:17,866 django.utils.autoreload - /app/market/serializers.py changed, reloading.
+INFO 2025-08-14 11:12:19,424 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:12:55,250 django.utils.autoreload - /app/market/views.py changed, reloading.
+INFO 2025-08-14 11:12:56,874 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:13:02,992 django.utils.autoreload - /app/market/views.py changed, reloading.
+INFO 2025-08-14 11:13:04,402 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:13:27,883 django.utils.autoreload - /app/market/views.py changed, reloading.
+INFO 2025-08-14 11:13:29,967 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:13:48,514 django.utils.autoreload - /app/market/views.py changed, reloading.
+INFO 2025-08-14 11:13:49,862 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:14:09,600 django.utils.autoreload - /app/market/urls.py changed, reloading.
+INFO 2025-08-14 11:14:10,928 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:14:49,617 django.utils.autoreload - /app/market/views.py changed, reloading.
+INFO 2025-08-14 11:14:51,197 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 11:15:14,642 django.utils.autoreload - /app/market/views.py changed, reloading.
+INFO 2025-08-14 11:15:16,935 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 14:33:20,374 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-14 14:34:17,230 django.server - "POST //api/market/comments/ HTTP/1.1" 201 196
+INFO 2025-08-14 14:34:46,863 django.server - "GET //api/market/comments/ HTTP/1.1" 200 198
+INFO 2025-08-14 14:41:35,360 django.server - "POST //api/market/offers/1/flag/ HTTP/1.1" 201 20
+INFO 2025-08-14 14:42:13,769 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 22046
+WARNING 2025-08-14 14:42:15,338 django.request - Not Found: /favicon.ico
+WARNING 2025-08-14 14:42:15,340 django.server - "GET /favicon.ico HTTP/1.1" 404 2829
+INFO 2025-08-14 14:42:19,004 django.server - "GET /admin/market/offerreport/ HTTP/1.1" 200 18961
+INFO 2025-08-14 14:42:19,050 django.server - "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-08-14 14:42:19,053 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-08-14 14:42:19,077 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-08-14 14:42:19,087 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-08-14 14:42:19,088 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-08-14 14:42:19,091 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-08-14 14:42:19,091 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-08-14 14:42:19,103 django.server - "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-08-14 14:42:19,106 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-08-14 14:42:19,114 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-08-14 14:42:19,119 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-08-14 14:42:19,129 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-08-14 14:42:19,143 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-08-14 14:42:19,146 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-08-14 14:42:19,154 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-08-14 14:42:19,158 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 14:42:19,307 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-08-14 14:42:19,308 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-08-14 14:42:19,354 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-08-14 14:42:19,368 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-08-14 14:42:19,369 django.server - "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-08-14 14:42:19,370 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-08-14 14:42:27,710 django.server - "GET /admin/market/offerreview/ HTTP/1.1" 200 18466
+INFO 2025-08-14 14:42:27,782 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 14:42:31,205 django.server - "GET /admin/market/supplieroffer/ HTTP/1.1" 200 23320
+INFO 2025-08-14 14:42:31,251 django.server - "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-08-14 14:42:31,273 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 14:42:40,379 django.server - "GET /admin/market/offerreport/ HTTP/1.1" 200 18961
+INFO 2025-08-14 14:42:40,427 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 14:42:43,179 django.server - "GET /admin/market/offerreport/1/change/ HTTP/1.1" 200 21604
+INFO 2025-08-14 14:42:43,212 django.server - "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-08-14 14:42:43,237 django.server - "GET /static/admin/js/autocomplete.js HTTP/1.1" 200 1060
+INFO 2025-08-14 14:42:43,238 django.server - "GET /static/admin/js/vendor/select2/i18n/en.js HTTP/1.1" 200 844
+INFO 2025-08-14 14:42:43,239 django.server - "GET /static/admin/css/autocomplete.css HTTP/1.1" 200 9185
+INFO 2025-08-14 14:42:43,240 django.server - "GET /static/admin/css/vendor/select2/select2.css HTTP/1.1" 200 17358
+INFO 2025-08-14 14:42:43,254 django.server - "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-08-14 14:42:43,259 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 14:42:43,262 django.server - "GET /static/admin/js/vendor/select2/select2.full.js HTTP/1.1" 200 173566
+INFO 2025-08-14 14:42:43,359 django.server - "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-08-14 14:42:43,368 django.server - "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+INFO 2025-08-14 14:42:43,380 django.server - "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-08-14 14:42:52,399 django.server - "GET /admin/market/offerreport/ HTTP/1.1" 200 18961
+INFO 2025-08-14 14:43:01,807 django.server - "GET /admin/market/supplieroffer/ HTTP/1.1" 200 23320
+INFO 2025-08-14 14:43:01,933 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 14:43:05,397 django.server - "GET /admin/market/supplieroffer/2/change/ HTTP/1.1" 200 35438
+INFO 2025-08-14 14:43:07,733 django.server - "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-08-14 14:43:07,734 django.server - "GET /static/admin/js/inlines.js HTTP/1.1" 200 15628
+INFO 2025-08-14 14:43:07,735 django.server - "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-08-14 14:43:07,748 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 14:43:07,813 django.server - "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-08-14 14:43:16,604 django.server - "GET /admin/market/supplieroffer/ HTTP/1.1" 200 23320
+INFO 2025-08-14 14:43:47,561 django.utils.autoreload - /app/market/admin.py changed, reloading.
+INFO 2025-08-14 14:43:51,140 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 14:43:56,181 django.server - "GET /admin/market/supplieroffer/ HTTP/1.1" 200 23775
+INFO 2025-08-14 14:43:56,594 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 14:44:02,360 django.server - "GET /admin/market/offercomment/ HTTP/1.1" 200 19123
+INFO 2025-08-14 14:44:02,414 django.server - "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-08-14 14:44:02,423 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-14 15:33:40,799 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-14 15:33:44,305 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-14 15:33:51,265 django.utils.autoreload - /app/config/urls.py changed, reloading.
+INFO 2025-08-14 15:33:52,945 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-15 18:49:27,964 django.utils.autoreload - /app/pos/views.py changed, reloading.
+INFO 2025-08-15 18:49:32,502 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-15 18:50:04,612 django.utils.autoreload - /app/pos/views.py changed, reloading.
+INFO 2025-08-15 18:50:53,795 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-15 18:51:03,531 django.server - "GET /admin/market/offercomment/ HTTP/1.1" 200 19123
+INFO 2025-08-15 18:51:03,630 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,634 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,644 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,647 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,666 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,669 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,672 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,675 django.server - "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,704 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,716 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,717 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,728 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,728 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,737 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,754 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,781 django.server - "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:03,786 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-08-15 18:51:04,576 django.server - "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:04,588 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:04,617 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:04,668 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:04,673 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:04,690 django.server - "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-08-15 18:51:04,713 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+WARNING 2025-08-15 18:55:51,671 django.request - Unauthorized: /api/pos/orders/
+WARNING 2025-08-15 18:55:51,674 django.server - "POST //api/pos/orders/ HTTP/1.1" 401 183
+INFO 2025-08-15 18:56:09,727 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+ERROR 2025-08-15 18:56:29,967 django.request - Internal Server Error: /api/pos/orders/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 421, in initial
+    self.check_permissions(request)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 337, in check_permissions
+    for permission in self.get_permissions():
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/pos/views.py", line 28, in get_permissions
+    return [permissions.IsAuthenticated(), IsRestaurateur() | IsAdminVegNBio()]
+                                           ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for |: 'IsRestaurateur' and 'IsAdminVegNBio'
+ERROR 2025-08-15 18:56:29,981 django.server - "POST //api/pos/orders/ HTTP/1.1" 500 94575
+INFO 2025-08-15 19:07:45,929 django.utils.autoreload - /app/pos/views.py changed, reloading.
+INFO 2025-08-15 19:07:47,679 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-15 19:08:26,654 django.utils.autoreload - /app/pos/views.py changed, reloading.
+INFO 2025-08-15 19:08:29,138 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-15 19:10:22,555 django.server - "POST //api/pos/orders/ HTTP/1.1" 201 336
+WARNING 2025-08-15 19:12:32,496 django.request - Bad Request: /api/pos/orders/
+WARNING 2025-08-15 19:12:32,498 django.server - "POST //api/pos/orders/ HTTP/1.1" 400 42
+INFO 2025-08-15 19:13:37,486 django.server - "POST //api/pos/orders/1/add_item/ HTTP/1.1" 201 336
+INFO 2025-08-15 19:16:22,429 django.server - "POST //api/pos/orders/1/add_item/ HTTP/1.1" 201 438
+INFO 2025-08-15 19:17:52,377 django.server - "POST //api/pos/orders/1/add_item/ HTTP/1.1" 201 540
+WARNING 2025-08-15 19:20:21,943 django.request - Method Not Allowed: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:20:21,944 django.server - "POST //api/pos/orders/1/items/2/ HTTP/1.1" 405 41
+WARNING 2025-08-15 19:20:32,662 django.request - Method Not Allowed: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:20:32,664 django.server - "PATCH //api/pos/orders/1/items/2/ HTTP/1.1" 405 42
+INFO 2025-08-15 19:32:46,908 django.utils.autoreload - /app/pos/views.py changed, reloading.
+INFO 2025-08-15 19:32:48,253 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-15 19:32:52,160 django.request - Unauthorized: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:32:52,163 django.server - "PATCH //api/pos/orders/1/items/2/ HTTP/1.1" 401 183
+INFO 2025-08-15 19:33:36,668 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+WARNING 2025-08-15 19:34:10,322 django.request - Method Not Allowed: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:34:10,323 django.server - "PATCH //api/pos/orders/1/items/2/ HTTP/1.1" 405 42
+WARNING 2025-08-15 19:36:49,763 django.request - Method Not Allowed: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:36:49,764 django.server - "PATCH //api/pos/orders/1/items/2/ HTTP/1.1" 405 42
+INFO 2025-08-15 19:43:11,256 django.utils.autoreload - /app/pos/views.py changed, reloading.
+INFO 2025-08-15 19:43:13,318 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-08-15 19:43:16,094 django.request - Not Found: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:43:16,101 django.server - "PATCH //api/pos/orders/1/items/2/ HTTP/1.1" 404 13481
+WARNING 2025-08-15 19:45:12,175 django.request - Not Found: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:45:12,177 django.server - "PATCH //api/pos/orders/1/items/2/ HTTP/1.1" 404 13481
+INFO 2025-08-15 19:45:57,215 django.server - "PATCH //api/pos/orders/1/items/2/update/ HTTP/1.1" 200 627
+WARNING 2025-08-15 19:52:59,965 django.request - Not Found: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:52:59,966 django.server - "DELETE //api/pos/orders/1/items/2/ HTTP/1.1" 404 13482
+WARNING 2025-08-15 19:53:11,098 django.request - Not Found: /api/pos/orders/1/items/2/
+WARNING 2025-08-15 19:53:11,105 django.server - "DELETE //api/pos/orders/1/items/2/ HTTP/1.1" 404 13482
+INFO 2025-08-15 19:53:42,383 django.server - "DELETE //api/pos/orders/1/items/2/remove/ HTTP/1.1" 200 627
+INFO 2025-08-15 19:55:08,459 django.server - "POST //api/pos/orders/1/apply_discount/ HTTP/1.1" 200 526
+WARNING 2025-08-15 19:59:06,289 django.request - Bad Request: /api/pos/orders/1/checkout/
+WARNING 2025-08-15 19:59:06,290 django.server - "POST //api/pos/orders/1/checkout/ HTTP/1.1" 400 75
+INFO 2025-08-15 19:59:20,485 django.server - "POST //api/pos/orders/1/checkout/ HTTP/1.1" 200 60
+WARNING 2025-08-15 20:00:34,211 django.request - Method Not Allowed: /api/pos/orders/summary/
+WARNING 2025-08-15 20:00:34,213 django.server - "POST //api/pos/orders/summary/?restaurant=1&date=2025-08-15 HTTP/1.1" 405 41
+INFO 2025-08-15 20:00:44,659 django.server - "GET //api/pos/orders/summary/?restaurant=1&date=2025-08-15 HTTP/1.1" 200 30
+INFO 2025-08-15 20:02:08,052 django.server - "GET //api/pos/orders/?restaurant=1&date=2025-08-15 HTTP/1.1" 200 555
+WARNING 2025-08-15 20:05:10,334 django.request - Unauthorized: /api/pos/orders/1/ticket/
+WARNING 2025-08-15 20:05:10,354 django.server - "GET //api/pos/orders/1/ticket/ HTTP/1.1" 401 183
+INFO 2025-08-15 20:09:39,687 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-15 20:10:10,965 django.server - "GET //api/pos/orders/1/ticket/ HTTP/1.1" 200 486
+INFO 2025-08-18 11:47:42,434 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-18 11:49:32,148 django.server - "POST //api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-18 11:49:47,747 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 164
+INFO 2025-08-18 11:49:53,409 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 164
+WARNING 2025-08-18 11:50:09,522 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 11:50:09,523 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 58
+WARNING 2025-08-18 11:50:09,530 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 11:50:09,532 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 58
+WARNING 2025-08-18 11:50:20,506 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 11:50:20,507 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 58
+WARNING 2025-08-18 11:50:20,511 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 11:50:20,513 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 58
+INFO 2025-08-18 11:50:49,333 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 164
+INFO 2025-08-18 11:56:37,984 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-18 11:56:39,241 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-18 11:56:48,022 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-18 11:56:49,995 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-18 11:57:07,058 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-18 11:57:08,392 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-18 11:57:39,777 django.utils.autoreload - /app/config/settings.py changed, reloading.
+INFO 2025-08-18 11:57:40,798 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-18 11:58:36,151 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-18 12:00:24,417 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-18 12:02:15,793 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-08-18 12:02:32,457 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2025-08-18 12:02:33,024 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-18 12:02:33,240 django.server - "OPTIONS /api/pos/orders/ HTTP/1.1" 200 0
+INFO 2025-08-18 12:02:33,245 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+INFO 2025-08-18 12:02:33,316 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:02:33,397 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 12:02:33,509 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:08:19,733 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:08:37,678 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:08:37,727 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:08:57,386 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-18 12:08:57,591 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:08:57,622 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 12:08:57,751 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:09:12,754 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:09:18,781 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:09:18,892 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:10:13,734 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:10:33,356 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:10:33,423 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:10:43,129 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-18 12:10:43,278 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:10:43,296 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 12:10:43,442 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:11:29,420 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-18 12:11:42,820 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:11:42,867 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:11:43,020 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:11:52,274 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-18 12:11:52,517 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:11:52,520 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 12:11:52,723 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:23:07,927 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:23:08,503 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 12:23:08,519 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:24:38,759 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:24:38,816 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:25:45,821 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:25:45,885 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:33:02,705 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:33:02,729 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:33:02,925 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 12:33:11,982 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:33:12,012 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:33:12,164 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 12:35:35,762 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:35:35,789 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:35:51,458 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:35:51,486 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:35:51,762 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 12:35:58,616 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:35:58,636 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 12:35:58,816 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+WARNING 2025-08-18 12:42:10,743 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:42:10,746 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:42:10,752 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:42:10,753 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:42:10,919 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:42:10,922 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:42:35,318 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:42:35,320 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:42:35,329 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:42:35,331 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:42:43,964 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 12:42:43,966 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:44:05,624 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 12:44:05,625 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:44:59,207 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:44:59,208 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:44:59,214 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:44:59,217 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:45:10,444 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 12:45:10,445 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:55:29,263 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:55:29,273 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:55:29,283 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 12:55:29,289 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:55:41,122 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 12:55:41,123 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:56:07,845 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 12:56:07,846 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+WARNING 2025-08-18 12:56:10,121 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 12:56:10,122 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+INFO 2025-08-18 22:56:24,529 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+INFO 2025-08-18 22:56:24,540 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+WARNING 2025-08-18 22:56:24,641 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 22:56:24,643 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 22:56:24,696 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 22:56:24,698 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 22:56:27,571 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 22:56:27,572 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 22:56:27,581 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 22:56:27,582 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-08-18 22:56:39,043 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+WARNING 2025-08-18 22:56:39,052 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 22:56:39,057 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+WARNING 2025-08-18 22:56:42,136 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 22:56:42,137 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+WARNING 2025-08-18 22:56:46,787 django.request - Unauthorized: /api/accounts/login/
+WARNING 2025-08-18 22:56:46,791 django.server - "POST /api/accounts/login/ HTTP/1.1" 401 183
+WARNING 2025-08-18 23:03:53,777 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 23:03:53,783 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 23:03:53,793 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 23:03:53,794 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 23:04:03,994 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 23:04:03,997 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-18 23:04:04,009 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-18 23:04:04,012 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-08-18 23:04:16,900 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-18 23:04:16,969 django.server - "OPTIONS /api/pos/orders/ HTTP/1.1" 200 0
+INFO 2025-08-18 23:04:17,155 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:04:17,272 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 23:04:59,008 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:04:59,055 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:04:59,485 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 23:08:08,800 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:08:08,832 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:08:50,370 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:08:50,407 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:08:50,622 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 23:12:20,733 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:12:20,767 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:12:20,954 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 23:12:38,089 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:12:38,133 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:12:38,313 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 23:12:50,450 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:12:50,480 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:12:50,691 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 23:13:06,680 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:13:06,704 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:13:06,893 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-18 23:14:14,394 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:14:14,423 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-18 23:14:14,631 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-19 09:29:45,047 django.server - "OPTIONS /api/pos/orders/ HTTP/1.1" 200 0
+INFO 2025-08-19 09:29:46,428 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+INFO 2025-08-19 09:29:46,488 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+WARNING 2025-08-19 09:29:46,573 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-19 09:29:46,595 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-19 09:29:46,605 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-19 09:29:46,607 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-08-19 09:29:46,852 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-08-19 09:29:46,856 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-08-19 09:30:01,979 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2025-08-19 09:30:07,116 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-19 09:30:07,583 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-19 09:30:07,683 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
+INFO 2025-08-19 09:30:08,487 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-19 09:30:11,837 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-08-19 09:31:02,276 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-19 09:31:02,332 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 265
+INFO 2025-08-19 09:31:02,549 django.server - "GET /api/pos/orders/ HTTP/1.1" 200 555
