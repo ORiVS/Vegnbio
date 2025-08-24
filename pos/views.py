@@ -68,53 +68,57 @@ class OrderViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["post"])
     def add_item(self, request, pk=None):
         order = self.get_object()
-        if not _is_owner(request.user, order): return Response({"detail":"Accès interdit."}, status=403)
+        if not _is_owner(request.user, order): return Response({"detail": "Accès interdit."}, status=403)
         order.ensure_mutable()
+
         ser = OrderItemSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
-        item = ser.save(order=order)
-        order.recalc_totals(); order.save(update_fields=["subtotal","tax_total","total_due","change_due"])
+        ser.save(order=order)
+
+        # 🔧 rafraîchir l'instance avant recalc (pour être 100% sûr)
+        order.refresh_from_db()
+
+        order.recalc_totals()
+        order.save(update_fields=["subtotal", "tax_total", "total_due", "change_due"])
         return Response(OrderSerializer(order).data, status=201)
 
     # update_item : PATCH / PUT sur .../items/<id>/update/
-    @action(
-        detail=True,
-        methods=["patch", "put"],
-        url_path=r"items/(?P<item_id>\d+)/update",
-        url_name="update_item",
-    )
+    @action(detail=True, methods=["patch", "put"], url_path=r"items/(?P<item_id>\d+)/update", url_name="update_item")
     def update_item(self, request, pk=None, item_id=None):
         order = self.get_object()
         if not _is_owner(request.user, order): return Response({"detail": "Accès interdit."}, status=403)
         order.ensure_mutable()
+
         try:
             item = order.items.get(pk=item_id)
         except OrderItem.DoesNotExist:
             return Response({"detail": "Ligne introuvable."}, status=404)
+
         ser = OrderItemSerializer(item, data=request.data, partial=True)
         ser.is_valid(raise_exception=True)
         ser.save()
-        order.recalc_totals();
+
+        order.refresh_from_db()  # 🔧
+        order.recalc_totals()
         order.save(update_fields=["subtotal", "tax_total", "total_due", "change_due"])
         return Response(OrderSerializer(order).data)
 
     # remove_item : DELETE sur .../items/<id>/remove/
-    @action(
-        detail=True,
-        methods=["delete"],
-        url_path=r"items/(?P<item_id>\d+)/remove",
-        url_name="remove_item",
-    )
+    @action(detail=True, methods=["delete"], url_path=r"items/(?P<item_id>\d+)/remove", url_name="remove_item")
     def remove_item(self, request, pk=None, item_id=None):
         order = self.get_object()
         if not _is_owner(request.user, order): return Response({"detail": "Accès interdit."}, status=403)
         order.ensure_mutable()
+
         deleted, _ = order.items.filter(pk=item_id).delete()
         if not deleted:
             return Response({"detail": "Ligne introuvable."}, status=404)
-        order.recalc_totals();
+
+        order.refresh_from_db()  # 🔧
+        order.recalc_totals()
         order.save(update_fields=["subtotal", "tax_total", "total_due", "change_due"])
         return Response(OrderSerializer(order).data)
+
 
     # ------- Remise / statut -------
     @action(detail=True, methods=["post"])

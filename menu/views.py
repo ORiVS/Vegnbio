@@ -90,6 +90,7 @@ class DishAvailabilityViewSet(PublicReadMixin, viewsets.ModelViewSet):
         return qs
 
 
+# menu/views.py (extrait MenuViewSet)
 class MenuViewSet(PublicReadMixin, viewsets.ModelViewSet):
     queryset = Menu.objects.prefetch_related("items__dish", "restaurants").all()
     serializer_class = MenuSerializer
@@ -98,17 +99,22 @@ class MenuViewSet(PublicReadMixin, viewsets.ModelViewSet):
         qs = super().get_queryset()
         p = self.request.query_params
 
-        # Clients voient seulement les menus publiés par défaut
-        if self.action == "list" and not self.request.user.is_authenticated:
+        include_unpublished = p.get("include_unpublished") == "true"
+
+        # Par défaut, ne montrer que les menus publiés (même si user auth)
+        if not include_unpublished:
             qs = qs.filter(is_published=True)
 
         if p.get("restaurant"):
             qs = qs.filter(restaurants__id=p["restaurant"])
+
         if p.get("date"):
             d = parse_date(p["date"])
             if d:
                 qs = qs.filter(start_date__lte=d, end_date__gte=d)
+
         return qs.distinct()
+
 
     @action(detail=True, methods=["post"])
     def publish(self, request, pk=None):
