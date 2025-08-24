@@ -1,23 +1,20 @@
 from rest_framework import serializers
-
-from restaurants.models import Restaurant
-from .models import CustomUser, UserProfile
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.core.validators import validate_email
-from rest_framework import serializers
 import logging
 
+from restaurants.models import Restaurant
+from .models import CustomUser, UserProfile
 
 logger = logging.getLogger(__name__)
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, validators=[validate_password])
-    profile = serializers.DictField(write_only=True)
-    restaurant_id = serializers.IntegerField(required=False)
-
+    profile = serializers.DictField(write_only=True, required=False)
+    restaurant_id = serializers.IntegerField(required=False, allow_null=True)
 
     class Meta:
         model = CustomUser
@@ -39,19 +36,21 @@ class RegisterSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        profile_data = validated_data.pop('profile', {})
+        profile_data = validated_data.pop('profile', {}) or {}
         restaurant_id = validated_data.pop('restaurant_id', None)
         password = validated_data.pop('password')
-        email = validated_data.get('email')
 
         user = CustomUser.objects.create(**validated_data)
         user.set_password(password)
         user.save()
 
-        # Profil utilisateur
-        UserProfile.objects.filter(user=user).update(**profile_data)
+        # Assure-toi qu’un UserProfile existe (get_or_create)
+        UserProfile.objects.get_or_create(user=user, defaults=profile_data)
+        if profile_data:
+            # Si déjà créé, on met à jour
+            UserProfile.objects.filter(user=user).update(**profile_data)
 
-        # Associe le restaurateur à un restaurant s'il en a indiqué un
+        # Associer le restaurateur comme owner d'un restaurant si fourni
         if user.role == 'RESTAURATEUR' and restaurant_id:
             try:
                 restaurant = Restaurant.objects.get(id=restaurant_id)
@@ -91,22 +90,42 @@ class LoginSerializer(serializers.Serializer):
         logger.warning(f"[Connexion] Échec pour {email}")
         raise serializers.ValidationError("Email ou mot de passe invalide")
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         exclude = ['id', 'user']
 
+
+class RestaurantLiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = ["id", "name", "city"]
+
+
 class UserWithProfileSerializer(serializers.ModelSerializer):
     profile = UserProfileSerializer(read_only=True)
+    # ✅ Ne PAS mettre source="restaurants" (AssertionError sinon)
+    restaurants = RestaurantLiteSerializer(many=True, read_only=True)
+    active_restaurant_id = serializers.SerializerMethodField()
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'first_name', 'last_name', 'role', 'profile']
+        fields = [
+            'email', 'first_name', 'last_name', 'role', 'profile',
+            'restaurants', 'active_restaurant_id'
+        ]
+
+    def get_active_restaurant_id(self, obj):
+        first = obj.restaurants.first()
+        return first.id if first else None
+
 
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['phone', 'address', 'allergies']  # adapte à tes champs
+        fields = ['phone', 'address', 'allergies']
+
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     profile = UserProfileUpdateSerializer()
@@ -118,15 +137,14 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         profile_data = validated_data.pop('profile', {})
 
-        # Mise à jour des champs du CustomUser
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
 
-        # Mise à jour du profil lié
-        profile = instance.profile
+        profile, _ = UserProfile.objects.get_or_create(user=instance)
         for attr, value in profile_data.items():
             setattr(profile, attr, value)
         profile.save()
 
         return instance
+

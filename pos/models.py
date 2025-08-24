@@ -47,25 +47,28 @@ class Order(models.Model):
             raise ValidationError("Commande non modifiable (déjà payée/annulée).")
 
     def recalc_totals(self):
-        items = self.items.all()
+        # ⚠️ Requête fraîche, aucune dépendance au cache de prefetch
+        items = OrderItem.objects.filter(order_id=self.pk)
+
         self.subtotal = sum((it.unit_price * it.quantity for it in items), Decimal("0.00"))
-        # Remise
+
         discount = self.discount_amount or Decimal("0.00")
         if self.discount_percent and self.discount_percent > 0:
             discount += (self.subtotal * self.discount_percent / Decimal("100"))
+
         net = self.subtotal - discount
         if net < 0:
             net = Decimal("0.00")
-        # TVA
+
         self.tax_total = (net * self.tax_rate / Decimal("100")).quantize(Decimal("0.01"))
         self.total_due = (net + self.tax_total).quantize(Decimal("0.01"))
-        # change
         self.change_due = (self.paid_amount - self.total_due) if self.paid_amount > self.total_due else Decimal("0.00")
 
     def close_if_paid(self):
         if self.total_due <= self.paid_amount and self.status != "PAID":
             self.status = "PAID"
             self.closed_at = timezone.now()
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")
