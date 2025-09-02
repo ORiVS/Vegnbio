@@ -2,26 +2,61 @@ from datetime import datetime
 from django.utils import timezone
 
 from django.db import transaction
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets, permissions, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import action, api_view, permission_classes
-from .models import Restaurant, Room, Reservation, Evenement, EvenementRegistration, EventInvite
+from .models import Restaurant, Room, Reservation, Evenement, EvenementRegistration, EventInvite, RestaurantClosure
 from .permissions import IsClient, IsRestaurateur, IsAdminVegNBio
-from .serializers import RestaurantSerializer, RoomSerializer, ReservationSerializer, EvenementSerializer, \
-    EventInviteSerializer, EventInviteBulkCreateSerializer, EvenementRegistrationListSerializer
-from rest_framework.decorators import action
+from .serializers import (
+    RestaurantSerializer, RestaurantUpdateSerializer,
+    RoomReadSerializer, RoomWriteSerializer,
+    ReservationSerializer, EvenementSerializer,
+    EventInviteSerializer, EventInviteBulkCreateSerializer,
+    EvenementRegistrationListSerializer, RestaurantClosureSerializer
+)
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from rest_framework import status as drf_status
 
 from .utils import notify_event_full, send_invite_email, notify_event_cancelled
 
+User = get_user_model()
 
-class RestaurantViewSet(viewsets.ReadOnlyModelViewSet):
+
+# -------- RESTAURANT --------
+class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.all().prefetch_related('rooms')
     serializer_class = RestaurantSerializer
-    permission_classes = [permissions.AllowAny]  # ou [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+        # lecture publique
+        if self.action in ['list', 'retrieve', 'evenements']:
+            return [permissions.AllowAny()]
+        # édition: restaurateur propriétaire ou admin
+        if self.action in ['update', 'partial_update']:
+            return [IsAuthenticated()]
+        # interdiction de create/destroy par défaut (admin pourrait le faire si besoin)
+        if self.action in ['create', 'destroy']:
+            return [IsAuthenticated(), IsAdminVegNBio()]
+        return [IsAuthenticated()]
+
+    def get_serializer_class(self):
+        if self.action in ['update', 'partial_update']:
+            return RestaurantUpdateSerializer
+        return RestaurantSerializer
+
+    def update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if not (getattr(request.user, 'role', None) == 'ADMIN' or obj.owner == request.user):
+            return Response({"detail": "Accès interdit."}, status=403)
+        return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if not (getattr(request.user, 'role', None) == 'ADMIN' or obj.owner == request.user):
+            return Response({"detail": "Accès interdit."}, status=403)
+        return super().partial_update(request, *args, **kwargs)
 
     @action(detail=True, methods=['get'], url_path='evenements',
             permission_classes=[permissions.AllowAny])
@@ -31,26 +66,78 @@ class RestaurantViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data)
 
 
-class RoomViewSet(viewsets.ReadOnlyModelViewSet):
+# -------- ROOMS --------
+class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.select_related('restaurant').all()
-    serializer_class = RoomSerializer
-    permission_classes = [permissions.AllowAny]
+
+    def get_permissions(self):
+        # Lecture publique autorisée
+        if self.action in ['list', 'retrieve']:
+            return [permissions.AllowAny()]
+        # Écriture restreinte
+        return [IsAuthenticated(), IsRestaurateur()]
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return RoomWriteSerializer
+        return RoomReadSerializer
+
+    def perform_create(self, serializer):
+        restaurant = serializer.validated_data['restaurant']
+        if restaurant.owner != self.request.user:
+            raise permissions.PermissionDenied("Vous ne pouvez créer des salles que pour vos restaurants.")
+        serializer.save()
+
+    def perform_update(self, serializer):
+        obj = self.get_object()
+        if obj.restaurant.owner != self.request.user:
+            raise permissions.PermissionDenied("Accès interdit.")
+        # si le restaurateur change de restaurant via payload, revalider ownership
+        new_restaurant = serializer.validated_data.get('restaurant', obj.restaurant)
+        if new_restaurant.owner != self.request.user:
+            raise permissions.PermissionDenied("Accès interdit (restaurant).")
+        serializer.save()
+
+    def destroy(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.restaurant.owner != request.user:
+            return Response({"detail": "Accès interdit."}, status=403)
+        return super().destroy(request, *args, **kwargs)
 
 
+# -------- RESERVATIONS --------
 class ReservationViewSet(viewsets.ModelViewSet):
     serializer_class = ReservationSerializer
-    permission_classes = [IsClient]
+
+    def get_permissions(self):
+        # modérer: restaurateur
+        if self.action in ['moderate']:
+            return [IsAuthenticated(), IsRestaurateur()]
+        # tout le reste: utilisateur authentifié (client ou restaurateur)
+        return [IsAuthenticated()]
 
     def get_queryset(self):
         user = self.request.user
-        if user.role == 'CLIENT':
+        if getattr(user, 'role', None) == 'CLIENT':
             return Reservation.objects.filter(customer=user)
-        elif user.role == 'RESTAURATEUR':
-            return Reservation.objects.all()  # ou filtrer par salle si tu veux restreindre
+        elif getattr(user, 'role', None) == 'RESTAURATEUR':
+            # Un restaurateur voit toutes les réservations (ou on peut filtrer par ses restos)
+            return Reservation.objects.all()
         return Reservation.objects.none()
 
     def perform_create(self, serializer):
-        serializer.save(customer=self.request.user)
+        user = self.request.user
+        if getattr(user, 'role', None) == 'RESTAURATEUR':
+            # vérifie ownership sur la cible (room/restaurant)
+            room = serializer.validated_data.get('room')
+            restaurant = serializer.validated_data.get('restaurant') or (room.restaurant if room else None)
+            if not restaurant or restaurant.owner != user:
+                raise permissions.PermissionDenied("Accès interdit: restaurant non possédé.")
+            # le serializer gère customer_id -> customer
+            serializer.save()
+        else:
+            # client standard
+            serializer.save(customer=user)
 
     @action(detail=False, methods=['get'], permission_classes=[IsClient])
     def my_reservations(self, request):
@@ -66,23 +153,27 @@ class ReservationViewSet(viewsets.ModelViewSet):
         if new_status not in ['CONFIRMED', 'CANCELLED']:
             return Response({'error': 'Statut invalide.'}, status=drf_status.HTTP_400_BAD_REQUEST)
 
+        # contrôle ownership
+        target_restaurant = reservation.room.restaurant if reservation.room else reservation.restaurant
+        if not target_restaurant or target_restaurant.owner != request.user:
+            return Response({'error': "Accès interdit."}, status=403)
+
         reservation.status = new_status
         reservation.save()
         return Response({'status': f"Réservation {reservation.id} mise à jour avec succès."})
 
     def update(self, request, *args, **kwargs):
         reservation = self.get_object()
-
-        # Restriction : seules les réservations en attente peuvent être modifiées
         if reservation.status != 'PENDING':
             return Response({'error': 'Seules les réservations en attente peuvent être modifiées.'}, status=403)
 
-        # Client peut modifier sa propre réservation
-        if request.user.role == 'CLIENT' and reservation.customer != request.user:
+        if getattr(request.user, 'role', None) == 'CLIENT' and reservation.customer != request.user:
             return Response({'error': 'Vous ne pouvez pas modifier cette réservation.'}, status=403)
 
-        # Restaurateur peut modifier si la salle est dans son restaurant (optionnel selon ta logique)
-        # ...
+        if getattr(request.user, 'role', None) == 'RESTAURATEUR':
+            target_restaurant = reservation.room.restaurant if reservation.room else reservation.restaurant
+            if not target_restaurant or target_restaurant.owner != request.user:
+                return Response({'error': 'Accès interdit.'}, status=403)
 
         return super().update(request, *args, **kwargs)
 
@@ -95,13 +186,13 @@ class ReservationViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_403_FORBIDDEN
             )
 
-        # Vérifie que le client est propriétaire OU que c’est un restaurateur
-        if request.user.role == 'CLIENT' and reservation.customer != request.user:
+        if getattr(request.user, 'role', None) == 'CLIENT' and reservation.customer != request.user:
             return Response({"error": "Vous ne pouvez pas annuler cette réservation."}, status=403)
 
-        if request.user.role == 'RESTAURATEUR':
-            # (Optionnel) : vérifier que la salle appartient à un restaurant du restaurateur
-            pass  # ou ajouter ta logique
+        if getattr(request.user, 'role', None) == 'RESTAURATEUR':
+            target_restaurant = reservation.room.restaurant if reservation.room else reservation.restaurant
+            if not target_restaurant or target_restaurant.owner != request.user:
+                return Response({'error': 'Accès interdit.'}, status=403)
 
         return super().destroy(request, *args, **kwargs)
 
@@ -112,12 +203,13 @@ class ReservationViewSet(viewsets.ModelViewSet):
         if reservation.status != 'PENDING':
             return Response({"error": "Impossible d’annuler une réservation déjà traitée."}, status=403)
 
-        # Vérification des droits
-        if request.user.role == 'CLIENT' and reservation.customer != request.user:
+        if getattr(request.user, 'role', None) == 'CLIENT' and reservation.customer != request.user:
             return Response({"error": "Vous ne pouvez pas annuler cette réservation."}, status=403)
 
-        # (Optionnel) restaurateur vérifie appartenance
-        # ...
+        if getattr(request.user, 'role', None) == 'RESTAURATEUR':
+            target_restaurant = reservation.room.restaurant if reservation.room else reservation.restaurant
+            if not target_restaurant or target_restaurant.owner != request.user:
+                return Response({'error': 'Accès interdit.'}, status=403)
 
         reservation.status = 'CANCELLED'
         reservation.save()
@@ -125,17 +217,14 @@ class ReservationViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET'])
-@permission_classes([IsRestaurateur])
+@permission_classes([IsAuthenticated, IsRestaurateur])
 def restaurant_reservations_view(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-
     if restaurant.owner != request.user:
         return Response({"detail": "Accès interdit."}, status=403)
 
-    status_filter = request.GET.get('status')  # exemple : ?status=CONFIRMED
-
+    status_filter = request.GET.get('status')
     reservations = Reservation.objects.filter(room__restaurant=restaurant)
-
     if status_filter:
         reservations = reservations.filter(status=status_filter.upper())
 
@@ -143,7 +232,7 @@ def restaurant_reservations_view(request, restaurant_id):
     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsRestaurateur])
+@permission_classes([IsAuthenticated, IsRestaurateur])
 def availability_dashboard(request, restaurant_id):
     date_str = request.GET.get('date')
     if not date_str:
@@ -154,6 +243,9 @@ def availability_dashboard(request, restaurant_id):
         return Response({"error": "Format de date invalide."}, status=400)
 
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    # contrôle owner (sécurisation)
+    if restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
+        return Response({"detail": "Accès interdit."}, status=403)
 
     rooms_payload = []
     for room in restaurant.rooms.all():
@@ -176,14 +268,14 @@ def availability_dashboard(request, restaurant_id):
     })
 
 @api_view(['GET'])
-@permission_classes([IsRestaurateur | IsAdminVegNBio])
+@permission_classes([IsAuthenticated, IsRestaurateur | IsAdminVegNBio])
 def all_reservations_view(request):
     reservations = Reservation.objects.select_related('room', 'customer', 'room__restaurant').all()
     serializer = ReservationSerializer(reservations, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsRestaurateur | IsAdminVegNBio])
+@permission_classes([IsAuthenticated, IsRestaurateur | IsAdminVegNBio])
 def reservations_stats_view(request):
     restaurants = Restaurant.objects.prefetch_related('rooms__reservations').all()
     data = []
@@ -223,29 +315,25 @@ def reservations_stats_view(request):
 
     return Response(data)
 
+
+# -------- EVENEMENTS (inchangé sauf sécurités déjà présentes) --------
 class EvenementViewSet(viewsets.ModelViewSet):
     queryset = Evenement.objects.select_related('restaurant').all()
     serializer_class = EvenementSerializer
 
     def get_permissions(self):
-        # Création / modif / sup : restaurateur
         if self.action in ['create', 'update', 'partial_update', 'destroy',
-                           'publish', 'cancel', 'close', 'reopen']:
-            return [IsAuthenticated(), IsRestaurateur()]
-        # Inscription côté client
-        if self.action in ['register', 'unregister']:
+                           'publish', 'cancel', 'close', 'reopen', 'invite', 'invite_bulk', 'registrations']:
             return [IsAuthenticated()]
-        # Lecture publique
+        if self.action in ['register', 'unregister', 'accept_invite']:
+            return [IsAuthenticated()]
         return [permissions.AllowAny()]
 
     def get_queryset(self):
         qs = super().get_queryset()
-
-        # Lecture côté client : n’afficher que PUBLISHED (ou FULL/CANCELLED si tu veux)
         if self.request.method == 'GET' and not self.request.user.is_authenticated:
             qs = qs.filter(status='PUBLISHED', is_public=True)
 
-        # Filtres
         p = self.request.query_params
         if p.get('restaurant'):
             qs = qs.filter(restaurant_id=p['restaurant'])
@@ -261,7 +349,6 @@ class EvenementViewSet(viewsets.ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
-        # Restreindre : le restaurateur ne crée que pour ses restaurants
         restaurant = serializer.validated_data['restaurant']
         if restaurant.owner != self.request.user:
             return Response({"detail": "Vous ne pouvez créer que pour vos restaurants."}, status=403)
@@ -269,39 +356,31 @@ class EvenementViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         obj = self.get_object()
-        if obj.restaurant.owner != self.request.user:
+        if obj.restaurant.owner != self.request.user and getattr(self.request.user, 'role', None) != 'ADMIN':
             return Response({"detail": "Accès interdit."}, status=403)
         serializer.save()
 
-    # ----- Invitations (Restaurateur propriétaire) -----
     @action(detail=True, methods=['post'])
     def invite(self, request, pk=None):
         event = self.get_object()
-        if event.restaurant.owner != request.user:
+        if event.restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
             return Response({"detail": "Accès interdit."}, status=403)
 
         serializer = EventInviteSerializer(data={**request.data, "event": event.id})
         serializer.is_valid(raise_exception=True)
         invite = serializer.save()
-        # Envoi e‑mail (si email)
         base_url = request.build_absolute_uri('/').rstrip('/')
         send_invite_email(invite, base_url)
-        sent = send_invite_email(invite, base_url)
-        print("EMAIL_SENT_COUNT", sent)  # sent doit être 1 si OK avec SMTP
-
         return Response(EventInviteSerializer(invite).data, status=201)
 
     @action(detail=True, methods=['get'], url_path='registrations',
             permission_classes=[IsAuthenticated])
     def registrations(self, request, pk=None):
         event = self.get_object()
-
-        # Seul le restaurateur owner (ou un admin si tu en as un) voit la liste complète
         is_owner = (event.restaurant.owner == request.user)
         is_admin = getattr(request.user, 'role', None) == 'ADMIN'
 
         if not (is_owner or is_admin):
-            # Option A (simple) : l’utilisateur ne voit que SA propre inscription + le compteur
             mine = event.registrations.select_related('user').filter(user=request.user).first()
             return Response({
                 "count": event.registrations.count(),
@@ -311,7 +390,6 @@ class EvenementViewSet(viewsets.ModelViewSet):
                 }
             })
 
-        # Owner/admin → liste complète
         qs = event.registrations.select_related('user').order_by('created_at')
         data = EvenementRegistrationListSerializer(qs, many=True).data
         return Response({
@@ -324,7 +402,7 @@ class EvenementViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def invite_bulk(self, request, pk=None):
         event = self.get_object()
-        if event.restaurant.owner != request.user:
+        if event.restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
             return Response({"detail": "Accès interdit."}, status=403)
 
         payload = {"event": event.id, "emails": request.data.get('emails', [])}
@@ -342,7 +420,6 @@ class EvenementViewSet(viewsets.ModelViewSet):
 
         return Response(EventInviteSerializer(created, many=True).data, status=201)
 
-    # ----- Acceptation d’invitation (Client) -----
     @action(detail=True, methods=['post'])
     def accept_invite(self, request, pk=None):
         event = self.get_object()
@@ -358,7 +435,6 @@ class EvenementViewSet(viewsets.ModelViewSet):
         if not invite.is_valid():
             return Response({"detail": "Invitation expirée ou invalide."}, status=400)
 
-        # Capacité ?
         if event.capacity is not None and event.registrations.count() >= event.capacity:
             event.status = 'FULL'
             event.save()
@@ -371,7 +447,6 @@ class EvenementViewSet(viewsets.ModelViewSet):
         invite.status = "ACCEPTED"
         invite.save()
 
-        # Passage à FULL si on atteint la capacité
         if event.capacity is not None and event.registrations.count() >= event.capacity:
             event.status = 'FULL'
             event.full_at = timezone.now()
@@ -380,19 +455,16 @@ class EvenementViewSet(viewsets.ModelViewSet):
 
         return Response({"status": "Invitation acceptée, inscription confirmée."}, status=201)
 
-
     def destroy(self, request, *args, **kwargs):
         obj = self.get_object()
-        if obj.restaurant.owner != request.user:
+        if obj.restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
             return Response({"detail": "Accès interdit."}, status=403)
         return super().destroy(request, *args, **kwargs)
-
-    # ----- Actions Restaurateur -----
 
     @action(detail=True, methods=['post'])
     def publish(self, request, pk=None):
         obj = self.get_object()
-        if obj.restaurant.owner != request.user:
+        if obj.restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
             return Response({"detail": "Accès interdit."}, status=403)
         if obj.status not in ['DRAFT', 'CANCELLED']:
             return Response({"detail": "Déjà publié ou complet."}, status=400)
@@ -404,7 +476,7 @@ class EvenementViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def cancel(self, request, pk=None):
         obj = self.get_object()
-        if obj.restaurant.owner != request.user:
+        if obj.restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
             return Response({"detail": "Accès interdit."}, status=403)
         obj.status = 'CANCELLED'
         obj.cancelled_at = timezone.now()
@@ -415,7 +487,7 @@ class EvenementViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def close(self, request, pk=None):
         obj = self.get_object()
-        if obj.restaurant.owner != request.user:
+        if obj.restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
             return Response({"detail": "Accès interdit."}, status=403)
         obj.status = 'FULL'
         obj.full_at = timezone.now()
@@ -426,59 +498,46 @@ class EvenementViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def reopen(self, request, pk=None):
         obj = self.get_object()
-        if obj.restaurant.owner != request.user:
+        if obj.restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
             return Response({"detail": "Accès interdit."}, status=403)
         obj.status = 'PUBLISHED'
-        # published_at peut rester le timestamp initial; on met juste à jour updated_at
         obj.save(update_fields=['status', 'updated_at'])
         return Response({"status": "Évènement réouvert."})
 
-    # ----- Actions Client -----
-    @action(detail=True, methods=['post'])
-    def register(self, request, pk=None):
-        event = self.get_object()
 
-        if event.status != 'PUBLISHED':
-            return Response({"detail": "Inscriptions fermées."}, status=400)
+# -------- FERMETURES --------
+class RestaurantClosureViewSet(viewsets.ModelViewSet):
+    queryset = RestaurantClosure.objects.select_related('restaurant').all()
+    serializer_class = RestaurantClosureSerializer
 
-        # Si privé → vérifier que l'utilisateur a une invitation (à implémenter côté notif/invit)
-        if not event.is_public:
-            # Vérifier une invitation valide liée à l'utilisateur
-            # Critère minimal : email de l'utilisateur correspond à une invitation PENDING
-            inv_qs = EventInvite.objects.filter(event=event, email=request.user.email, status="PENDING")
-            invite = inv_qs.first()
-            if not invite or not invite.is_valid():
-                return Response({"detail": "Invitation requise pour s'inscrire à cet évènement."}, status=403)
+    def get_permissions(self):
+        # lecture possible pour owner / admin uniquement (on peut étendre)
+        if self.action in ['list', 'retrieve', 'create', 'update', 'partial_update', 'destroy']:
+            return [IsAuthenticated(), IsRestaurateur()]
+        return [IsAuthenticated()]
 
-        # Capacité
-        if event.capacity is not None and event.registrations.count() >= event.capacity:
-            event.status = 'FULL'
-            event.save()
-            return Response({"detail": "Évènement complet."}, status=400)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user = self.request.user
+        if getattr(user, 'role', None) == 'ADMIN':
+            return qs
+        # ne voir que ses fermetures
+        return qs.filter(restaurant__owner=user)
 
-        reg, created = EvenementRegistration.objects.get_or_create(
-            event=event, user=request.user
-        )
-        if not created:
-            return Response({"detail": "Déjà inscrit."}, status=400)
+    def perform_create(self, serializer):
+        restaurant = serializer.validated_data.get('restaurant')
+        if not restaurant or restaurant.owner != self.request.user:
+            raise permissions.PermissionDenied("Accès interdit: restaurant non possédé.")
+        serializer.save()
 
-        # Si on atteint la capacité exacte → passer à FULL
-        if event.capacity is not None and event.registrations.count() >= event.capacity:
-            event.status = 'FULL'
-            event.save()
+    def perform_update(self, serializer):
+        obj = self.get_object()
+        if obj.restaurant.owner != self.request.user:
+            raise permissions.PermissionDenied("Accès interdit.")
+        serializer.save()
 
-        return Response({"status": "Inscription confirmée."}, status=201)
-
-    @action(detail=True, methods=['post'])
-    def unregister(self, request, pk=None):
-        event = self.get_object()
-        deleted, _ = EvenementRegistration.objects.filter(event=event, user=request.user).delete()
-        if not deleted:
-            return Response({"detail": "Pas d'inscription trouvée."}, status=400)
-
-        # Si c'était FULL et qu'une place se libère → repasser PUBLISHED
-        if event.status == 'FULL':
-            event.status = 'PUBLISHED'
-            event.save()
-
-        return Response({"status": "Désinscription effectuée."})
+    def destroy(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.restaurant.owner != request.user:
+            return Response({"detail": "Accès interdit."}, status=403)
+        return super().destroy(request, *args, **kwargs)

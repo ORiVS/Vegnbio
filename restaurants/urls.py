@@ -1,14 +1,18 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import RestaurantViewSet, RoomViewSet, ReservationViewSet, restaurant_reservations_view, \
-    availability_dashboard, all_reservations_view, reservations_stats_view, EvenementViewSet
+from .views import (
+    RestaurantViewSet, RoomViewSet, ReservationViewSet,
+    restaurant_reservations_view, availability_dashboard,
+    all_reservations_view, reservations_stats_view,
+    EvenementViewSet, RestaurantClosureViewSet
+)
 
 router = DefaultRouter()
 router.register(r'restaurants', RestaurantViewSet, basename='restaurants')
 router.register(r'rooms', RoomViewSet, basename='rooms')
 router.register(r'reservations', ReservationViewSet, basename='reservations')
 router.register(r'evenements', EvenementViewSet, basename='evenements')
-
+router.register(r'closures', RestaurantClosureViewSet, basename='closures')  # <-- nouveau
 
 urlpatterns = [
     path('', include(router.urls)),
