@@ -64,13 +64,6 @@ class Restaurant(models.Model):
         return (self.opening_time_sunday, self.closing_time_sunday)
 
     def is_time_range_within_opening(self, date_, start_t: time, end_t: time) -> bool:
-        """
-        Vérifie si [start_t, end_t] le 'date_' donné est dans les horaires d'ouverture.
-        Gère deux cas:
-          1) créneau dans la plage du jour (avec ou sans overnight)
-          2) créneau après minuit couvert par la fermeture overnight de la veille
-        Hypothèse: la réservation ne traverse pas minuit (start_t < end_t).
-        """
         wd = date_.weekday()
         open_t, close_t = self.opening_times_for_weekday(wd)
 
@@ -126,11 +119,9 @@ class Reservation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
-        # Vérifie l’ordre temporel
         if self.start_time >= self.end_time:
             raise ValidationError("L'heure de début doit être avant l'heure de fin.")
 
-        # ⚠️ Si salle renseignée, vérifie collision exacte sur le créneau
         if self.room:
             if Reservation.objects.exclude(id=self.id).filter(
                 room=self.room,
@@ -172,17 +163,14 @@ class Evenement(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
 
-    # Nouveaux champs
     capacity = models.PositiveIntegerField(null=True, blank=True, help_text="Nombre de places (optionnel)")
     is_public = models.BooleanField(default=True, help_text="Public ou sur invitation")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="DRAFT")
 
-    # Si un évènement occupe le restaurant (ou une salle) et bloque les réservations
     is_blocking = models.BooleanField(default=False)
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, blank=True,
                              help_text="Si non null, évènement dans cette salle")
 
-    # Récurrence simple (facultative)
     rrule = models.CharField(max_length=255, blank=True, null=True,
                              help_text="RRULE iCal ex: FREQ=WEEKLY;BYDAY=TU")
 
@@ -192,10 +180,6 @@ class Evenement(models.Model):
         from django.core.exceptions import ValidationError
         if self.start_time >= self.end_time:
             raise ValidationError("L'heure de début doit être avant l'heure de fin.")
-        # Option: vérifie l'intérieur des heures d'ouverture du restaurant
-        # (à activer pour forcer)
-        # open_close = ...
-        # if not (open_ok): raise ValidationError("En dehors des heures d’ouverture.")
 
     def __str__(self):
         return f"{self.title} ({self.date} - {self.restaurant.name})"
@@ -206,7 +190,7 @@ class EvenementRegistration(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('event', 'user')  # un utilisateur ne s’inscrit qu’une fois
+        unique_together = ('event', 'user')
 
 
 class EventInvite(models.Model):
@@ -218,7 +202,7 @@ class EventInvite(models.Model):
 
     event = models.ForeignKey(Evenement, on_delete=models.CASCADE, related_name='invites')
     email = models.EmailField(null=True, blank=True)
-    phone = models.CharField(max_length=30, null=True, blank=True)  # si tu veux SMS plus tard
+    phone = models.CharField(max_length=30, null=True, blank=True)
     token = models.CharField(max_length=64, unique=True, editable=False)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="PENDING")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -243,3 +227,18 @@ class EventInvite(models.Model):
     def __str__(self):
         ident = self.email or self.phone or "contact"
         return f"Invite {ident} → {self.event.title}"
+
+
+# --- NOUVEAU: Jours d'indisponibilité (fermetures exceptionnelles) ---
+class RestaurantClosure(models.Model):
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='closures')
+    date = models.DateField()
+    reason = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('restaurant', 'date')
+        ordering = ['-date']
+
+    def __str__(self):
+        return f"Fermeture {self.restaurant.name} le {self.date} ({self.reason or '—'})"
