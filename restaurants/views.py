@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.utils import timezone
+from django.db.models import Q
 
 from django.db import transaction
 from django.contrib.auth import get_user_model
@@ -20,6 +21,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status as drf_status
 
 from .utils import notify_event_full, send_invite_email, notify_event_cancelled
+from rest_framework.exceptions import PermissionDenied
+
 
 User = get_user_model()
 
@@ -215,7 +218,6 @@ class ReservationViewSet(viewsets.ModelViewSet):
         reservation.save()
         return Response({"status": "Réservation annulée avec succès."})
 
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsRestaurateur])
 def restaurant_reservations_view(request, restaurant_id):
@@ -224,12 +226,21 @@ def restaurant_reservations_view(request, restaurant_id):
         return Response({"detail": "Accès interdit."}, status=403)
 
     status_filter = request.GET.get('status')
-    reservations = Reservation.objects.filter(room__restaurant=restaurant)
-    if status_filter:
-        reservations = reservations.filter(status=status_filter.upper())
 
-    serializer = ReservationSerializer(reservations, many=True)
+    # ⬇️ Inclure les réservations de salles ET les réservations "restaurant entier"
+    qs = (
+        Reservation.objects
+        .select_related('restaurant', 'room', 'room__restaurant', 'customer')
+        .filter(Q(room__restaurant=restaurant) | Q(restaurant=restaurant))
+        .order_by('-date', 'start_time')
+    )
+
+    if status_filter:
+        qs = qs.filter(status=status_filter.upper())
+
+    serializer = ReservationSerializer(qs, many=True, context={'request': request})
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsRestaurateur])
@@ -351,13 +362,16 @@ class EvenementViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         restaurant = serializer.validated_data['restaurant']
         if restaurant.owner != self.request.user:
-            return Response({"detail": "Vous ne pouvez créer que pour vos restaurants."}, status=403)
+            # AVANT: return Response(..., status=403) ❌
+            # MAINTENANT:
+            raise PermissionDenied("Vous ne pouvez créer que pour vos restaurants.")
         serializer.save(created_by=self.request.user)
 
     def perform_update(self, serializer):
         obj = self.get_object()
         if obj.restaurant.owner != self.request.user and getattr(self.request.user, 'role', None) != 'ADMIN':
-            return Response({"detail": "Accès interdit."}, status=403)
+            # AVANT: return Response(..., status=403) ❌
+            raise PermissionDenied("Accès interdit.")
         serializer.save()
 
     @action(detail=True, methods=['post'])

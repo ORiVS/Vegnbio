@@ -138,7 +138,6 @@ class Reservation(models.Model):
     class Meta:
         ordering = ['-date', 'start_time']
 
-
 class Evenement(models.Model):
     TYPE_CHOICES = [
         ("ANNIVERSAIRE", "Anniversaire"),
@@ -176,13 +175,29 @@ class Evenement(models.Model):
 
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
+    # ➜ AJOUTS nécessaires (référencés dans le serializer et les vues)
+    created_at = models.DateTimeField(auto_now_add=True)   # nouveau
+    updated_at = models.DateTimeField(auto_now=True)       # nouveau
+    published_at = models.DateTimeField(null=True, blank=True)  # nouveau
+    full_at = models.DateTimeField(null=True, blank=True)       # nouveau
+    cancelled_at = models.DateTimeField(null=True, blank=True)  # nouveau
+
     def clean(self):
         from django.core.exceptions import ValidationError
+        # cohérence horaire
         if self.start_time >= self.end_time:
             raise ValidationError("L'heure de début doit être avant l'heure de fin.")
+        # (optionnel) on pourrait aussi empêcher ici les dates passées, mais on le fait côté serializer
 
     def __str__(self):
         return f"{self.title} ({self.date} - {self.restaurant.name})"
+
+    class Meta:
+        ordering = ['date', 'start_time']
+        indexes = [
+            models.Index(fields=['restaurant', 'date']),
+            models.Index(fields=['status']),
+        ]
 
 class EvenementRegistration(models.Model):
     event = models.ForeignKey(Evenement, on_delete=models.CASCADE, related_name='registrations')

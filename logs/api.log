@@ -11068,3 +11068,1732 @@ INFO 2025-08-31 00:19:39,565 django.server - "GET /api/restaurants/restaurants/2
 INFO 2025-08-31 00:19:43,100 django.server - "GET /api/restaurants/restaurants/2/ HTTP/1.1" 200 861
 INFO 2025-08-31 00:19:43,128 django.server - "GET /api/restaurants/restaurants/2/ HTTP/1.1" 200 861
 INFO 2025-09-02 09:51:55,745 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 09:52:16,300 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:16,300 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+WARNING 2025-09-02 09:52:16,350 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 09:52:16,352 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-09-02 09:52:16,400 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 09:52:16,403 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-09-02 09:52:24,466 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:25,172 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 583
+INFO 2025-09-02 09:52:25,251 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 418
+INFO 2025-09-02 09:52:25,348 django.server - "OPTIONS /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:25,360 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:25,391 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:25,439 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 09:52:25,439 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:25,518 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:25,521 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 09:52:28,304 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 418
+INFO 2025-09-02 09:52:28,379 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 418
+INFO 2025-09-02 09:52:28,478 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:28,533 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 09:52:28,565 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:28,595 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 09:52:31,841 django.server - "OPTIONS /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:31,844 django.server - "OPTIONS /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:31,848 django.server - "OPTIONS /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:31,887 django.server - "GET /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:31,919 django.server - "GET /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:32,012 django.server - "GET /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:32,079 django.server - "GET /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:33,328 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-02 09:52:33,371 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 692
+INFO 2025-09-02 09:52:33,398 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-02 09:52:33,438 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 692
+INFO 2025-09-02 09:52:36,250 django.server - "GET /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:36,278 django.server - "GET /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:36,345 django.server - "GET /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:36,428 django.server - "GET /api/pos/orders/?restaurant=4&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:38,278 django.server - "OPTIONS /api/pos/orders/?restaurant=4 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:38,305 django.server - "GET /api/pos/orders/?restaurant=4 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:42,025 django.server - "OPTIONS /api/pos/orders/?restaurant=2 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:42,053 django.server - "GET /api/pos/orders/?restaurant=2 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:46,768 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 418
+INFO 2025-09-02 09:52:46,811 django.server - "OPTIONS /api/pos/orders/?restaurant=2&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:46,811 django.server - "OPTIONS /api/pos/orders/?restaurant=2&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:46,828 django.server - "OPTIONS /api/pos/orders/?restaurant=2&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:46,840 django.server - "OPTIONS /api/pos/orders/?restaurant=2&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:46,841 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 418
+INFO 2025-09-02 09:52:46,883 django.server - "GET /api/pos/orders/?restaurant=2&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:46,974 django.server - "GET /api/pos/orders/?restaurant=2&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:47,067 django.server - "GET /api/pos/orders/?restaurant=2&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:47,131 django.server - "GET /api/pos/orders/?restaurant=2&date=2025-09-02 HTTP/1.1" 200 2
+INFO 2025-09-02 09:52:53,101 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-02 09:52:53,131 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 692
+INFO 2025-09-02 09:52:53,170 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-02 09:52:53,196 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 692
+INFO 2025-09-02 09:52:55,729 django.server - "OPTIONS /api/pos/orders/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:52:55,788 django.server - "POST /api/pos/orders/ HTTP/1.1" 201 335
+INFO 2025-09-02 09:52:55,841 django.server - "OPTIONS /api/pos/orders/65/ticket/ HTTP/1.1" 200 0
+WARNING 2025-09-02 09:52:55,933 django.request - Forbidden: /api/pos/orders/65/ticket/
+WARNING 2025-09-02 09:52:55,935 django.server - "GET /api/pos/orders/65/ticket/ HTTP/1.1" 403 29
+INFO 2025-09-02 09:52:57,637 django.server - "OPTIONS /api/pos/orders/65/add_item/ HTTP/1.1" 200 0
+WARNING 2025-09-02 09:52:57,692 django.request - Forbidden: /api/pos/orders/65/add_item/
+WARNING 2025-09-02 09:52:57,693 django.server - "POST /api/pos/orders/65/add_item/ HTTP/1.1" 403 29
+INFO 2025-09-02 09:52:59,786 django.server - "OPTIONS /api/accounts/logout/ HTTP/1.1" 200 0
+WARNING 2025-09-02 09:52:59,813 django.request - Not Found: /api/accounts/logout/
+WARNING 2025-09-02 09:52:59,815 django.server - "POST /api/accounts/logout/ HTTP/1.1" 404 4206
+INFO 2025-09-02 09:53:18,198 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-02 09:53:18,222 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 09:53:18,334 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 09:53:18,349 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 337
+INFO 2025-09-02 09:53:18,384 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 337
+INFO 2025-09-02 09:53:18,401 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 09:53:26,344 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 09:53:26,402 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 09:53:26,421 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 337
+INFO 2025-09-02 09:53:26,465 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 337
+INFO 2025-09-02 09:53:26,559 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 337
+INFO 2025-09-02 09:53:26,638 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 337
+INFO 2025-09-02 09:53:29,322 django.server - "OPTIONS /api/pos/orders/?restaurant=1 HTTP/1.1" 200 0
+INFO 2025-09-02 09:53:29,528 django.server - "GET /api/pos/orders/?restaurant=1 HTTP/1.1" 200 32751
+INFO 2025-09-02 09:53:33,521 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-02 09:53:33,557 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 692
+INFO 2025-09-02 09:53:33,610 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-02 09:53:33,650 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 692
+INFO 2025-09-02 09:53:34,735 django.server - "POST /api/pos/orders/ HTTP/1.1" 201 335
+INFO 2025-09-02 09:53:34,741 django.server - "OPTIONS /api/pos/orders/66/ticket/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:53:34,830 django.server - "GET /api/pos/orders/66/ticket/ HTTP/1.1" 200 302
+INFO 2025-09-02 09:53:34,884 django.server - "OPTIONS /api/pos/orders/66/add_item/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:53:35,004 django.server - "POST /api/pos/orders/66/add_item/ HTTP/1.1" 201 437
+INFO 2025-09-02 09:53:35,096 django.server - "GET /api/pos/orders/66/ticket/ HTTP/1.1" 200 381
+INFO 2025-09-02 09:53:45,502 django.server - "GET /api/pos/orders/66/ticket/ HTTP/1.1" 200 381
+INFO 2025-09-02 09:54:27,639 django.server - "OPTIONS /api/pos/orders/66/checkout/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:54:27,721 django.server - "POST /api/pos/orders/66/checkout/ HTTP/1.1" 200 58
+INFO 2025-09-02 09:54:28,094 django.server - "GET /api/pos/orders/66/ticket/ HTTP/1.1" 200 406
+INFO 2025-09-02 09:54:31,374 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 09:54:31,412 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 09:54:31,491 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 09:54:31,587 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 09:54:33,960 django.server - "GET /api/pos/orders/66/ticket/ HTTP/1.1" 200 406
+INFO 2025-09-02 09:54:34,008 django.server - "GET /api/pos/orders/66/ticket/ HTTP/1.1" 200 406
+INFO 2025-09-02 09:54:44,415 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:54:44,421 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 09:54:44,472 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 223
+INFO 2025-09-02 09:54:44,564 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 223
+INFO 2025-09-02 09:54:59,524 django.server - "OPTIONS /api/restaurants/restaurants/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:54:59,551 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:54:59,554 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:54:59,598 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 09:54:59,630 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1547
+INFO 2025-09-02 09:54:59,667 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 09:54:59,683 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1547
+INFO 2025-09-02 09:55:04,275 django.server - "OPTIONS /api/restaurants/reservations/12/moderate/ HTTP/1.1" 200 0
+INFO 2025-09-02 09:55:04,316 django.server - "POST /api/restaurants/reservations/12/moderate/ HTTP/1.1" 200 55
+INFO 2025-09-02 09:55:04,429 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1549
+INFO 2025-09-02 09:55:09,378 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=cl&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:09,398 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:09,400 django.server - "GET /api/accounts/users/?role=CLIENT&search=cl&page_size=10 HTTP/1.1" 404 4245
+INFO 2025-09-02 09:55:09,418 django.server - "OPTIONS /api/accounts/clients/?search=cl&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:09,474 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:09,476 django.server - "GET /api/accounts/clients/?search=cl&page_size=10 HTTP/1.1" 404 4235
+INFO 2025-09-02 09:55:09,488 django.server - "OPTIONS /api/accounts/users/search/?q=cl&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:09,539 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:09,541 django.server - "GET /api/accounts/users/search/?q=cl&role=CLIENT&page_size=10 HTTP/1.1" 404 4261
+INFO 2025-09-02 09:55:10,474 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=cli&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:10,481 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:10,482 django.server - "GET /api/accounts/users/?role=CLIENT&search=cli&page_size=10 HTTP/1.1" 404 4246
+INFO 2025-09-02 09:55:10,490 django.server - "OPTIONS /api/accounts/clients/?search=cli&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:10,539 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:10,540 django.server - "GET /api/accounts/clients/?search=cli&page_size=10 HTTP/1.1" 404 4236
+INFO 2025-09-02 09:55:10,545 django.server - "OPTIONS /api/accounts/users/search/?q=cli&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:10,603 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:10,606 django.server - "GET /api/accounts/users/search/?q=cli&role=CLIENT&page_size=10 HTTP/1.1" 404 4262
+INFO 2025-09-02 09:55:10,712 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=clie&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:10,738 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:10,741 django.server - "GET /api/accounts/users/?role=CLIENT&search=clie&page_size=10 HTTP/1.1" 404 4247
+INFO 2025-09-02 09:55:10,759 django.server - "OPTIONS /api/accounts/clients/?search=clie&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:10,826 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:10,829 django.server - "GET /api/accounts/clients/?search=clie&page_size=10 HTTP/1.1" 404 4237
+INFO 2025-09-02 09:55:10,846 django.server - "OPTIONS /api/accounts/users/search/?q=clie&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:10,906 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:10,908 django.server - "GET /api/accounts/users/search/?q=clie&role=CLIENT&page_size=10 HTTP/1.1" 404 4263
+INFO 2025-09-02 09:55:11,476 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=clien&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:11,505 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:11,511 django.server - "GET /api/accounts/users/?role=CLIENT&search=clien&page_size=10 HTTP/1.1" 404 4248
+INFO 2025-09-02 09:55:11,530 django.server - "OPTIONS /api/accounts/clients/?search=clien&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:11,631 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:11,634 django.server - "GET /api/accounts/clients/?search=clien&page_size=10 HTTP/1.1" 404 4238
+INFO 2025-09-02 09:55:11,640 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client&page_size=10 HTTP/1.1" 200 0
+INFO 2025-09-02 09:55:11,655 django.server - "OPTIONS /api/accounts/users/search/?q=clien&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:11,658 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:11,662 django.server - "GET /api/accounts/users/?role=CLIENT&search=client&page_size=10 HTTP/1.1" 404 4249
+INFO 2025-09-02 09:55:11,669 django.server - "OPTIONS /api/accounts/clients/?search=client&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:11,695 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:11,696 django.server - "GET /api/accounts/users/search/?q=clien&role=CLIENT&page_size=10 HTTP/1.1" 404 4264
+WARNING 2025-09-02 09:55:11,720 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:11,720 django.server - "GET /api/accounts/clients/?search=client&page_size=10 HTTP/1.1" 404 4239
+INFO 2025-09-02 09:55:11,727 django.server - "OPTIONS /api/accounts/users/search/?q=client&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:11,775 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:11,775 django.server - "GET /api/accounts/users/search/?q=client&role=CLIENT&page_size=10 HTTP/1.1" 404 4265
+INFO 2025-09-02 09:55:12,254 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,262 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:12,263 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40&page_size=10 HTTP/1.1" 404 4252
+INFO 2025-09-02 09:55:12,267 django.server - "OPTIONS /api/accounts/clients/?search=client%40&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,322 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:12,324 django.server - "GET /api/accounts/clients/?search=client%40&page_size=10 HTTP/1.1" 404 4242
+INFO 2025-09-02 09:55:12,332 django.server - "OPTIONS /api/accounts/users/search/?q=client%40&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,385 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:12,387 django.server - "GET /api/accounts/users/search/?q=client%40&role=CLIENT&page_size=10 HTTP/1.1" 404 4268
+INFO 2025-09-02 09:55:12,593 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40m&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,610 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:12,611 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40m&page_size=10 HTTP/1.1" 404 4253
+INFO 2025-09-02 09:55:12,618 django.server - "OPTIONS /api/accounts/clients/?search=client%40m&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,675 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:12,677 django.server - "GET /api/accounts/clients/?search=client%40m&page_size=10 HTTP/1.1" 404 4243
+INFO 2025-09-02 09:55:12,688 django.server - "OPTIONS /api/accounts/users/search/?q=client%40m&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,744 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:12,746 django.server - "GET /api/accounts/users/search/?q=client%40m&role=CLIENT&page_size=10 HTTP/1.1" 404 4269
+INFO 2025-09-02 09:55:12,778 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40ma&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,836 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:12,841 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40ma&page_size=10 HTTP/1.1" 404 4254
+INFO 2025-09-02 09:55:12,853 django.server - "OPTIONS /api/accounts/clients/?search=client%40ma&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,903 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:12,905 django.server - "GET /api/accounts/clients/?search=client%40ma&page_size=10 HTTP/1.1" 404 4244
+INFO 2025-09-02 09:55:12,922 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40mai&page_size=10 HTTP/1.1" 200 0
+INFO 2025-09-02 09:55:12,925 django.server - "OPTIONS /api/accounts/users/search/?q=client%40ma&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:12,938 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:12,939 django.server - "GET /api/accounts/users/search/?q=client%40ma&role=CLIENT&page_size=10 HTTP/1.1" 404 4270
+WARNING 2025-09-02 09:55:12,977 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:12,983 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mai&page_size=10 HTTP/1.1" 404 4255
+INFO 2025-09-02 09:55:12,991 django.server - "OPTIONS /api/accounts/clients/?search=client%40mai&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,041 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:13,042 django.server - "GET /api/accounts/clients/?search=client%40mai&page_size=10 HTTP/1.1" 404 4245
+INFO 2025-09-02 09:55:13,048 django.server - "OPTIONS /api/accounts/users/search/?q=client%40mai&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+INFO 2025-09-02 09:55:13,085 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40mail&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,096 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:13,104 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:13,104 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail&page_size=10 HTTP/1.1" 404 4256
+WARNING 2025-09-02 09:55:13,111 django.server - "GET /api/accounts/users/search/?q=client%40mai&role=CLIENT&page_size=10 HTTP/1.1" 404 4271
+INFO 2025-09-02 09:55:13,112 django.server - "OPTIONS /api/accounts/clients/?search=client%40mail&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,159 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:13,160 django.server - "GET /api/accounts/clients/?search=client%40mail&page_size=10 HTTP/1.1" 404 4246
+INFO 2025-09-02 09:55:13,164 django.server - "OPTIONS /api/accounts/users/search/?q=client%40mail&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,237 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:13,240 django.server - "GET /api/accounts/users/search/?q=client%40mail&role=CLIENT&page_size=10 HTTP/1.1" 404 4272
+INFO 2025-09-02 09:55:13,429 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40mail.&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,455 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:13,458 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail.&page_size=10 HTTP/1.1" 404 4257
+INFO 2025-09-02 09:55:13,476 django.server - "OPTIONS /api/accounts/clients/?search=client%40mail.&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,546 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:13,549 django.server - "GET /api/accounts/clients/?search=client%40mail.&page_size=10 HTTP/1.1" 404 4247
+INFO 2025-09-02 09:55:13,570 django.server - "OPTIONS /api/accounts/users/search/?q=client%40mail.&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,630 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:13,634 django.server - "GET /api/accounts/users/search/?q=client%40mail.&role=CLIENT&page_size=10 HTTP/1.1" 404 4273
+INFO 2025-09-02 09:55:13,698 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40mail.c&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,707 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:13,708 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail.c&page_size=10 HTTP/1.1" 404 4258
+INFO 2025-09-02 09:55:13,714 django.server - "OPTIONS /api/accounts/clients/?search=client%40mail.c&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,768 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:13,769 django.server - "GET /api/accounts/clients/?search=client%40mail.c&page_size=10 HTTP/1.1" 404 4248
+INFO 2025-09-02 09:55:13,775 django.server - "OPTIONS /api/accounts/users/search/?q=client%40mail.c&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,840 django.request - Not Found: /api/accounts/users/search/
+INFO 2025-09-02 09:55:13,842 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40mail.co&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,843 django.server - "GET /api/accounts/users/search/?q=client%40mail.c&role=CLIENT&page_size=10 HTTP/1.1" 404 4274
+WARNING 2025-09-02 09:55:13,863 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:13,866 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail.co&page_size=10 HTTP/1.1" 404 4259
+INFO 2025-09-02 09:55:13,878 django.server - "OPTIONS /api/accounts/clients/?search=client%40mail.co&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,928 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:13,929 django.server - "GET /api/accounts/clients/?search=client%40mail.co&page_size=10 HTTP/1.1" 404 4249
+INFO 2025-09-02 09:55:13,936 django.server - "OPTIONS /api/accounts/users/search/?q=client%40mail.co&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:13,992 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:13,994 django.server - "GET /api/accounts/users/search/?q=client%40mail.co&role=CLIENT&page_size=10 HTTP/1.1" 404 4275
+INFO 2025-09-02 09:55:14,034 django.server - "OPTIONS /api/accounts/users/?role=CLIENT&search=client%40mail.com&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:14,099 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:55:14,103 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail.com&page_size=10 HTTP/1.1" 404 4260
+INFO 2025-09-02 09:55:14,121 django.server - "OPTIONS /api/accounts/clients/?search=client%40mail.com&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:14,191 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:55:14,195 django.server - "GET /api/accounts/clients/?search=client%40mail.com&page_size=10 HTTP/1.1" 404 4250
+INFO 2025-09-02 09:55:14,215 django.server - "OPTIONS /api/accounts/users/search/?q=client%40mail.com&role=CLIENT&page_size=10 HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:14,268 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:55:14,270 django.server - "GET /api/accounts/users/search/?q=client%40mail.com&role=CLIENT&page_size=10 HTTP/1.1" 404 4276
+INFO 2025-09-02 09:55:31,798 django.server - "OPTIONS /api/restaurants/reservations/ HTTP/1.1" 200 0
+WARNING 2025-09-02 09:55:31,830 django.request - Bad Request: /api/restaurants/reservations/
+WARNING 2025-09-02 09:55:31,831 django.server - "POST /api/restaurants/reservations/ HTTP/1.1" 400 75
+INFO 2025-09-02 09:55:47,350 django.server - "POST /api/restaurants/reservations/ HTTP/1.1" 201 384
+INFO 2025-09-02 09:55:47,407 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1934
+WARNING 2025-09-02 09:56:18,693 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:18,695 django.server - "GET /api/accounts/users/?role=CLIENT&search=cl&page_size=10 HTTP/1.1" 404 4245
+WARNING 2025-09-02 09:56:18,717 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:18,719 django.server - "GET /api/accounts/clients/?search=cl&page_size=10 HTTP/1.1" 404 4235
+WARNING 2025-09-02 09:56:18,738 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:18,740 django.server - "GET /api/accounts/users/search/?q=cl&role=CLIENT&page_size=10 HTTP/1.1" 404 4261
+WARNING 2025-09-02 09:56:18,918 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:18,920 django.server - "GET /api/accounts/users/?role=CLIENT&search=cli&page_size=10 HTTP/1.1" 404 4246
+WARNING 2025-09-02 09:56:18,940 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:18,946 django.server - "GET /api/accounts/clients/?search=cli&page_size=10 HTTP/1.1" 404 4236
+WARNING 2025-09-02 09:56:18,968 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:18,969 django.server - "GET /api/accounts/users/search/?q=cli&role=CLIENT&page_size=10 HTTP/1.1" 404 4262
+WARNING 2025-09-02 09:56:19,184 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:19,186 django.server - "GET /api/accounts/users/?role=CLIENT&search=clie&page_size=10 HTTP/1.1" 404 4247
+WARNING 2025-09-02 09:56:19,201 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:19,202 django.server - "GET /api/accounts/clients/?search=clie&page_size=10 HTTP/1.1" 404 4237
+WARNING 2025-09-02 09:56:19,214 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:19,216 django.server - "GET /api/accounts/users/search/?q=clie&role=CLIENT&page_size=10 HTTP/1.1" 404 4263
+WARNING 2025-09-02 09:56:19,234 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:19,235 django.server - "GET /api/accounts/users/?role=CLIENT&search=clien&page_size=10 HTTP/1.1" 404 4248
+WARNING 2025-09-02 09:56:19,244 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:19,245 django.server - "GET /api/accounts/clients/?search=clien&page_size=10 HTTP/1.1" 404 4238
+WARNING 2025-09-02 09:56:19,254 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:19,255 django.server - "GET /api/accounts/users/search/?q=clien&role=CLIENT&page_size=10 HTTP/1.1" 404 4264
+WARNING 2025-09-02 09:56:19,474 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:19,481 django.server - "GET /api/accounts/users/?role=CLIENT&search=client&page_size=10 HTTP/1.1" 404 4249
+WARNING 2025-09-02 09:56:19,505 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:19,507 django.server - "GET /api/accounts/clients/?search=client&page_size=10 HTTP/1.1" 404 4239
+WARNING 2025-09-02 09:56:19,527 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:19,530 django.server - "GET /api/accounts/users/search/?q=client&role=CLIENT&page_size=10 HTTP/1.1" 404 4265
+WARNING 2025-09-02 09:56:20,260 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:20,263 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40&page_size=10 HTTP/1.1" 404 4252
+WARNING 2025-09-02 09:56:20,284 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:20,287 django.server - "GET /api/accounts/clients/?search=client%40&page_size=10 HTTP/1.1" 404 4242
+WARNING 2025-09-02 09:56:20,310 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:20,312 django.server - "GET /api/accounts/users/search/?q=client%40&role=CLIENT&page_size=10 HTTP/1.1" 404 4268
+WARNING 2025-09-02 09:56:20,632 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:20,639 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40m&page_size=10 HTTP/1.1" 404 4253
+WARNING 2025-09-02 09:56:20,652 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:20,653 django.server - "GET /api/accounts/clients/?search=client%40m&page_size=10 HTTP/1.1" 404 4243
+WARNING 2025-09-02 09:56:20,666 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:20,667 django.server - "GET /api/accounts/users/search/?q=client%40m&role=CLIENT&page_size=10 HTTP/1.1" 404 4269
+WARNING 2025-09-02 09:56:20,743 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:20,744 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40ma&page_size=10 HTTP/1.1" 404 4254
+WARNING 2025-09-02 09:56:20,753 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:20,754 django.server - "GET /api/accounts/clients/?search=client%40ma&page_size=10 HTTP/1.1" 404 4244
+WARNING 2025-09-02 09:56:20,762 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:20,762 django.server - "GET /api/accounts/users/search/?q=client%40ma&role=CLIENT&page_size=10 HTTP/1.1" 404 4270
+WARNING 2025-09-02 09:56:20,940 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:20,943 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mai&page_size=10 HTTP/1.1" 404 4255
+WARNING 2025-09-02 09:56:20,973 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:20,976 django.server - "GET /api/accounts/clients/?search=client%40mai&page_size=10 HTTP/1.1" 404 4245
+WARNING 2025-09-02 09:56:21,008 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:21,010 django.server - "GET /api/accounts/users/search/?q=client%40mai&role=CLIENT&page_size=10 HTTP/1.1" 404 4271
+WARNING 2025-09-02 09:56:21,119 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:21,121 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail&page_size=10 HTTP/1.1" 404 4256
+WARNING 2025-09-02 09:56:21,139 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:21,141 django.server - "GET /api/accounts/clients/?search=client%40mail&page_size=10 HTTP/1.1" 404 4246
+WARNING 2025-09-02 09:56:21,160 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:21,162 django.server - "GET /api/accounts/users/search/?q=client%40mail&role=CLIENT&page_size=10 HTTP/1.1" 404 4272
+WARNING 2025-09-02 09:56:21,409 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:21,410 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail.&page_size=10 HTTP/1.1" 404 4257
+WARNING 2025-09-02 09:56:21,424 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:21,424 django.server - "GET /api/accounts/clients/?search=client%40mail.&page_size=10 HTTP/1.1" 404 4247
+WARNING 2025-09-02 09:56:21,433 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:21,434 django.server - "GET /api/accounts/users/search/?q=client%40mail.&role=CLIENT&page_size=10 HTTP/1.1" 404 4273
+WARNING 2025-09-02 09:56:21,770 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:21,776 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail.c&page_size=10 HTTP/1.1" 404 4258
+WARNING 2025-09-02 09:56:21,823 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:21,825 django.server - "GET /api/accounts/clients/?search=client%40mail.c&page_size=10 HTTP/1.1" 404 4248
+WARNING 2025-09-02 09:56:21,843 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:21,845 django.server - "GET /api/accounts/users/search/?q=client%40mail.c&role=CLIENT&page_size=10 HTTP/1.1" 404 4274
+WARNING 2025-09-02 09:56:21,883 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:21,884 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail.co&page_size=10 HTTP/1.1" 404 4259
+WARNING 2025-09-02 09:56:21,893 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:21,894 django.server - "GET /api/accounts/clients/?search=client%40mail.co&page_size=10 HTTP/1.1" 404 4249
+WARNING 2025-09-02 09:56:21,902 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:21,903 django.server - "GET /api/accounts/users/search/?q=client%40mail.co&role=CLIENT&page_size=10 HTTP/1.1" 404 4275
+WARNING 2025-09-02 09:56:22,087 django.request - Not Found: /api/accounts/users/
+WARNING 2025-09-02 09:56:22,088 django.server - "GET /api/accounts/users/?role=CLIENT&search=client%40mail.com&page_size=10 HTTP/1.1" 404 4260
+WARNING 2025-09-02 09:56:22,106 django.request - Not Found: /api/accounts/clients/
+WARNING 2025-09-02 09:56:22,107 django.server - "GET /api/accounts/clients/?search=client%40mail.com&page_size=10 HTTP/1.1" 404 4250
+WARNING 2025-09-02 09:56:22,118 django.request - Not Found: /api/accounts/users/search/
+WARNING 2025-09-02 09:56:22,119 django.server - "GET /api/accounts/users/search/?q=client%40mail.com&role=CLIENT&page_size=10 HTTP/1.1" 404 4276
+INFO 2025-09-02 09:56:40,543 django.server - "POST /api/restaurants/reservations/ HTTP/1.1" 201 361
+INFO 2025-09-02 09:56:40,584 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1934
+INFO 2025-09-02 09:57:43,663 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 32453
+WARNING 2025-09-02 09:57:44,211 django.request - Not Found: /favicon.ico
+WARNING 2025-09-02 09:57:44,213 django.server - "GET /favicon.ico HTTP/1.1" 404 2980
+INFO 2025-09-02 09:57:46,907 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 32453
+INFO 2025-09-02 09:57:46,959 django.server - "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:46,968 django.server - "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:46,984 django.server - "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:46,985 django.server - "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:46,985 django.server - "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,002 django.server - "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,005 django.server - "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,009 django.server - "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,010 django.server - "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,018 django.server - "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,019 django.server - "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,024 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-02 09:57:47,030 django.server - "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,034 django.server - "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,049 django.server - "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,053 django.server - "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,104 django.server - "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:57:47,112 django.server - "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,031 django.server - "GET /admin/restaurants/reservation/21/change/ HTTP/1.1" 200 25241
+INFO 2025-09-02 09:58:26,078 django.server - "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,099 django.server - "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,100 django.server - "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,100 django.server - "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,124 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-02 09:58:26,154 django.server - "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,164 django.server - "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-09-02 09:58:26,175 django.server - "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,206 django.server - "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,234 django.server - "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,342 django.server - "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:26,343 django.server - "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-09-02 09:58:41,439 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 32453
+WARNING 2025-09-02 10:29:11,309 django.request - Unauthorized: /api/restaurants/restaurants/1/
+WARNING 2025-09-02 10:29:11,313 django.request - Unauthorized: /api/restaurants/restaurants/1/reservations/
+WARNING 2025-09-02 10:29:11,330 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 401 183
+WARNING 2025-09-02 10:29:11,331 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 401 183
+WARNING 2025-09-02 10:29:11,350 django.request - Unauthorized: /api/restaurants/restaurants/1/
+WARNING 2025-09-02 10:29:11,357 django.request - Unauthorized: /api/restaurants/restaurants/1/reservations/
+WARNING 2025-09-02 10:29:11,358 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 401 183
+WARNING 2025-09-02 10:29:11,360 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 401 183
+WARNING 2025-09-02 10:29:17,704 django.request - Not Found: /api/accounts/logout/
+WARNING 2025-09-02 10:29:17,705 django.server - "POST /api/accounts/logout/ HTTP/1.1" 404 4206
+INFO 2025-09-02 10:29:26,166 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-02 10:29:26,207 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 10:29:26,385 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 10:29:26,392 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 10:29:26,445 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 10:29:26,451 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 10:29:31,152 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 10:29:31,193 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 10:29:31,248 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 10:29:31,281 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 10:29:31,295 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1934
+INFO 2025-09-02 10:29:31,364 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1934
+INFO 2025-09-02 10:29:46,372 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 10:29:46,378 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 10:29:46,426 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 10:29:46,436 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 10:29:48,794 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 10:29:48,828 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 10:29:48,831 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1934
+INFO 2025-09-02 10:29:48,892 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1934
+INFO 2025-09-02 10:29:50,278 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1934
+INFO 2025-09-02 10:29:56,031 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/?status=CONFIRMED HTTP/1.1" 200 0
+INFO 2025-09-02 10:29:56,162 django.server - "GET /api/restaurants/restaurants/1/reservations/?status=CONFIRMED HTTP/1.1" 200 774
+INFO 2025-09-02 10:29:58,882 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 1934
+INFO 2025-09-02 10:35:01,701 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-09-02 10:35:04,303 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 10:35:41,061 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-09-02 10:35:42,293 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 10:35:47,515 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 10:35:47,547 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 10:35:47,596 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 10:35:47,624 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3018
+INFO 2025-09-02 10:35:47,641 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 10:35:47,673 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3018
+INFO 2025-09-02 10:36:02,858 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 32453
+INFO 2025-09-02 10:36:02,921 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-02 10:36:03,191 django.server - "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-09-02 10:36:03,195 django.server - "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-09-02 10:36:05,404 django.server - "GET /admin/restaurants/reservation/ HTTP/1.1" 200 32453
+INFO 2025-09-02 10:36:05,447 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-02 10:36:37,856 django.server - "OPTIONS /api/restaurants/reservations/21/moderate/ HTTP/1.1" 200 0
+INFO 2025-09-02 10:36:37,901 django.server - "POST /api/restaurants/reservations/21/moderate/ HTTP/1.1" 200 55
+INFO 2025-09-02 10:36:38,002 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 10:36:47,291 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 10:36:47,329 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 10:36:57,041 django.server - "OPTIONS /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 0
+INFO 2025-09-02 10:36:57,047 django.server - "OPTIONS /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 0
+ERROR 2025-09-02 10:36:57,145 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 10:36:57,152 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+ERROR 2025-09-02 10:36:57,233 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 10:36:57,238 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+INFO 2025-09-02 10:36:59,985 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 10:37:00,049 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+ERROR 2025-09-02 10:37:00,087 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 10:37:00,090 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+ERROR 2025-09-02 10:37:00,150 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 10:37:00,154 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+INFO 2025-09-02 10:40:00,853 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 10:40:00,931 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+WARNING 2025-09-02 11:34:02,973 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 11:34:02,977 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-09-02 11:34:02,986 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 11:34:02,988 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-09-02 11:34:12,139 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-02 11:34:12,191 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:34:12,492 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 11:34:12,496 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 11:34:12,562 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 11:34:12,593 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 11:34:17,522 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:34:17,648 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:34:17,672 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 11:34:17,751 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 11:34:17,760 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 11:34:17,851 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 11:34:25,205 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 11:34:25,241 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 11:35:25,398 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:35:25,482 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+WARNING 2025-09-02 11:35:59,317 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 11:35:59,320 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 58
+WARNING 2025-09-02 11:35:59,329 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 11:35:59,332 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 58
+INFO 2025-09-02 11:36:56,220 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:36:56,264 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:36:56,348 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 11:36:56,399 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 11:47:49,422 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:47:49,451 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:47:49,551 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 11:47:49,559 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 11:47:49,593 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 11:47:49,609 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 11:52:20,954 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+INFO 2025-09-02 11:52:20,956 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+INFO 2025-09-02 11:52:21,174 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:52:21,344 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 11:52:21,581 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 11:52:21,710 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:09:09,704 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:09,707 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 0
+WARNING 2025-09-02 12:09:09,738 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-09-02 12:09:09,743 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 401 183
+WARNING 2025-09-02 12:09:09,814 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-09-02 12:09:09,818 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 401 183
+WARNING 2025-09-02 12:09:16,859 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-09-02 12:09:16,864 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 401 183
+WARNING 2025-09-02 12:09:19,240 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-09-02 12:09:19,244 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 401 183
+WARNING 2025-09-02 12:09:26,942 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 12:09:26,944 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-09-02 12:09:26,952 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 12:09:26,956 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-09-02 12:09:35,107 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:36,303 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-02 12:09:36,388 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:09:36,511 django.server - "OPTIONS /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:36,527 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:36,537 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:36,630 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 12:09:36,635 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 12:09:36,746 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 12:09:36,763 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 12:09:41,093 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:09:41,175 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:09:41,241 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:09:41,351 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:09:45,452 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:09:56,443 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-03 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,466 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-04 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,467 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-05 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,501 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-09 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,503 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-11 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,504 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-06 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,504 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-07 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,520 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-08 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,523 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-10 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,525 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-12 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,528 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-13 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,536 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-14 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,540 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-15 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,551 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-16 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,555 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-17 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,570 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-18 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,580 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-19 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,589 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-20 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,604 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-21 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,605 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-22 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,617 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-23 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,645 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-24 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,653 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-25 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,657 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-26 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,660 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-03 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:56,665 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-27 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,701 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-28 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,702 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-04 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:56,716 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-29 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,721 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-30 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,751 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-08-31 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,768 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-01 HTTP/1.1" 200 0
+INFO 2025-09-02 12:09:56,802 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-06 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:56,818 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-05 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:56,832 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-07 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:56,879 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-08 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:56,903 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-10 HTTP/1.1" 200 291
+INFO 2025-09-02 12:09:56,937 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:09:56,961 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-11 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:56,938 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-09 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,034 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-12 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,099 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-13 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,113 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-15 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,123 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-14 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,127 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-17 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,138 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-16 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,225 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-18 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,294 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-19 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,305 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-20 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,310 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-23 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,310 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-21 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:57,323 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-22 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:58,685 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-24 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:58,730 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-26 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:58,730 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-25 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:58,731 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-27 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:58,758 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-28 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:58,768 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-29 HTTP/1.1" 200 360
+INFO 2025-09-02 12:09:58,785 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-30 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:58,826 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-08-31 HTTP/1.1" 200 223
+INFO 2025-09-02 12:09:58,845 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-01 HTTP/1.1" 200 223
+INFO 2025-09-02 12:10:13,684 django.server - "OPTIONS /api/restaurants/restaurants/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 12:10:13,713 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 0
+INFO 2025-09-02 12:10:13,724 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 0
+INFO 2025-09-02 12:10:13,807 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:10:13,816 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:10:13,852 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:10:13,881 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:10:21,836 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:10:21,891 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:10:28,841 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:10:28,916 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:10:30,434 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:10:30,474 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:10:35,474 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:10:35,513 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+ERROR 2025-09-02 12:11:11,809 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 12:11:11,821 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+ERROR 2025-09-02 12:11:11,955 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 12:11:11,960 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+INFO 2025-09-02 12:20:31,173 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:20:31,207 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:20:32,057 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:20:32,091 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:20:43,805 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:20:43,823 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:20:43,838 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:20:43,861 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:20:49,552 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:20:49,580 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 289
+INFO 2025-09-02 12:20:51,800 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:20:51,809 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:20:51,838 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:20:51,855 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:29:19,761 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:29:19,796 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:29:19,849 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:29:19,921 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:31:10,757 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:31:10,804 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:31:14,645 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:31:14,701 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:31:14,784 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:31:14,827 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:31:14,881 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:31:14,938 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:31:22,023 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:31:22,051 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:31:22,066 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:31:22,094 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:31:46,189 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:31:46,223 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:31:56,856 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:31:56,936 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:31:59,005 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:31:59,020 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:31:59,051 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:31:59,076 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:32:05,277 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:32:05,295 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:32:05,322 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:32:05,357 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3020
+INFO 2025-09-02 12:32:15,313 django.server - "OPTIONS /api/restaurants/reservations/20/moderate/ HTTP/1.1" 200 0
+INFO 2025-09-02 12:32:15,352 django.server - "POST /api/restaurants/reservations/20/moderate/ HTTP/1.1" 200 55
+INFO 2025-09-02 12:32:15,432 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3022
+INFO 2025-09-02 12:32:18,749 django.server - "OPTIONS /api/restaurants/reservations/5/moderate/ HTTP/1.1" 200 0
+INFO 2025-09-02 12:32:18,776 django.server - "POST /api/restaurants/reservations/5/moderate/ HTTP/1.1" 200 54
+INFO 2025-09-02 12:32:18,848 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 12:32:21,480 django.server - "POST /api/restaurants/reservations/5/moderate/ HTTP/1.1" 200 54
+INFO 2025-09-02 12:32:21,516 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 12:36:41,981 django.server - "GET /admin/restaurants/reservation/5/change/ HTTP/1.1" 200 25238
+INFO 2025-09-02 12:36:42,092 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-02 12:37:15,816 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:37:15,871 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:37:31,500 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:37:31,576 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 12:37:33,598 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 12:37:33,652 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 12:37:34,888 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:37:34,907 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 12:37:34,924 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:37:34,952 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 12:37:37,905 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:37:37,923 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 12:37:37,955 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:37:37,982 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 12:37:51,234 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 12:37:51,389 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:37:51,508 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 12:37:51,514 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 12:38:00,520 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 12:38:00,565 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 12:38:02,959 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 12:38:17,660 django.server - "OPTIONS /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 0
+INFO 2025-09-02 12:38:17,667 django.server - "OPTIONS /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 0
+ERROR 2025-09-02 12:38:17,723 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 12:38:17,732 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+ERROR 2025-09-02 12:38:17,778 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 12:38:17,782 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+WARNING 2025-09-02 13:15:14,813 django.request - Unauthorized: /api/restaurants/evenements/
+WARNING 2025-09-02 13:15:14,822 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 401 183
+WARNING 2025-09-02 13:15:19,777 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 13:15:19,779 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-09-02 13:15:19,786 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 13:15:19,791 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-09-02 13:15:28,438 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-02 13:15:28,489 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 13:15:28,680 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 13:15:28,683 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 13:15:28,720 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 13:15:28,760 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 13:15:32,916 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 13:15:32,960 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+ERROR 2025-09-02 13:15:33,031 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 13:15:33,042 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+ERROR 2025-09-02 13:15:33,122 django.request - Internal Server Error: /api/restaurants/evenements/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/mixins.py", line 46, in list
+    return Response(serializer.data)
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 797, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 251, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 715, in to_representation
+    return [
+           ^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 716, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 525, in to_representation
+    for field in fields:
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 386, in _readable_fields
+    for field in self.fields.values():
+                 ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 374, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1105, in get_fields
+    field_class, field_kwargs = self.build_field(
+                                ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1251, in build_field
+    return self.build_unknown_field(field_name, model_class)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rest_framework/serializers.py", line 1369, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `created_at` is not valid for model `Evenement` in `restaurants.serializers.EvenementSerializer`.
+ERROR 2025-09-02 13:15:33,131 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 500 17480
+INFO 2025-09-02 13:24:15,466 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-09-02 13:24:19,726 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 13:24:32,376 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-09-02 13:24:34,525 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 13:28:55,638 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-09-02 13:28:57,300 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 13:29:44,179 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 13:29:44,214 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 13:29:44,263 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:29:44,290 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:29:57,247 django.server - "OPTIONS /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:29:57,248 django.server - "OPTIONS /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:29:57,304 django.server - "GET /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 82
+INFO 2025-09-02 13:29:57,378 django.server - "GET /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 82
+INFO 2025-09-02 13:29:59,152 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:29:59,201 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:05,901 django.server - "OPTIONS /api/restaurants/evenements/1/invite/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:30:07,847 django.server - "POST /api/restaurants/evenements/1/invite/ HTTP/1.1" 201 223
+INFO 2025-09-02 13:30:12,219 django.server - "OPTIONS /api/restaurants/evenements/1/invite_bulk/ HTTP/1.1" 200 0
+WARNING 2025-09-02 13:30:12,249 django.request - Bad Request: /api/restaurants/evenements/1/invite_bulk/
+WARNING 2025-09-02 13:30:12,251 django.server - "POST /api/restaurants/evenements/1/invite_bulk/ HTTP/1.1" 400 42
+INFO 2025-09-02 13:30:18,093 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:18,134 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:22,797 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:22,848 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:30,282 django.server - "GET /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 82
+INFO 2025-09-02 13:30:30,317 django.server - "GET /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 82
+INFO 2025-09-02 13:30:31,368 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:31,416 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:36,695 django.server - "OPTIONS /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:30:36,696 django.server - "OPTIONS /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:30:36,736 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 13:30:36,821 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 13:30:38,982 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:39,034 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:44,518 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:44,566 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:30:46,231 django.server - "OPTIONS /api/restaurants/evenements/2/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:30:46,237 django.server - "OPTIONS /api/restaurants/evenements/2/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:30:46,304 django.server - "GET /api/restaurants/evenements/2/ HTTP/1.1" 200 487
+INFO 2025-09-02 13:30:46,374 django.server - "GET /api/restaurants/evenements/2/ HTTP/1.1" 200 487
+INFO 2025-09-02 13:31:01,157 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:31:01,206 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 980
+INFO 2025-09-02 13:31:03,147 django.server - "OPTIONS /api/restaurants/evenements/2/reopen/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:31:03,205 django.server - "POST /api/restaurants/evenements/2/reopen/ HTTP/1.1" 200 35
+INFO 2025-09-02 13:31:03,286 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 985
+INFO 2025-09-02 13:31:06,687 django.server - "OPTIONS /api/restaurants/evenements/2/close/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:31:06,743 django.server - "POST /api/restaurants/evenements/2/close/ HTTP/1.1" 200 81
+INFO 2025-09-02 13:31:06,848 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:31:09,486 django.server - "POST /api/restaurants/evenements/2/reopen/ HTTP/1.1" 200 35
+INFO 2025-09-02 13:31:09,520 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1010
+INFO 2025-09-02 13:31:11,174 django.server - "POST /api/restaurants/evenements/2/reopen/ HTTP/1.1" 200 35
+INFO 2025-09-02 13:31:11,228 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1010
+INFO 2025-09-02 13:31:12,807 django.server - "POST /api/restaurants/evenements/2/close/ HTTP/1.1" 200 81
+INFO 2025-09-02 13:31:12,843 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:31:18,731 django.server - "OPTIONS /api/restaurants/evenements/2/publish/ HTTP/1.1" 200 0
+WARNING 2025-09-02 13:31:18,759 django.request - Bad Request: /api/restaurants/evenements/2/publish/
+WARNING 2025-09-02 13:31:18,760 django.server - "POST /api/restaurants/evenements/2/publish/ HTTP/1.1" 400 39
+INFO 2025-09-02 13:31:21,051 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 13:31:21,061 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 13:31:21,093 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 13:31:21,101 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 13:31:23,994 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:31:24,044 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:31:55,403 django.server - "POST /api/restaurants/evenements/1/invite_bulk/ HTTP/1.1" 201 445
+INFO 2025-09-02 13:32:20,846 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:32:20,886 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:32:22,793 django.server - "OPTIONS /api/restaurants/evenements/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:32:22,795 django.server - "OPTIONS /api/restaurants/evenements/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 13:32:22,841 django.server - "GET /api/restaurants/evenements/1/ HTTP/1.1" 200 490
+INFO 2025-09-02 13:32:22,904 django.server - "GET /api/restaurants/evenements/1/ HTTP/1.1" 200 490
+INFO 2025-09-02 13:43:13,367 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:43:13,400 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:44:34,914 django.server - "GET /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 82
+INFO 2025-09-02 13:44:34,940 django.server - "GET /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 82
+INFO 2025-09-02 13:44:36,943 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:44:36,982 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+WARNING 2025-09-02 13:44:54,873 django.request - Not Found: /events/invite/accept
+WARNING 2025-09-02 13:44:54,875 django.server - "GET /events/invite/accept?token=zW0DWqbxot9rCyqctwYoKIVBn1RI_MVwLPfHbr9ZsLM HTTP/1.1" 404 3057
+INFO 2025-09-02 13:45:08,295 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:45:08,339 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:45:12,057 django.server - "GET /api/restaurants/evenements/1/ HTTP/1.1" 200 490
+INFO 2025-09-02 13:45:12,084 django.server - "GET /api/restaurants/evenements/1/ HTTP/1.1" 200 490
+INFO 2025-09-02 13:45:16,761 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:45:16,796 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 13:46:34,908 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 22474
+INFO 2025-09-02 13:46:35,000 django.server - "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-09-02 13:46:35,012 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-02 13:46:40,176 django.server - "GET /admin/restaurants/restaurant/1/change/ HTTP/1.1" 200 37487
+INFO 2025-09-02 13:46:40,258 django.server - "GET /static/admin/js/inlines.js HTTP/1.1" 200 15628
+INFO 2025-09-02 13:46:40,278 django.server - "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-09-02 13:46:40,281 django.server - "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-09-02 13:46:40,338 django.server - "GET /static/admin/img/inline-delete.svg HTTP/1.1" 200 537
+INFO 2025-09-02 13:46:50,947 django.server - "GET /admin/restaurants/restaurant/ HTTP/1.1" 200 22474
+INFO 2025-09-02 14:14:02,853 django.server - "OPTIONS /api/restaurants/restaurants/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:02,857 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:02,859 django.server - "OPTIONS /api/restaurants/restaurants/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:02,859 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 0
+WARNING 2025-09-02 14:14:02,879 django.request - Unauthorized: /api/restaurants/restaurants/1/reservations/
+WARNING 2025-09-02 14:14:02,882 django.request - Unauthorized: /api/restaurants/restaurants/1/
+WARNING 2025-09-02 14:14:02,887 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 401 183
+WARNING 2025-09-02 14:14:02,893 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 401 183
+WARNING 2025-09-02 14:14:02,936 django.request - Unauthorized: /api/restaurants/restaurants/1/reservations/
+WARNING 2025-09-02 14:14:02,942 django.request - Unauthorized: /api/restaurants/restaurants/1/
+WARNING 2025-09-02 14:14:02,943 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 401 183
+WARNING 2025-09-02 14:14:02,945 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 401 183
+INFO 2025-09-02 14:14:05,190 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:05,190 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+WARNING 2025-09-02 14:14:05,198 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 14:14:05,200 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-09-02 14:14:05,247 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 14:14:05,253 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-09-02 14:14:13,515 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:14,936 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-02 14:14:15,048 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 14:14:15,122 django.server - "OPTIONS /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:15,146 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:15,149 django.server - "OPTIONS /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:15,151 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 14:14:15,260 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 14:14:15,280 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 14:14:15,345 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 14:14:15,389 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 14:14:17,765 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 14:14:17,852 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 14:14:17,915 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 14:14:17,916 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 14:14:18,010 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 14:14:18,014 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 14:14:21,843 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:14:21,861 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 14:14:21,892 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:14:21,923 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 14:14:38,686 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 14:14:38,742 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 14:14:39,745 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:14:39,781 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:14:46,227 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:14:46,241 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 14:14:46,272 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:14:46,298 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 14:14:51,800 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 14:14:51,844 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1005
+INFO 2025-09-02 14:20:48,604 django.server - "OPTIONS /api/restaurants/evenements/1/publish/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:20:48,654 django.server - "POST /api/restaurants/evenements/1/publish/ HTTP/1.1" 200 78
+INFO 2025-09-02 14:20:48,744 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+WARNING 2025-09-02 14:20:51,408 django.request - Bad Request: /api/restaurants/evenements/2/publish/
+WARNING 2025-09-02 14:20:51,410 django.server - "POST /api/restaurants/evenements/2/publish/ HTTP/1.1" 400 39
+INFO 2025-09-02 14:20:53,078 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:20:53,123 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 14:20:53,167 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:20:53,221 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 14:20:55,087 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+INFO 2025-09-02 14:20:55,143 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+INFO 2025-09-02 14:20:59,610 django.server - "GET /api/restaurants/evenements/2/ HTTP/1.1" 200 512
+INFO 2025-09-02 14:20:59,642 django.server - "GET /api/restaurants/evenements/2/ HTTP/1.1" 200 512
+INFO 2025-09-02 14:21:01,201 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+INFO 2025-09-02 14:21:01,245 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+INFO 2025-09-02 14:21:04,940 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+INFO 2025-09-02 14:21:04,975 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+INFO 2025-09-02 14:21:12,399 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 14:21:12,437 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 14:21:19,294 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+INFO 2025-09-02 14:21:19,345 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1034
+INFO 2025-09-02 14:21:25,122 django.server - "OPTIONS /api/restaurants/evenements/2/cancel/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:21:27,101 django.server - "POST /api/restaurants/evenements/2/cancel/ HTTP/1.1" 200 78
+INFO 2025-09-02 14:21:27,213 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1064
+INFO 2025-09-02 14:21:27,816 django.server - "POST /api/restaurants/evenements/2/cancel/ HTTP/1.1" 200 78
+INFO 2025-09-02 14:21:27,893 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1064
+INFO 2025-09-02 14:21:33,483 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 14:21:33,535 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 14:21:34,374 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1064
+INFO 2025-09-02 14:21:34,420 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1064
+INFO 2025-09-02 14:21:37,513 django.server - "POST /api/restaurants/evenements/2/reopen/ HTTP/1.1" 200 35
+INFO 2025-09-02 14:21:37,545 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1064
+INFO 2025-09-02 14:21:39,922 django.server - "POST /api/restaurants/evenements/2/close/ HTTP/1.1" 200 81
+INFO 2025-09-02 14:21:39,959 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1059
+INFO 2025-09-02 14:21:42,116 django.server - "POST /api/restaurants/evenements/2/reopen/ HTTP/1.1" 200 35
+INFO 2025-09-02 14:21:42,143 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1064
+INFO 2025-09-02 14:26:30,444 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 14:26:30,518 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 14:26:30,658 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:26:30,712 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:27:08,138 django.server - "OPTIONS /api/restaurants/evenements/ HTTP/1.1" 200 0
+WARNING 2025-09-02 14:27:08,176 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 14:27:08,178 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 48
+INFO 2025-09-02 14:28:08,997 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1064
+INFO 2025-09-02 14:28:09,052 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1064
+INFO 2025-09-02 14:28:11,725 django.server - "OPTIONS /api/restaurants/evenements/1/cancel/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:28:11,754 django.server - "POST /api/restaurants/evenements/1/cancel/ HTTP/1.1" 200 78
+INFO 2025-09-02 14:28:11,830 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 14:29:05,194 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 14:29:05,302 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 14:33:37,453 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 14:33:37,491 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 14:33:39,109 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:33:39,133 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+WARNING 2025-09-02 14:34:04,550 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 14:34:04,552 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 48
+INFO 2025-09-02 14:34:15,989 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 201 461
+INFO 2025-09-02 14:34:16,060 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1551
+INFO 2025-09-02 14:34:16,093 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1551
+INFO 2025-09-02 14:34:23,246 django.server - "OPTIONS /api/restaurants/evenements/3/ HTTP/1.1" 200 0
+INFO 2025-09-02 14:34:23,281 django.server - "DELETE /api/restaurants/evenements/3/ HTTP/1.1" 204 0
+INFO 2025-09-02 14:34:23,354 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 14:34:24,917 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:34:24,943 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+WARNING 2025-09-02 14:35:03,707 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 14:35:03,708 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 48
+WARNING 2025-09-02 14:35:11,654 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 14:35:11,655 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 62
+INFO 2025-09-02 14:55:15,771 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-09-02 14:55:20,050 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 14:56:42,600 django.utils.autoreload - /app/restaurants/models.py changed, reloading.
+INFO 2025-09-02 14:56:45,847 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 14:57:23,321 django.utils.autoreload - /app/restaurants/serializers.py changed, reloading.
+INFO 2025-09-02 14:57:25,716 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 14:58:23,363 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-09-02 14:58:25,213 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-02 14:58:53,746 django.utils.autoreload - /app/restaurants/views.py changed, reloading.
+INFO 2025-09-02 14:58:56,890 django.utils.autoreload - Watching for file changes with StatReloader
+WARNING 2025-09-02 14:59:33,319 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 14:59:33,321 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-09-02 14:59:33,327 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 14:59:33,329 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-09-02 14:59:41,359 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-02 14:59:41,386 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 14:59:41,532 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 14:59:41,538 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 14:59:41,576 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 14:59:41,582 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 14:59:46,041 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 14:59:46,076 django.server - "OPTIONS /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 0
+INFO 2025-09-02 14:59:46,092 django.server - "OPTIONS /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 0
+INFO 2025-09-02 14:59:46,094 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 14:59:46,118 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 14:59:46,148 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 14:59:49,811 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 14:59:49,835 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+WARNING 2025-09-02 15:00:33,699 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 15:00:33,700 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 48
+WARNING 2025-09-02 15:00:57,331 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 15:00:57,332 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 62
+WARNING 2025-09-02 15:01:11,990 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 15:01:11,991 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 62
+WARNING 2025-09-02 15:01:29,896 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 15:01:29,898 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 62
+WARNING 2025-09-02 15:01:47,865 django.request - Bad Request: /api/restaurants/evenements/
+WARNING 2025-09-02 15:01:47,866 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 400 84
+INFO 2025-09-02 15:01:56,965 django.server - "POST /api/restaurants/evenements/ HTTP/1.1" 201 460
+INFO 2025-09-02 15:01:57,038 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 15:01:57,083 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:08:26,829 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:08:26,838 django.server - "OPTIONS /api/accounts/me/ HTTP/1.1" 200 0
+WARNING 2025-09-02 23:08:26,899 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 23:08:26,908 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-09-02 23:08:26,966 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-02 23:08:27,062 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-09-02 23:08:34,816 django.server - "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:08:38,547 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-02 23:08:38,783 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 23:08:38,915 django.server - "OPTIONS /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 23:08:39,016 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 23:08:39,037 django.server - "OPTIONS /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 23:08:39,103 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 23:08:39,118 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 23:08:39,176 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 23:08:39,236 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 29
+INFO 2025-09-02 23:08:39,316 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 800
+INFO 2025-09-02 23:08:59,973 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 23:09:00,110 django.server - "OPTIONS /api/restaurants/restaurants/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:09:00,115 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:09:00,171 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 23:09:00,285 django.server - "OPTIONS /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:09:00,285 django.server - "OPTIONS /api/restaurants/restaurants/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:09:00,479 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:09:00,626 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 23:09:00,641 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:09:00,845 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 23:09:29,927 django.server - "OPTIONS /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 0
+INFO 2025-09-02 23:09:29,935 django.server - "OPTIONS /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 0
+INFO 2025-09-02 23:09:30,089 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:09:30,181 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:09:51,796 django.server - "OPTIONS /api/restaurants/evenements/4/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:09:51,807 django.server - "OPTIONS /api/restaurants/evenements/4/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:09:51,851 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:09:51,863 django.server - "GET /api/restaurants/evenements/4/ HTTP/1.1" 200 460
+INFO 2025-09-02 23:09:51,888 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:09:51,951 django.server - "GET /api/restaurants/evenements/4/ HTTP/1.1" 200 460
+INFO 2025-09-02 23:12:58,977 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:12:59,011 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:13:09,047 django.server - "PATCH /api/restaurants/restaurants/1/ HTTP/1.1" 200 550
+INFO 2025-09-02 23:13:14,344 django.server - "PATCH /api/restaurants/restaurants/1/ HTTP/1.1" 200 549
+WARNING 2025-09-02 23:13:22,606 django.request - Bad Request: /api/restaurants/restaurants/1/
+WARNING 2025-09-02 23:13:22,608 django.server - "PATCH /api/restaurants/restaurants/1/ HTTP/1.1" 400 41
+INFO 2025-09-02 23:13:44,805 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:44,878 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:47,115 django.server - "OPTIONS /api/restaurants/evenements/4/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:13:47,120 django.server - "OPTIONS /api/restaurants/evenements/4/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:13:47,163 django.server - "GET /api/restaurants/evenements/4/registrations/ HTTP/1.1" 200 69
+INFO 2025-09-02 23:13:47,189 django.server - "GET /api/restaurants/evenements/4/registrations/ HTTP/1.1" 200 69
+INFO 2025-09-02 23:13:48,805 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:48,845 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:50,158 django.server - "OPTIONS /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:13:50,167 django.server - "OPTIONS /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:13:50,231 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 23:13:50,367 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 23:13:51,053 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:51,164 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:52,249 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 23:13:52,316 django.server - "GET /api/restaurants/evenements/2/registrations/ HTTP/1.1" 200 225
+INFO 2025-09-02 23:13:56,278 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:56,392 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:57,832 django.server - "OPTIONS /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:13:57,839 django.server - "OPTIONS /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:13:57,903 django.server - "GET /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 82
+INFO 2025-09-02 23:13:57,997 django.server - "GET /api/restaurants/evenements/1/registrations/ HTTP/1.1" 200 82
+INFO 2025-09-02 23:13:58,740 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:13:58,787 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:14:07,925 django.server - "OPTIONS /api/restaurants/evenements/1/invite_bulk/ HTTP/1.1" 200 0
+WARNING 2025-09-02 23:14:07,968 django.request - Bad Request: /api/restaurants/evenements/1/invite_bulk/
+WARNING 2025-09-02 23:14:07,970 django.server - "POST /api/restaurants/evenements/1/invite_bulk/ HTTP/1.1" 400 42
+INFO 2025-09-02 23:26:25,632 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 23:26:25,721 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+WARNING 2025-09-02 23:26:37,204 django.request - Bad Request: /api/restaurants/evenements/1/invite_bulk/
+WARNING 2025-09-02 23:26:37,205 django.server - "POST /api/restaurants/evenements/1/invite_bulk/ HTTP/1.1" 400 49
+INFO 2025-09-02 23:26:50,766 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:26:50,866 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:34:24,131 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:34:41,789 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 23:34:41,825 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-02 23:34:41,891 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:34:41,924 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+WARNING 2025-09-02 23:34:56,430 django.request - Bad Request: /api/restaurants/restaurants/1/
+WARNING 2025-09-02 23:34:56,431 django.server - "PATCH /api/restaurants/restaurants/1/ HTTP/1.1" 400 41
+INFO 2025-09-02 23:36:03,289 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:36:03,320 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1550
+INFO 2025-09-02 23:36:07,820 django.server - "OPTIONS /api/restaurants/evenements/4/close/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:36:07,859 django.server - "POST /api/restaurants/evenements/4/close/ HTTP/1.1" 200 81
+INFO 2025-09-02 23:36:07,929 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1574
+INFO 2025-09-02 23:36:12,116 django.server - "OPTIONS /api/restaurants/evenements/4/reopen/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:36:12,150 django.server - "POST /api/restaurants/evenements/4/reopen/ HTTP/1.1" 200 35
+INFO 2025-09-02 23:36:12,222 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1579
+INFO 2025-09-02 23:36:14,644 django.server - "POST /api/restaurants/evenements/4/close/ HTTP/1.1" 200 81
+INFO 2025-09-02 23:36:14,678 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1574
+INFO 2025-09-02 23:36:18,158 django.server - "DELETE /api/restaurants/evenements/4/ HTTP/1.1" 204 0
+INFO 2025-09-02 23:36:18,181 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 23:36:22,524 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:36:22,539 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 23:36:22,554 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:36:22,570 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 23:37:00,016 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:37:00,077 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-02 23:37:01,629 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 23:37:01,630 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 0
+INFO 2025-09-02 23:37:01,771 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:01,891 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:08,673 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:08,698 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:12,329 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:14,423 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:15,935 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:15,961 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:23,123 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:23,146 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 200 291
+INFO 2025-09-02 23:37:26,996 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-02 23:37:27,050 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 692
+INFO 2025-09-02 23:37:27,086 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-02 23:37:27,123 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-02 HTTP/1.1" 200 692
+INFO 2025-09-02 23:37:42,154 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:37:42,187 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:37:54,786 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 23:37:54,824 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 23:37:57,829 django.server - "OPTIONS /api/restaurants/evenements/1/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:37:57,881 django.server - "GET /api/restaurants/evenements/1/ HTTP/1.1" 200 544
+INFO 2025-09-02 23:37:57,893 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:37:57,915 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:37:57,940 django.server - "GET /api/restaurants/evenements/1/ HTTP/1.1" 200 544
+INFO 2025-09-02 23:38:06,968 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 23:38:07,003 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1089
+INFO 2025-09-02 23:38:09,889 django.server - "OPTIONS /api/restaurants/evenements/2/ HTTP/1.1" 200 0
+INFO 2025-09-02 23:38:09,920 django.server - "GET /api/restaurants/evenements/2/ HTTP/1.1" 200 542
+INFO 2025-09-02 23:38:09,930 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:38:09,955 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-02 23:38:09,984 django.server - "GET /api/restaurants/evenements/2/ HTTP/1.1" 200 542
+INFO 2025-09-02 23:38:12,266 django.server - "PATCH /api/restaurants/evenements/2/ HTTP/1.1" 200 540
+INFO 2025-09-02 23:38:12,322 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1087
+INFO 2025-09-02 23:38:12,347 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1087
+WARNING 2025-09-02 23:45:54,744 django.request - Unauthorized: /api/restaurants/restaurants/1/
+WARNING 2025-09-02 23:45:54,748 django.request - Unauthorized: /api/restaurants/restaurants/1/reservations/
+WARNING 2025-09-02 23:45:54,749 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 401 183
+WARNING 2025-09-02 23:45:54,751 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 401 183
+WARNING 2025-09-02 23:45:54,756 django.request - Unauthorized: /api/restaurants/restaurants/1/
+WARNING 2025-09-02 23:45:54,759 django.request - Unauthorized: /api/restaurants/restaurants/1/reservations/
+WARNING 2025-09-02 23:45:54,761 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 401 183
+WARNING 2025-09-02 23:45:54,762 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 401 183
+WARNING 2025-09-02 23:45:59,121 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-09-02 23:45:59,123 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 401 183
+WARNING 2025-09-02 23:45:59,129 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-09-02 23:45:59,130 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 401 183
+WARNING 2025-09-02 23:46:01,235 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-09-02 23:46:01,236 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 401 183
+WARNING 2025-09-02 23:46:01,240 django.request - Unauthorized: /api/restaurants/restaurants/1/dashboard/
+WARNING 2025-09-02 23:46:01,241 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-02 HTTP/1.1" 401 183
+WARNING 2025-09-03 00:17:17,930 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-03 00:17:17,937 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+WARNING 2025-09-03 00:17:17,941 django.request - Unauthorized: /api/accounts/me/
+WARNING 2025-09-03 00:17:17,942 django.server - "GET /api/accounts/me/ HTTP/1.1" 401 183
+INFO 2025-09-03 00:17:28,329 django.server - "POST /api/accounts/login/ HTTP/1.1" 200 593
+INFO 2025-09-03 00:17:28,393 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-03 00:17:28,485 django.server - "OPTIONS /api/pos/orders/summary/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 0
+INFO 2025-09-03 00:17:28,504 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 0
+INFO 2025-09-03 00:17:28,511 django.server - "OPTIONS /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 0
+INFO 2025-09-03 00:17:28,546 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 29
+INFO 2025-09-03 00:17:28,546 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:29,037 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:29,040 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 29
+INFO 2025-09-03 00:17:31,526 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-03 00:17:31,567 django.server - "GET /api/accounts/me/ HTTP/1.1" 200 384
+INFO 2025-09-03 00:17:31,583 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:31,618 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:31,712 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:31,812 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:33,286 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-03 00:17:33,336 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 692
+INFO 2025-09-03 00:17:33,357 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-03 00:17:33,394 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 692
+INFO 2025-09-03 00:17:36,197 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 29
+INFO 2025-09-03 00:17:36,205 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:36,224 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 29
+INFO 2025-09-03 00:17:36,238 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:37,874 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:37,899 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:38,000 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:38,063 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:39,353 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-03 00:17:39,392 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 692
+INFO 2025-09-03 00:17:39,445 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-03 00:17:39,480 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 692
+INFO 2025-09-03 00:17:40,312 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 29
+INFO 2025-09-03 00:17:40,336 django.server - "GET /api/pos/orders/summary/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 29
+INFO 2025-09-03 00:17:40,340 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:40,404 django.server - "GET /api/pos/orders/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 2
+INFO 2025-09-03 00:17:42,505 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-03 HTTP/1.1" 200 0
+INFO 2025-09-03 00:17:42,517 django.server - "OPTIONS /api/restaurants/restaurants/1/dashboard/?date=2025-09-03 HTTP/1.1" 200 0
+INFO 2025-09-03 00:17:42,558 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-03 HTTP/1.1" 200 223
+INFO 2025-09-03 00:17:42,621 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-03 HTTP/1.1" 200 223
+INFO 2025-09-03 00:17:47,482 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-03 HTTP/1.1" 200 223
+INFO 2025-09-03 00:17:47,508 django.server - "GET /api/restaurants/restaurants/1/dashboard/?date=2025-09-03 HTTP/1.1" 200 223
+INFO 2025-09-03 00:17:49,518 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-03 00:17:49,533 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-03 00:17:49,545 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-03 00:17:49,565 django.server - "GET /api/restaurants/restaurants/1/reservations/ HTTP/1.1" 200 3024
+INFO 2025-09-03 00:17:51,415 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1087
+INFO 2025-09-03 00:17:51,444 django.server - "GET /api/restaurants/evenements/?restaurant=1 HTTP/1.1" 200 1087
+INFO 2025-09-03 00:17:52,866 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-03 00:17:52,895 django.server - "GET /api/restaurants/restaurants/1/ HTTP/1.1" 200 686
+INFO 2025-09-03 00:17:58,340 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-03 00:17:58,369 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 692
+INFO 2025-09-03 00:17:58,410 django.server - "GET /api/menu/dishes/?is_active=true HTTP/1.1" 200 2418
+INFO 2025-09-03 00:17:58,437 django.server - "GET /api/menu/menus/?restaurant=1&date=2025-09-03 HTTP/1.1" 200 692
+INFO 2025-09-03 00:24:33,500 django.utils.autoreload - /app/restaurants/admin.py changed, reloading.
+INFO 2025-09-03 00:24:36,678 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-03 00:24:39,802 django.utils.autoreload - /app/restaurants/admin.py changed, reloading.
+INFO 2025-09-03 00:24:41,789 django.utils.autoreload - Watching for file changes with StatReloader
+INFO 2025-09-03 00:26:32,495 django.utils.autoreload - /app/restaurants/admin.py changed, reloading.
+INFO 2025-09-03 00:26:33,659 django.utils.autoreload - Watching for file changes with StatReloader

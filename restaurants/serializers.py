@@ -209,7 +209,6 @@ class ReservationSerializer(serializers.ModelSerializer):
         # Rôle CLIENT : on ignore tout email/id éventuellement envoyés
         return super().create(validated)
 
-# --- EVENTS (inchangé) ---
 class EvenementSerializer(serializers.ModelSerializer):
     restaurant_name = serializers.CharField(source='restaurant.name', read_only=True)
     current_registrations = serializers.IntegerField(source='registrations.count', read_only=True)
@@ -236,15 +235,66 @@ class EvenementSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, data):
-        if 'start_time' in data and 'end_time' in data:
-            if data['start_time'] >= data['end_time']:
-                raise serializers.ValidationError("start_time doit être avant end_time.")
+        # instance (update) ou création
         instance = getattr(self, 'instance', None)
-        if instance and 'capacity' in data and data['capacity'] is not None:
+
+        # Valeurs effectives (data si présent, sinon instance)
+        restaurant = data.get('restaurant') or (instance.restaurant if instance else None)
+        date_ = data.get('date') or (instance.date if instance else None)
+        start = data.get('start_time') or (instance.start_time if instance else None)
+        end = data.get('end_time') or (instance.end_time if instance else None)
+        is_blocking = data.get('is_blocking')
+        if is_blocking is None and instance is not None:
+            is_blocking = instance.is_blocking
+        room = data.get('room') if 'room' in data else (instance.room if instance else None)
+
+        # Contrôle présence des champs essentiels
+        if not (restaurant and date_ and start and end):
+            return data  # laisser DRF signaler les champs manquants au besoin
+
+        # 1) Horaires cohérents
+        if start >= end:
+            raise serializers.ValidationError("start_time doit être avant end_time.")
+
+        # 2) Empêcher le passé
+        today = timezone.localdate()
+        now_t = timezone.localtime().time()
+        if date_ < today:
+            raise serializers.ValidationError("Impossible de créer/éditer un évènement dans le passé.")
+        if date_ == today and end <= now_t:
+            raise serializers.ValidationError("L’horaire est déjà passé pour aujourd’hui.")
+
+        # 3) Respect des horaires d’ouverture du restaurant
+        if not restaurant.is_time_range_within_opening(date_, start, end):
+            raise serializers.ValidationError("Créneau hors horaires d'ouverture du restaurant.")
+
+        # 4) Capacité ≥ inscrits (si capacité fournie)
+        if instance and ('capacity' in data) and (data['capacity'] is not None):
             if data['capacity'] < instance.registrations.count():
                 raise serializers.ValidationError("La capacité ne peut pas être inférieure au nombre d’inscrits actuel.")
-        return data
 
+        # 5) Collision entre évènements bloquants
+        #    - Si l’évènement est bloquant, on interdit le chevauchement avec un autre bloquant (publié ou complet)
+        #    - Filtrage par salle : un évènement bloquant pour une salle ne doit pas chevaucher
+        #      un autre bloquant dans la même salle (ou global room=null).
+        if is_blocking:
+            ev_qs = Evenement.objects.filter(
+                restaurant=restaurant,
+                date=date_,
+                is_blocking=True,
+                status__in=["PUBLISHED", "FULL"],
+                start_time__lt=end,
+                end_time__gt=start,
+            )
+            if room:
+                ev_qs = ev_qs.filter(Q(room__isnull=True) | Q(room=room))
+            # exclure soi-même en édition
+            if instance:
+                ev_qs = ev_qs.exclude(pk=instance.pk)
+            if ev_qs.exists():
+                raise serializers.ValidationError("Chevauchement avec un évènement bloquant existant.")
+
+        return data
 
 class EvenementRegistrationListSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='user.id', read_only=True)
