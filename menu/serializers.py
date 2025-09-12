@@ -51,9 +51,18 @@ class DishAvailabilitySerializer(serializers.ModelSerializer):
 
 # --- Menu & Items ---
 class MenuItemSerializer(serializers.ModelSerializer):
+    # on renvoie le plat complet (lecture)
+    dish = DishSerializer(read_only=True)
+    # et on accepte un id en écriture pour ne pas casser create/update
+    dish_id = serializers.PrimaryKeyRelatedField(
+        queryset=Dish.objects.all(),
+        source="dish",
+        write_only=True
+    )
+
     class Meta:
         model = MenuItem
-        fields = ["id", "dish", "course_type"]
+        fields = ["id", "dish", "dish_id", "course_type"]
 
 
 class MenuSerializer(serializers.ModelSerializer):
