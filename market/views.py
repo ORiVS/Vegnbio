@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.utils.dateparse import parse_date
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 
@@ -216,14 +217,13 @@ class OfferCommentViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         obj = self.get_object()
-        # author ou admin
         role = getattr(self.request.user, "role", None)
         if not (obj.author == self.request.user or role == "ADMIN"):
-            return Response({"detail": "Accès interdit."}, status=403)
+            raise PermissionDenied("Accès interdit.")
         serializer.save(is_edited=True)
 
     def perform_destroy(self, instance):
         role = getattr(self.request.user, "role", None)
         if not (instance.author == self.request.user or role == "ADMIN"):
-            return Response({"detail": "Accès interdit."}, status=403)
+            raise PermissionDenied("Accès interdit.")
         return super().perform_destroy(instance)
