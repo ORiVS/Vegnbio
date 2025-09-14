@@ -67,29 +67,28 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        email = data['email']
-        password = data['password']
+        email = data["email"]
+        password = data["password"]
 
         logger.info(f"[Connexion] Tentative de connexion pour {email}")
-        user = authenticate(email=email, password=password)
+        user = authenticate(self.context.get("request"), email=email, password=password)  # ← IMPORTANT
 
         if user and user.is_active:
             refresh = RefreshToken.for_user(user)
             logger.info(f"[Connexion] Succès pour {email}")
             return {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-                'user': {
-                    'email': user.email,
-                    'first_name': user.first_name,
-                    'last_name': user.last_name,
-                    'role': user.role,
-                }
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+                "user": {
+                    "email": user.email,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "role": user.role,
+                },
             }
 
         logger.warning(f"[Connexion] Échec pour {email}")
         raise serializers.ValidationError("Email ou mot de passe invalide")
-
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
