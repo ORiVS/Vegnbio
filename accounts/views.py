@@ -1,5 +1,5 @@
 from rest_framework.generics import RetrieveAPIView, RetrieveUpdateAPIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -15,13 +15,11 @@ class RegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
-    permission_classes = [AllowAny]
-    authentication_classes = []  # pas de JWT requis pour login
-
     def post(self, request):
-        serializer = LoginSerializer(data=request.data, context={"request": request})  # ← IMPORTANT
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MeView(RetrieveAPIView):
     serializer_class = UserWithProfileSerializer
