@@ -1,0 +1,35 @@
+[
+  { "email": "owner1.bastille@vegnbio.fr", "password": "Owner#2025A!", "first_name": "Owen",  "last_name": "Bastille",    "role": "RESTAURATEUR", "restaurant_id": 1, "profile": { "phone": "0600000001", "restaurant_name": "Veg'N Bio Bastille",       "location": "Paris 11" } },
+  { "email": "owner2.republique@vegnbio.fr","password": "Owner#2025B!", "first_name": "Owen",  "last_name": "Republique",  "role": "RESTAURATEUR", "restaurant_id": 2, "profile": { "phone": "0600000002", "restaurant_name": "Veg'N Bio République",    "location": "Paris 10/11" } },
+  { "email": "owner3.nation@vegnbio.fr",    "password": "Owner#2025C!", "first_name": "Owen",  "last_name": "Nation",      "role": "RESTAURATEUR", "restaurant_id": 3, "profile": { "phone": "0600000003", "restaurant_name": "Veg'N Bio Nation",        "location": "Paris 11/12" } },
+  { "email": "owner4.italie@vegnbio.fr",    "password": "Owner#2025D!", "first_name": "Owen",  "last_name": "Italie",      "role": "RESTAURATEUR", "restaurant_id": 4, "profile": { "phone": "0600000004", "restaurant_name": "Veg'N Bio Place d'Italie","location": "Paris 13" } },
+
+  { "email": "manager.bastille@vegnbio.fr",     "password": "Manager#2025A!", "first_name": "Rita",   "last_name": "Bastille",     "role": "RESTAURATEUR", "profile": { "phone": "0610000001", "restaurant_name": "Veg'N Bio Bastille",       "location": "Paris 11" } },
+  { "email": "manager.republique@vegnbio.fr",   "password": "Manager#2025B!", "first_name": "Romain", "last_name": "Republique",   "role": "RESTAURATEUR", "profile": { "phone": "0610000002", "restaurant_name": "Veg'N Bio République",    "location": "Paris 10/11" } },
+  { "email": "manager.nation@vegnbio.fr",       "password": "Manager#2025C!", "first_name": "Nadia",  "last_name": "Nation",       "role": "RESTAURATEUR", "profile": { "phone": "0610000003", "restaurant_name": "Veg'N Bio Nation",        "location": "Paris 11/12" } },
+  { "email": "manager.italie@vegnbio.fr",       "password": "Manager#2025D!", "first_name": "Ilan",   "last_name": "Italie",       "role": "RESTAURATEUR", "profile": { "phone": "0610000004", "restaurant_name": "Veg'N Bio Place d'Italie","location": "Paris 13" } },
+  { "email": "manager.montparnasse@vegnbio.fr", "password": "Manager#2025E!", "first_name": "Maya",   "last_name": "Montparnasse", "role": "RESTAURATEUR", "profile": { "phone": "0610000005", "restaurant_name": "Veg'N Bio Montparnasse",  "location": "Paris 14" } },
+  { "email": "manager.ivry@vegnbio.fr",         "password": "Manager#2025F!", "first_name": "Iris",   "last_name": "Ivry",         "role": "RESTAURATEUR", "profile": { "phone": "0610000006", "restaurant_name": "Veg'N Bio Ivry",          "location": "Ivry-sur-Seine" } },
+  { "email": "manager.beaubourg@vegnbio.fr",    "password": "Manager#2025G!", "first_name": "Ben",    "last_name": "Beaubourg",    "role": "RESTAURATEUR", "profile": { "phone": "0610000007", "restaurant_name": "Veg'N Bio Beaubourg",     "location": "Paris 4" } },
+
+  { "email": "client1.bastille@mail.com",     "password": "Client#2025A!", "first_name": "Clara",   "last_name": "Bastille",     "role": "CLIENT", "profile": { "phone": "0620000001", "address": "Paris 11", "allergies": "Arachides" } },
+  { "email": "client2.bastille@mail.com",     "password": "Client#2025B!", "first_name": "Cédric",  "last_name": "Bastille",     "role": "CLIENT", "profile": { "phone": "0620000002", "address": "Paris 11", "allergies": "" } },
+
+  { "email": "client1.republique@mail.com",   "password": "Client#2025C!", "first_name": "Chloé",   "last_name": "Republique",   "role": "CLIENT", "profile": { "phone": "0620000003", "address": "Paris 10", "allergies": "Gluten" } },
+  { "email": "client2.republique@mail.com",   "password": "Client#2025D!", "first_name": "Cyril",   "last_name": "Republique",   "role": "CLIENT", "profile": { "phone": "0620000004", "address": "Paris 11", "allergies": "" } },
+
+  { "email": "client1.nation@mail.com",       "password": "Client#2025E!", "first_name": "Nina",    "last_name": "Nation",       "role": "CLIENT", "profile": { "phone": "0620000005", "address": "Paris 12", "allergies": "Lactose" } },
+  { "email": "client2.nation@mail.com",       "password": "Client#2025F!", "first_name": "Noah",    "last_name": "Nation",       "role": "CLIENT", "profile": { "phone": "0620000006", "address": "Paris 11", "allergies": "" } },
+
+  { "email": "client1.italie@mail.com",       "password": "Client#2025G!", "first_name": "Irène",   "last_name": "Italie",       "role": "CLIENT", "profile": { "phone": "0620000007", "address": "Paris 13", "allergies": "Sésame" } },
+  { "email": "client2.italie@mail.com",       "password": "Client#2025H!", "first_name": "Ivan",    "last_name": "Italie",       "role": "CLIENT", "profile": { "phone": "0620000008", "address": "Paris 13", "allergies": "" } },
+
+  { "email": "client1.montparnasse@mail.com", "password": "Client#2025I!", "first_name": "Manon",   "last_name": "Montparnasse", "role": "CLIENT", "profile": { "phone": "0620000009", "address": "Paris 14", "allergies": "" } },
+  { "email": "client2.montparnasse@mail.com", "password": "Client#2025J!", "first_name": "Marc",    "last_name": "Montparnasse", "role": "CLIENT", "profile": { "phone": "0620000010","address": "Paris 14", "allergies": "Noix" } },
+
+  { "email": "client1.ivry@mail.com",         "password": "Client#2025K!", "first_name": "Isabelle","last_name": "Ivry",         "role": "CLIENT", "profile": { "phone": "0620000011","address": "Ivry",     "allergies": "" } },
+  { "email": "client2.ivry@mail.com",         "password": "Client#2025L!", "first_name": "Ibrahim", "last_name": "Ivry",         "role": "CLIENT", "profile": { "phone": "0620000012","address": "Ivry",     "allergies": "Arachides" } },
+
+  { "email": "client1.beaubourg@mail.com",    "password": "Client#2025M!", "first_name": "Béa",     "last_name": "Beaubourg",    "role": "CLIENT", "profile": { "phone": "0620000013","address": "Paris 4",  "allergies": "" } },
+  { "email": "client2.beaubourg@mail.com",    "password": "Client#2025N!", "first_name": "Boris",   "last_name": "Beaubourg",    "role": "CLIENT", "profile": { "phone": "0620000014","address": "Paris 4",  "allergies": "Gluten" } }
+]

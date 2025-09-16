@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "pos",
     "fidelite",
     "orders",
+    "vetbot",
 
     # Tiers
     "rest_framework",

@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "Vegnbio Users Seeder",
+    "_postman_id": "a9b3f3fe-0000-4b00-9000-000000000001",
+    "description": "Crée tous les utilisateurs à partir d'un data file JSON (users.seed.json).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [{
+    "name": "Register (data-driven)",
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "const u = pm.iterationData.toObject();",
+            "const body = {",
+            "  email: u.email,",
+            "  password: u.password,",
+            "  first_name: u.first_name,",
+            "  last_name: u.last_name,",
+            "  role: u.role,",
+            "  profile: u.profile || {}",
+            "};",
+            "if (u.restaurant_id) body.restaurant_id = Number(u.restaurant_id);",
+            "pm.variables.set('req_body', JSON.stringify(body));"
+          ]
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Status 201', function () {",
+            "  pm.expect(pm.response.code).to.be.oneOf([201]);",
+            "});",
+            "if (pm.response.code !== 201) {",
+            "  console.log('Body envoyé:', pm.variables.get('req_body'));",
+            "  console.log('Réponse:', pm.response.text());",
+            "}"
+          ]
+        }
+      }
+    ],
+    "request": {
+      "method": "POST",
+      "header": [
+        { "key": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mode": "raw",
+        "raw": "{{req_body}}"
+      },
+      "url": {
+        "raw": "{{BASE_URL}}/accounts/register/",
+        "host": ["{{BASE_URL}}"],
+        "path": ["accounts","register",""]
+      }
+    },
+    "response": []
+  }],
+  "variable": [
+    { "key": "BASE_URL", "value": "https://vegnbio.onrender.com/api" }
+  ]
+}
