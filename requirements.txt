@@ -7,3 +7,4 @@ django-cors-headers
 gunicorn
 whitenoise
 dj-database-url
+reportlab==3.6.13

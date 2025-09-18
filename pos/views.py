@@ -6,14 +6,239 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from rest_framework.decorators import action
+
+
 from restaurants.permissions import IsRestaurateur, IsAdminVegNBio
 from .models import Order, OrderItem, Payment
 from .serializers import OrderSerializer, OrderItemSerializer, PaymentSerializer
+
+import io
+from decimal import Decimal, ROUND_HALF_UP
+from django.http import HttpResponse
+from django.utils import timezone
+
+# ReportLab
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.units import mm
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import (
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
+)
 
 def _is_owner(user, order: Order) -> bool:
     return getattr(user, "role", None) in ["RESTAURATEUR","ADMIN"] and (
         order.restaurant.owner == user or getattr(user, "role", None) == "ADMIN"
     )
+
+def _q2(x: Decimal) -> Decimal:
+    """Arrondi financier 2 décimales."""
+    return (Decimal(x or 0).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+
+def _eur(x: Decimal) -> str:
+    return f"{_q2(x):.2f} €"
+
+def _method_label(m: str) -> str:
+    return {"CASH": "Espèces", "CARD": "Carte", "ONLINE": "En ligne"}.get((m or "").upper(), m or "—")
+
+def _compute_net(order) -> dict:
+    """
+    Recalcule HT / remises pour l'affichage (en miroir de recalc_totals()).
+    """
+    subtotal = _q2(order.subtotal)
+    discount = _q2(order.discount_amount)
+    if order.discount_percent and order.discount_percent > 0:
+        discount += _q2(subtotal * order.discount_percent / Decimal("100"))
+    net = subtotal - discount
+    if net < 0: net = Decimal("0.00")
+    tax_total = _q2(net * order.tax_rate / Decimal("100"))
+    total_ttc = _q2(net + tax_total)
+    return {
+        "subtotal": subtotal,
+        "discount": discount,
+        "net": net,
+        "tax_total": tax_total,
+        "total_ttc": total_ttc,
+    }
+
+def _estimate_page_height(items_count: int) -> float:
+    """
+    Hauteur de page approximative (pour un ticket 80 mm de large).
+    Évite une 2e page tant que possible.
+    """
+    base = 160  # mm (entête + totaux)
+    per_line = 6  # mm par item
+    h = max(180, base + items_count * per_line)
+    return h * mm
+
+def build_ticket_pdf_80mm(order) -> bytes:
+    """
+    Ticket “80 mm” façon caisse : entête, lignes, totaux, TVA, paiements, rendu.
+    """
+    # --- Contexte & calculs ---
+    rest = order.restaurant
+    lines = list(order.items.all())
+    calc = _compute_net(order)
+    articles_count = sum((it.quantity for it in lines), 0)
+
+    # --- Mise en page ---
+    W = 80 * mm
+    H = _estimate_page_height(len(lines))  # hauteur dynamique
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buf, pagesize=(W, H),
+        leftMargin=6 * mm, rightMargin=6 * mm,
+        topMargin=8 * mm, bottomMargin=8 * mm,
+        title=f"ticket-{order.id}"
+    )
+
+    styles = getSampleStyleSheet()
+    H1 = ParagraphStyle("H1", parent=styles["Title"], fontSize=14, leading=16, alignment=1)
+    H2 = ParagraphStyle("H2", parent=styles["Heading3"], fontSize=10, leading=12, alignment=1)
+    N  = ParagraphStyle("N",  parent=styles["Normal"],  fontSize=9,  leading=11)
+    S  = ParagraphStyle("S",  parent=styles["Normal"],  fontSize=8,  leading=10, textColor=colors.grey)
+
+    story = []
+
+    # --- Header (logo texte + raison sociale/coordonnées) ---
+    story.append(Paragraph("Veg’N Bio", H1))
+    addr = f"{rest.name}<br/>{rest.address}<br/>{rest.postal_code} {rest.city}"
+    story.append(Paragraph(addr, H2))
+    story.append(Spacer(1, 4))
+
+    # --- Métadonnées ---
+    opened = timezone.localtime(order.opened_at).strftime("%d/%m/%Y %H:%M")
+    closed = order.closed_at and timezone.localtime(order.closed_at).strftime("%d/%m/%Y %H:%M")
+    cashier = getattr(order.cashier, "email", None) or getattr(order.cashier, "username", "—")
+
+    meta_lines = [
+        f"Ticket&nbsp;#: <b>{order.id}</b>",
+        f"Date&nbsp;: {opened}",
+        f"Caisse&nbsp;: {cashier}",
+    ]
+    if closed:
+        meta_lines.append(f"Fermée&nbsp;: {closed}")
+    story.append(Paragraph("<br/>".join(meta_lines), N))
+    story.append(Spacer(1, 4))
+
+    story.append(HRFlowable(width="100%", thickness=0.8, color=colors.black))
+    story.append(Spacer(1, 4))
+
+    # --- Tableau des lignes ---
+    data = [["Article", "PU", "Qté", "Total"]]
+    for it in lines:
+        label = it.custom_name or (it.dish.name if it.dish else "Article")
+        total = _q2(it.unit_price * it.quantity)
+        data.append([
+            Paragraph(label, N),
+            _eur(it.unit_price),
+            str(it.quantity),
+            _eur(total),
+        ])
+
+    tbl = Table(
+        data,
+        colWidths=[None, 20*mm, 12*mm, 22*mm],
+        hAlign="LEFT",
+    )
+    tbl.setStyle(TableStyle([
+        ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+        ("FONTSIZE", (0,0), (-1,0), 9),
+        ("ALIGN", (1,1), (-1,-1), "RIGHT"),
+        ("ALIGN", (0,1), (0,-1), "LEFT"),
+        ("LINEBELOW", (0,0), (-1,0), 0.7, colors.black),
+        ("ROWBACKGROUNDS", (0,1), (-1,-1), [colors.whitesmoke, colors.lightgrey]),
+        ("INNERGRID", (0,0), (-1,-1), 0.2, colors.lightgrey),
+        ("BOX", (0,0), (-1,-1), 0.5, colors.grey),
+    ]))
+    story.append(tbl)
+    story.append(Spacer(1, 6))
+
+    story.append(HRFlowable(width="100%", thickness=0.6, color=colors.black))
+    story.append(Spacer(1, 4))
+
+    # --- Bloc "Total à payer (n articles)" ---
+    titre_total = f"Total à payer  ({articles_count} article{'s' if articles_count>1 else ''})"
+    t_total = Table([[Paragraph(titre_total, N), Paragraph(_eur(calc['total_ttc']), ParagraphStyle('R', parent=N, alignment=2))]],
+                    colWidths=[None, 26*mm])
+    t_total.setStyle(TableStyle([
+        ("FONTNAME", (0,0), (0,0), "Helvetica-Bold"),
+        ("ALIGN", (1,0), (1,0), "RIGHT"),
+    ]))
+    story.append(t_total)
+    story.append(Spacer(1, 2))
+
+    # --- Détail HT/TVA/TTC ---
+    taux = f"{_q2(order.tax_rate):.2f} %"
+    detail = [
+        ["Total HT", _eur(calc["net"])],
+        [f"TVA ({taux})", _eur(calc["tax_total"])],
+        ["Total TTC", _eur(calc["total_ttc"])],
+    ]
+    t_detail = Table(detail, colWidths=[None, 26*mm], hAlign="RIGHT")
+    t_detail.setStyle(TableStyle([
+        ("ALIGN", (1,0), (1,-1), "RIGHT"),
+        ("LINEABOVE", (0,2), (-1,2), 0.5, colors.black),
+        ("FONTNAME", (0,2), (-1,2), "Helvetica-Bold"),
+    ]))
+    story.append(t_detail)
+
+    # --- Remises (afficher uniquement si ≠ 0) ---
+    if calc["discount"] > 0:
+        rem = f"Remise"
+        if order.discount_percent and order.discount_percent > 0:
+            rem += f" ({_q2(order.discount_percent):.2f} %)"
+        t_rem = Table([[rem, f"- {_eur(calc['discount'])}"]], colWidths=[None, 26*mm], hAlign="RIGHT")
+        t_rem.setStyle(TableStyle([
+            ("ALIGN", (1,0), (1,0), "RIGHT"),
+            ("TEXTCOLOR", (0,0), (-1,0), colors.darkred),
+        ]))
+        story.append(Spacer(1, 2))
+        story.append(t_rem)
+
+    story.append(Spacer(1, 6))
+    story.append(HRFlowable(width="100%", thickness=0.6, color=colors.black))
+    story.append(Spacer(1, 4))
+
+    # --- Paiements & rendu ---
+    pays = list(order.payments.all().order_by("received_at"))
+    if pays:
+        rows = []
+        for p in pays:
+            dt = timezone.localtime(p.received_at).strftime("%d/%m %H:%M")
+            rows.append([f"{_method_label(p.method)} ({dt})", _eur(p.amount)])
+        t_pay = Table(rows, colWidths=[None, 26*mm], hAlign="RIGHT")
+        t_pay.setStyle(TableStyle([
+            ("ALIGN", (1,0), (1,-1), "RIGHT"),
+        ]))
+        story.append(t_pay)
+
+    # Totaux encaissés + rendu
+    t_paid = Table([
+        ["Payé",  _eur(order.paid_amount)],
+        ["Rendu", _eur(order.change_due)],
+    ], colWidths=[None, 26*mm], hAlign="RIGHT")
+    t_paid.setStyle(TableStyle([
+        ("ALIGN", (1,0), (1,-1), "RIGHT"),
+        ("LINEABOVE", (0,0), (-1,0), 0.5, colors.black),
+    ]))
+    story.append(Spacer(1, 4))
+    story.append(t_paid)
+
+    story.append(Spacer(1, 8))
+    story.append(HRFlowable(width="70%", thickness=0.4, color=colors.grey))
+    story.append(Spacer(1, 6))
+
+    # --- Footer ---
+    story.append(Paragraph("Merci pour votre visite 🌱", N))
+    story.append(Paragraph("Veg’N Bio — Cuisine végétarienne & locale", S))
+
+    doc.build(story)
+    pdf = buf.getvalue()
+    buf.close()
+    return pdf
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.select_related("restaurant","cashier").prefetch_related("items","payments").all()
@@ -191,33 +416,21 @@ class OrderViewSet(viewsets.ModelViewSet):
                          "change_due": str(order.change_due)})
 
     # ------- Ticket / Résumé -------
-    @action(detail=True, methods=["get"])
-    def ticket(self, request, pk=None):
+    @action(detail=True, methods=["get"], url_path=r"ticket\.pdf", url_name="ticket_pdf")
+    def ticket_pdf(self, request, pk=None):
+        """
+        GET /api/pos/orders/{id}/ticket.pdf[?inline=1]
+        Retourne le ticket de caisse PDF (format 80 mm).
+        """
         order = self.get_object()
-        if not _is_owner(request.user, order): return Response({"detail":"Accès interdit."}, status=403)
-        return Response({
-            "order_id": order.id,
-            "restaurant": order.restaurant.name,
-            "opened_at": order.opened_at,
-            "closed_at": order.closed_at,
-            "items": [
-                {
-                    "label": it.custom_name or (it.dish.name if it.dish else ""),
-                    "qty": it.quantity,
-                    "unit_price": str(it.unit_price),
-                    "line_total": str(it.unit_price * it.quantity)
-                } for it in order.items.all()
-            ],
-            "subtotal": str(order.subtotal),
-            "discount_amount": str(order.discount_amount),
-            "discount_percent": str(order.discount_percent),
-            "tax_rate": str(order.tax_rate),
-            "tax_total": str(order.tax_total),
-            "total_due": str(order.total_due),
-            "paid_amount": str(order.paid_amount),
-            "change_due": str(order.change_due),
-            "status": order.status
-        })
+        if not _is_owner(request.user, order):
+            return Response({"detail": "Accès interdit."}, status=403)
+
+        pdf_bytes = build_ticket_pdf_80mm(order)
+        resp = HttpResponse(pdf_bytes, content_type="application/pdf")
+        disp = "inline" if request.GET.get("inline") in ["1", "true", "yes"] else "attachment"
+        resp["Content-Disposition"] = f'{disp}; filename="ticket-{order.id}.pdf"'
+        return resp
 
     @action(detail=False, methods=["get"])
     def summary(self, request):
