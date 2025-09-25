@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vetbot', '0002_add_species_to_disease'),
+        ('vetbot', '0003_add_case_to_feedback'),
     ]
 
     operations = [

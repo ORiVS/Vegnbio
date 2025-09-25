@@ -17,8 +17,9 @@ def backfill_disease_species(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vetbot', '0001_initial'),
+        ("vetbot", "0001_initial"),
     ]
+
 
     operations = [
         # s'assurer qu'au moins une espèce existe pour le backfill
