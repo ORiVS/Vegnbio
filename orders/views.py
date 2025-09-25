@@ -1,4 +1,6 @@
+# orders/views.py
 from decimal import Decimal
+
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status, views
@@ -10,16 +12,22 @@ from .serializers import (
     OrderSerializer, CheckoutSerializer, UpdateStatusSerializer
 )
 
+# On a besoin du restaurant lors de l'ajout au panier
+from restaurants.models import Restaurant
+
 # Import fidélité
 from fidelite.models import LoyaltyProgram, Membership, PointsTransaction
+
 
 def get_or_create_cart(user):
     cart, _ = Cart.objects.get_or_create(user=user)
     return cart
 
+
 def get_program():
     program, _ = LoyaltyProgram.objects.get_or_create(id=1)
     return program
+
 
 def get_or_create_membership(user):
     membership, _ = Membership.objects.get_or_create(user=user)
@@ -45,15 +53,28 @@ class CartView(views.APIView):
     def post(self, request):
         """
         Ajouter au panier
-        body: { external_item_id, name, unit_price, quantity }
+        body attendu:
+        {
+          "restaurant_id": <int>,           # requis (nouvelle règle)
+          "external_item_id": "DISH-123",
+          "name": "Curry de légumes",
+          "unit_price": "12.90",
+          "quantity": 2
+        }
         """
         cart = get_or_create_cart(request.user)
+
         serializer = CartAddSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
+        # Récupération du restaurant (requis)
+        restaurant = get_object_or_404(Restaurant, id=data["restaurant_id"])
+
+        # On distingue un même external_item_id provenant de restaurants différents
         item, created = CartItem.objects.get_or_create(
             cart=cart,
+            restaurant=restaurant,
             external_item_id=data["external_item_id"],
             defaults={
                 "name": data["name"],
@@ -62,6 +83,7 @@ class CartView(views.APIView):
             }
         )
         if not created:
+            # Mise à jour du nom/prix si besoin et incrément de quantité
             item.name = data["name"]
             item.unit_price = data["unit_price"]
             item.quantity += data.get("quantity", 1)
@@ -73,13 +95,26 @@ class CartView(views.APIView):
     def delete(self, request):
         """
         Retirer un item
-        body: { external_item_id }
+        body attendu (legacy) :
+        { "external_item_id": "DISH-123" }
+
+        Optionnel (recommandé désormais pour éviter les ambiguïtés) :
+        { "external_item_id": "DISH-123", "restaurant_id": 5 }
         """
         cart = get_or_create_cart(request.user)
         serializer = CartRemoveSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         ext_id = serializer.validated_data["external_item_id"]
-        CartItem.objects.filter(cart=cart, external_item_id=ext_id).delete()
+
+        # Compat : si restaurant_id est passé, on filtre plus précisément
+        restaurant_id = request.data.get("restaurant_id")
+        qs = CartItem.objects.filter(cart=cart, external_item_id=ext_id)
+        if restaurant_id:
+            qs = qs.filter(restaurant_id=restaurant_id)
+
+        deleted, _ = qs.delete()
+        if deleted == 0:
+            return Response({"message": "Aucun article correspondant trouvé."}, status=404)
         return Response({"message": "Supprimé"})
 
 
@@ -91,11 +126,33 @@ class CheckoutView(views.APIView):
         """
         Valider la commande : transforme le panier en Order + OrderItems
         Peut utiliser des points de fidélité pour réduire le total.
-        body: { address_line1, ..., slot_id, points_to_use? }
+
+        body:
+        {
+          "address_line1": "...",
+          "address_line2": "",
+          "city": "Paris",
+          "postal_code": "75010",
+          "phone": "06...",
+          "slot_id": 3,
+          "points_to_use": 100   # optionnel
+        }
         """
         cart = get_or_create_cart(request.user)
         if cart.items.count() == 0:
             return Response({"detail": "Panier vide."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # **Sécurité nouvelle** : tous les items doivent être rattachés à un restaurant
+        if cart.items.filter(restaurant__isnull=True).exists():
+            return Response(
+                {
+                    "detail": (
+                        "Un ou plusieurs articles du panier n’ont pas de restaurant associé. "
+                        "Supprimez-les et ré-ajoutez-les (le restaurant est désormais requis)."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         serializer = CheckoutSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -117,15 +174,17 @@ class CheckoutView(views.APIView):
 
         discount_euros = Decimal(points_to_use) * program.redeem_rate_euro_per_point
         if discount_euros > subtotal:
-            # On ne peut pas avoir une réduction supérieure au subtotal
-            # On ajuste le nombre de points consommés au maximum utile
-            max_points_needed = int((subtotal / program.redeem_rate_euro_per_point).to_integral_value(rounding="ROUND_FLOOR"))
+            # Ajuste le nombre de points au maximum utile
+            max_points_needed = int(
+                (subtotal / program.redeem_rate_euro_per_point).to_integral_value(rounding="ROUND_FLOOR")
+            )
             points_to_use = min(points_to_use, max_points_needed)
             discount_euros = Decimal(points_to_use) * program.redeem_rate_euro_per_point
 
         total_paid = subtotal - discount_euros
 
-        # Créer commande
+        # Créer la commande (une commande globale — si tu veux un jour
+        # faire une commande par restaurant, on la scindera ici)
         order = Order.objects.create(
             user=request.user,
             address_line1=data["address_line1"],
@@ -141,7 +200,7 @@ class CheckoutView(views.APIView):
         )
 
         # Items
-        for ci in cart.items.all():
+        for ci in cart.items.select_related("restaurant").all():
             OrderItem.objects.create(
                 order=order,
                 external_item_id=ci.external_item_id,
@@ -149,7 +208,6 @@ class CheckoutView(views.APIView):
                 unit_price=ci.unit_price,
                 quantity=ci.quantity,
             )
-
         # Vider panier
         cart.items.all().delete()
 
@@ -179,7 +237,8 @@ class CheckoutView(views.APIView):
                     related_order_id=order.id,
                 )
 
-        return Response({"message": "Commande créée", "order": OrderSerializer(order).data}, status=status.HTTP_201_CREATED)
+        return Response({"message": "Commande créée", "order": OrderSerializer(order).data},
+                        status=status.HTTP_201_CREATED)
 
 
 class MyOrdersView(views.APIView):

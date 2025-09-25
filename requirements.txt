@@ -2,9 +2,12 @@ Django>=4.2
 djangorestframework~=3.16.0
 python-decouple~=3.8
 djangorestframework-simplejwt==5.3.1
-psycopg[binary]==3.2.3
-django-cors-headers
-gunicorn
-whitenoise
-dj-database-url
 reportlab==3.6.13
+transformers>=4.43
+torch>=2.2
+requests>=2.31
+dj-database-url>=2.2
+django-cors-headers>=4.4
+whitenoise>=6.6
+drf-yasg~=1.21.10
+psycopg[binary]>=3.2

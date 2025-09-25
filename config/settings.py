@@ -9,6 +9,14 @@ from decouple import config
 import os
 import dj_database_url
 
+from decouple import config
+
+LLM_PROVIDER   = config("LLM_PROVIDER",   default="ollama")
+HF_MODEL       = config("HF_MODEL",       default="aaditya/Llama3-OpenBioLLM-8B")
+HF_TOKEN       = config("HF_TOKEN",       default="")
+OLLAMA_BASE_URL= config("OLLAMA_BASE_URL",default="http://127.0.0.1:11434")
+OLLAMA_MODEL   = config("OLLAMA_MODEL",   default="hf.co/bartowski/OpenBioLLM-Llama3-8B-GGUF:latest")
+
 # ────────────────────────────────────────────────────────────────────────────────
 # Base
 # ────────────────────────────────────────────────────────────────────────────────
@@ -41,11 +49,13 @@ INSTALLED_APPS = [
     "fidelite",
     "orders",
     "vetbot",
+    "purchasing",
 
     # Tiers
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
+    'drf_yasg',
 ]
 
 # ────────────────────────────────────────────────────────────────────────────────
@@ -59,6 +69,8 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+
+
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -200,3 +212,9 @@ LOGGING = {
         "django": {"handlers": ["console"], "level": "INFO"},
     },
 }
+
+# Régions autorisées
+REGIONS_ALLOWED = ["Île-de-France"]
+
+# Limite de créations d'offres par fournisseur sur 7 jours glissants
+SUPPLIER_WEEKLY_OFFER_LIMIT = 5

@@ -1,0 +1,72 @@
+[
+  {
+    "code": "gastroenteritis",
+    "name": "Gastro-entérite",
+    "description": "Inflammation gastro-intestinale avec vomissements/diarrhée, souvent autolimitée.",
+    "prevalence": 0.6,
+    "symptoms": [
+      { "code": "vomiting", "weight": 1.0 },
+      { "code": "diarrhea", "weight": 1.0 },
+      { "code": "fever", "weight": 0.4 },
+      { "code": "lethargy", "weight": 0.3 },
+      { "code": "dehydration", "weight": 0.5 }
+    ],
+    "red_flags": [
+      "Vomissements persistants >24–48 h",
+      "Selles sanglantes importantes",
+      "Déshydratation marquée"
+    ],
+    "references": []
+  },
+  {
+    "code": "pancreatitis",
+    "name": "Pancréatite",
+    "description": "Inflammation du pancréas; vomissements, douleur abdominale, abattement.",
+    "prevalence": 0.2,
+    "symptoms": [
+      { "code": "vomiting", "weight": 0.9 },
+      { "code": "abdominal_pain", "weight": 1.2, "critical": true },
+      { "code": "lethargy", "weight": 0.5 },
+      { "code": "anorexia", "weight": 0.5 },
+      { "code": "fever", "weight": 0.4 }
+    ],
+    "red_flags": [
+      "Douleur abdominale sévère",
+      "Vomissements incoercibles",
+      "Abattement marqué"
+    ],
+    "references": []
+  },
+  {
+    "code": "foreign_body",
+    "name": "Corps étranger digestif",
+    "description": "Ingestion d’un objet; vomissements +/- douleur, parfois selles anormales.",
+    "prevalence": 0.1,
+    "symptoms": [
+      { "code": "vomiting", "weight": 0.8 },
+      { "code": "abdominal_pain", "weight": 0.9, "critical": true },
+      { "code": "foreign_body_suspect", "weight": 1.0 }
+    ],
+    "red_flags": [
+      "Vomissements + douleur abdominale forte",
+      "Aucune émission de selles/gaz (occlusion)"
+    ],
+    "references": []
+  },
+  {
+    "code": "kennel_cough",
+    "name": "Toux du chenil",
+    "description": "Trachéobronchite infectieuse; toux, parfois éternuements.",
+    "prevalence": 0.1,
+    "symptoms": [
+      { "code": "cough", "weight": 1.2, "critical": false },
+      { "code": "sneezing", "weight": 0.3 },
+      { "code": "fever", "weight": 0.2 }
+    ],
+    "red_flags": [
+      "Détresse respiratoire",
+      "Toux très fréquente avec cyanose"
+    ],
+    "references": []
+  }
+]

@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from restaurants.models import Restaurant
 from .models import Allergen, Product, Dish, DishAvailability, Menu, MenuItem
 
@@ -34,7 +33,6 @@ class DishSerializer(serializers.ModelSerializer):
         return list(obj.allergens_union_qs().values("id", "code", "label"))
 
     def validate(self, data):
-        # Bloquer un plat avec un product non végétarien
         prods = data.get("products", []) or getattr(self.instance, "products", None)
         if prods:
             if any([not p.is_vegetarian for p in prods]):
@@ -51,14 +49,8 @@ class DishAvailabilitySerializer(serializers.ModelSerializer):
 
 # --- Menu & Items ---
 class MenuItemSerializer(serializers.ModelSerializer):
-    # on renvoie le plat complet (lecture)
     dish = DishSerializer(read_only=True)
-    # et on accepte un id en écriture pour ne pas casser create/update
-    dish_id = serializers.PrimaryKeyRelatedField(
-        queryset=Dish.objects.all(),
-        source="dish",
-        write_only=True
-    )
+    dish_id = serializers.PrimaryKeyRelatedField(queryset=Dish.objects.all(), source="dish", write_only=True)
 
     class Meta:
         model = MenuItem

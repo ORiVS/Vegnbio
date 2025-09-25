@@ -1,0 +1,22 @@
+[
+  { "code": "vomiting", "label": "Vomissements" },
+  { "code": "diarrhea", "label": "Diarrhée" },
+  { "code": "fever", "label": "Fièvre" },
+  { "code": "lethargy", "label": "Apathie / Fatigue" },
+  { "code": "cough", "label": "Toux" },
+  { "code": "sneezing", "label": "Éternuements" },
+  { "code": "anorexia", "label": "Perte d'appétit" },
+  { "code": "abdominal_pain", "label": "Douleur abdominale" },
+  { "code": "bloody_stool", "label": "Selles sanglantes" },
+  { "code": "dehydration", "label": "Déshydratation" },
+  { "code": "pruritus", "label": "Démangeaisons" },
+  { "code": "skin_lesions", "label": "Lésions cutanées" },
+  { "code": "lameness", "label": "Boiterie" },
+  { "code": "seizure", "label": "Convulsions" },
+  { "code": "polyuria_polydipsia", "label": "PUPD (boit/urine beaucoup)" },
+  { "code": "dysuria", "label": "Difficultés à uriner" },
+  { "code": "hematuria", "label": "Sang dans les urines" },
+  { "code": "respiratory_distress", "label": "Détresse respiratoire" },
+  { "code": "weight_loss", "label": "Perte de poids" },
+  { "code": "foreign_body_suspect", "label": "Suspicions de corps étranger" }
+]

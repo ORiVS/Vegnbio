@@ -1,53 +1,92 @@
+import json
+from pathlib import Path
 from django.core.management.base import BaseCommand
-from vetbot.models import Species, Breed, Symptom, Disease, DiseaseSymptom, DiseaseBreedRisk
+from django.db import transaction
+from vetbot.models import (
+    Species, Breed, Symptom,
+    Disease, DiseaseSymptom, DiseaseRedFlag
+)
+
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+
+def load_json(name):
+    with open(DATA_DIR / name, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 class Command(BaseCommand):
-    help = "Seed minimal data for vetbot"
+    help = "Seed initial data for VetBot (species, breeds, symptoms, diseases)"
 
-    def handle(self, *args, **kwargs):
-        dog, _ = Species.objects.get_or_create(code="dog", defaults={"name":"Chien"})
-        cat, _ = Species.objects.get_or_create(code="cat", defaults={"name":"Chat"})
+    @transaction.atomic
+    def handle(self, *args, **options):
+        self.stdout.write(self.style.MIGRATE_HEADING("Seeding VetBot data..."))
 
-        labr, _ = Breed.objects.get_or_create(species=dog, name="Labrador Retriever")
-        gsd, _ = Breed.objects.get_or_create(species=dog, name="German Shepherd")
-        siam, _ = Breed.objects.get_or_create(species=cat, name="Siamois")
+        # Species
+        species_map = {}
+        for sp in load_json("species.json"):
+            obj, _ = Species.objects.get_or_create(code=sp["code"], defaults={"name": sp["name"]})
+            species_map[sp["code"]] = obj
+        self.stdout.write(self.style.SUCCESS(f"Species OK: {list(species_map.keys())}"))
 
-        def S(code, label):
-            return Symptom.objects.get_or_create(code=code, defaults={"label":label})[0]
+        # Breeds (dog)
+        dog = species_map.get("dog")
+        if dog:
+            for b in load_json("breeds_dog.json"):
+                Breed.objects.get_or_create(
+                    species=dog, name=b["name"],
+                    defaults={"aliases": b.get("aliases", [])}
+                )
+        # Breeds (cat)
+        cat = species_map.get("cat")
+        if cat:
+            for b in load_json("breeds_cat.json"):
+                Breed.objects.get_or_create(
+                    species=cat, name=b["name"],
+                    defaults={"aliases": b.get("aliases", [])}
+                )
+        self.stdout.write(self.style.SUCCESS("Breeds OK"))
 
-        vomiting = S("vomiting", "Vomissements")
-        diarrhea = S("diarrhea", "Diarrhée")
-        lethargy = S("lethargy", "Léthargie")
-        lossapp = S("loss_of_appetite", "Perte d'appétit")
-        seizure = S("seizure", "Convulsions")
-        bleeding = S("bleeding", "Hémorragie")
-        fever = S("fever", "Fièvre")
-        dehydration = S("dehydration", "Déshydratation")
-        poisoning = S("poisoning", "Intoxication")
+        # Symptoms
+        symptom_map = {}
+        for s in load_json("symptoms.json"):
+            sym, _ = Symptom.objects.get_or_create(code=s["code"], defaults={"label": s["label"]})
+            symptom_map[s["code"]] = sym
+        self.stdout.write(self.style.SUCCESS(f"Symptoms OK: {len(symptom_map)}"))
 
-        def D(name, severity="medium", species_list=(dog,)):
-            d, _ = Disease.objects.get_or_create(name=name, defaults={"severity":severity})
-            for sp in species_list:
-                d.species.add(sp)
-            return d
+        # Diseases per species
+        def seed_diseases(filename, species_obj):
+            data = load_json(filename)
+            for d in data:
+                dis, _ = Disease.objects.get_or_create(
+                    species=species_obj, code=d["code"],
+                    defaults={
+                        "name": d["name"],
+                        "description": d.get("description", ""),
+                        "prevalence": d.get("prevalence", 0.0),
+                        "references": d.get("references", [])
+                    }
+                )
+                # link symptoms
+                for sl in d.get("symptoms", []):
+                    code = sl["code"]
+                    if code not in symptom_map:
+                        # crée le symptôme à la volée si absent
+                        sym = Symptom.objects.create(code=code, label=code)
+                        symptom_map[code] = sym
+                    DiseaseSymptom.objects.get_or_create(
+                        disease=dis, symptom=symptom_map[code],
+                        defaults={
+                            "weight": float(sl.get("weight", 1.0)),
+                            "critical": bool(sl.get("critical", False))
+                        }
+                    )
+                # red flags
+                for rf in d.get("red_flags", []):
+                    DiseaseRedFlag.objects.get_or_create(disease=dis, text=rf)
 
-        gastro = D("Gastro-entérite", "medium", (dog, cat))
-        parvo  = D("Parvovirose", "high", (dog,))
-        foodp  = D("Intoxication alimentaire", "medium", (dog, cat))
+        if dog:
+            seed_diseases("diseases_dog.json", dog)
+        if cat:
+            seed_diseases("diseases_cat.json", cat)
 
-        # Règles must/nice
-        def rule(d, must=[], nice=[]):
-            for s in must:
-                DiseaseSymptom.objects.get_or_create(disease=d, symptom=s, kind="MUST")
-            for s in nice:
-                DiseaseSymptom.objects.get_or_create(disease=d, symptom=s, kind="NICE")
-
-        rule(gastro, must=[vomiting, diarrhea], nice=[lossapp, lethargy, fever, dehydration])
-        rule(parvo,  must=[vomiting, diarrhea], nice=[lethargy, dehydration, fever])
-        rule(foodp,  must=[vomiting],           nice=[diarrhea, lossapp, lethargy])
-
-        # Poids de race (exemples)
-        DiseaseBreedRisk.objects.get_or_create(disease=parvo, breed=labr, defaults={"weight": 0.10})
-        DiseaseBreedRisk.objects.get_or_create(disease=gastro, breed=siam, defaults={"weight": 0.05})
-
-        self.stdout.write(self.style.SUCCESS("vetbot seed done."))
+        self.stdout.write(self.style.SUCCESS("Diseases OK"))
+        self.stdout.write(self.style.SUCCESS("Seeding done."))

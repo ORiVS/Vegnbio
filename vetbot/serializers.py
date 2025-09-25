@@ -1,52 +1,20 @@
 from rest_framework import serializers
-from .models import Species, Breed, Symptom, Disease, Consultation, Feedback, ReportEvent
 
-class SymptomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Symptom
-        fields = ("id","code","label")
+class ParseInputSerializer(serializers.Serializer):
+    text = serializers.CharField()
 
-class BreedSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Breed
-        fields = ("id","name")
-
-class AskInputSerializer(serializers.Serializer):
+class ParseOutputSerializer(serializers.Serializer):
     species = serializers.CharField()
-    breed_id = serializers.IntegerField(required=False)
-    symptoms = serializers.ListField(child=serializers.CharField(), allow_empty=False)
+    breed = serializers.CharField(allow_blank=True)
+    symptoms = serializers.ListField(child=serializers.DictField())
 
-class DiseaseShortSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Disease
-        fields = ("id","name")
+class TriageInputSerializer(serializers.Serializer):
+    species = serializers.CharField()
+    breed = serializers.CharField(required=False, allow_blank=True)
+    symptoms = serializers.ListField(child=serializers.CharField())
 
-class PredictionSerializer(serializers.Serializer):
-    disease = DiseaseShortSerializer()
-    score = serializers.FloatField()
-    triage = serializers.CharField()
-
-class AskResponseSerializer(serializers.Serializer):
-    predictions = PredictionSerializer(many=True)
+class TriageOutputSerializer(serializers.Serializer):
+    triage = serializers.ChoiceField(choices=["low", "medium", "high"])
+    differential = serializers.ListField(child=serializers.DictField())
+    red_flags = serializers.ListField(child=serializers.CharField())
     advice = serializers.CharField()
-    consultation_id = serializers.IntegerField()
-
-class FeedbackSerializer(serializers.Serializer):
-    consultation_id = serializers.IntegerField()
-    is_useful = serializers.BooleanField()
-    notes = serializers.CharField(required=False, allow_blank=True)
-    chosen_diagnosis_id = serializers.IntegerField(required=False)
-
-class ReportEventSerializer(serializers.Serializer):
-    event_type = serializers.ChoiceField(choices=["functional","technical"])
-    category = serializers.ChoiceField(choices=[
-        "missing_symptom","not_useful","underestimated_urgency",
-        "bug_ui","http_error","timeout","other"
-    ])
-    message = serializers.CharField(required=False, allow_blank=True)
-    consultation_id = serializers.IntegerField(required=False)
-    endpoint = serializers.CharField(required=False, allow_blank=True)
-    http_status = serializers.IntegerField(required=False)
-    request_id = serializers.CharField(required=False, allow_blank=True)
-    context = serializers.DictField(required=False)
-    source = serializers.CharField(required=False, default="mobile")

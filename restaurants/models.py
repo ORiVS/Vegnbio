@@ -5,9 +5,10 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from datetime import time, timedelta
+from datetime import time, timedelta, datetime as ddatetime, time as dtime
 
 User = settings.AUTH_USER_MODEL
+
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
@@ -75,7 +76,6 @@ class Restaurant(models.Model):
 
         ok_today = in_range_same_day(open_t, close_t, start_t, end_t)
 
-        # spill après minuit couvert par la veille
         from datetime import time as ttime
         prev_open, prev_close = self.opening_times_for_weekday((wd - 1) % 7)
         is_prev_overnight = prev_close <= prev_open
@@ -85,6 +85,7 @@ class Restaurant(models.Model):
                 ok_prev_spill = True
 
         return ok_today or ok_prev_spill
+
 
 class Room(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='rooms')
@@ -109,34 +110,37 @@ class Reservation(models.Model):
     ]
 
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservations')
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='reservations', blank=True, null=True)
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reservations', blank=True, null=True)
-    full_restaurant = models.BooleanField(default=False)
+
+    # Désormais, le client choisit le RESTAURANT, pas la salle.
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reservations')
+
+    # Nombre de places demandé par le client
+    party_size = models.PositiveIntegerField(help_text="Nombre de couverts demandés")
+
+    # Créneau souhaité
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
+
+    # Affectation décidée par le restaurateur (après création)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='reservations', blank=True, null=True)
+    full_restaurant = models.BooleanField(default=False, help_text="Réservation de tout le restaurant (décision resto)")
+
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError("L'heure de début doit être avant l'heure de fin.")
-
-        if self.room:
-            if Reservation.objects.exclude(id=self.id).filter(
-                room=self.room,
-                date=self.date,
-                start_time=self.start_time,
-                end_time=self.end_time
-            ).exists():
-                raise ValidationError("Un créneau identique existe déjà pour cette salle.")
+        # Ne pas imposer de salle ici : l’affectation se fait plus tard par le restaurateur.
 
     def __str__(self):
-        cible = self.room.name if self.room else f"Restaurant complet ({self.restaurant.name})"
-        return f"{self.customer} - {cible} ({self.date} {self.start_time}-{self.end_time})"
+        cible = "Tout le restaurant" if self.full_restaurant else (self.room.name if self.room else "À affecter")
+        return f"{self.customer} - {self.restaurant.name} / {cible} ({self.date} {self.start_time}-{self.end_time})"
 
     class Meta:
         ordering = ['-date', 'start_time']
+
 
 class Evenement(models.Model):
     TYPE_CHOICES = [
@@ -153,7 +157,7 @@ class Evenement(models.Model):
         ("CANCELLED", "Annulé"),
     ]
 
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='evenements')
+    restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, related_name='evenements')
     title = models.CharField(max_length=100)
     description = models.TextField()
     type = models.CharField(max_length=50, choices=TYPE_CHOICES)
@@ -167,7 +171,7 @@ class Evenement(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="DRAFT")
 
     is_blocking = models.BooleanField(default=False)
-    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, blank=True,
+    room = models.ForeignKey('Room', on_delete=models.SET_NULL, null=True, blank=True,
                              help_text="Si non null, évènement dans cette salle")
 
     rrule = models.CharField(max_length=255, blank=True, null=True,
@@ -175,19 +179,33 @@ class Evenement(models.Model):
 
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
-    # ➜ AJOUTS nécessaires (référencés dans le serializer et les vues)
-    created_at = models.DateTimeField(auto_now_add=True)   # nouveau
-    updated_at = models.DateTimeField(auto_now=True)       # nouveau
-    published_at = models.DateTimeField(null=True, blank=True)  # nouveau
-    full_at = models.DateTimeField(null=True, blank=True)       # nouveau
-    cancelled_at = models.DateTimeField(null=True, blank=True)  # nouveau
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+    full_at = models.DateTimeField(null=True, blank=True)
+    cancelled_at = models.DateTimeField(null=True, blank=True)
+
+    # Producteurs (déjà présents dans ta précédente version des events si tu les as ajoutés)
+    requires_supplier_confirmation = models.BooleanField(
+        default=False,
+        help_text="Si vrai, les invitations 'producteurs' doivent être acceptées avant une date limite."
+    )
+    supplier_deadline_days = models.PositiveSmallIntegerField(
+        default=14,
+        help_text="Nombre de jours avant la date de l’événement : date limite d’acceptation pour les producteurs."
+    )
 
     def clean(self):
-        from django.core.exceptions import ValidationError
-        # cohérence horaire
         if self.start_time >= self.end_time:
             raise ValidationError("L'heure de début doit être avant l'heure de fin.")
-        # (optionnel) on pourrait aussi empêcher ici les dates passées, mais on le fait côté serializer
+
+    def supplier_deadline_at(self):
+        if not self.date or not self.requires_supplier_confirmation:
+            return None
+        tz = timezone.get_current_timezone()
+        limit_date = self.date - timedelta(days=int(self.supplier_deadline_days or 0))
+        return tz.localize(ddatetime.combine(limit_date, dtime(23, 59, 59)))
 
     def __str__(self):
         return f"{self.title} ({self.date} - {self.restaurant.name})"
@@ -198,6 +216,7 @@ class Evenement(models.Model):
             models.Index(fields=['restaurant', 'date']),
             models.Index(fields=['status']),
         ]
+
 
 class EvenementRegistration(models.Model):
     event = models.ForeignKey(Evenement, on_delete=models.CASCADE, related_name='registrations')
@@ -244,7 +263,6 @@ class EventInvite(models.Model):
         return f"Invite {ident} → {self.event.title}"
 
 
-# --- NOUVEAU: Jours d'indisponibilité (fermetures exceptionnelles) ---
 class RestaurantClosure(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='closures')
     date = models.DateField()

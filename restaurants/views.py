@@ -23,7 +23,6 @@ from rest_framework import status as drf_status
 from .utils import notify_event_full, send_invite_email, notify_event_cancelled
 from rest_framework.exceptions import PermissionDenied
 
-
 User = get_user_model()
 
 
@@ -33,13 +32,10 @@ class RestaurantViewSet(viewsets.ModelViewSet):
     serializer_class = RestaurantSerializer
 
     def get_permissions(self):
-        # lecture publique
         if self.action in ['list', 'retrieve', 'evenements']:
             return [permissions.AllowAny()]
-        # édition: restaurateur propriétaire ou admin
         if self.action in ['update', 'partial_update']:
             return [IsAuthenticated()]
-        # interdiction de create/destroy par défaut (admin pourrait le faire si besoin)
         if self.action in ['create', 'destroy']:
             return [IsAuthenticated(), IsAdminVegNBio()]
         return [IsAuthenticated()]
@@ -74,10 +70,8 @@ class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.select_related('restaurant').all()
 
     def get_permissions(self):
-        # Lecture publique autorisée
         if self.action in ['list', 'retrieve']:
             return [permissions.AllowAny()]
-        # Écriture restreinte
         return [IsAuthenticated(), IsRestaurateur()]
 
     def get_serializer_class(self):
@@ -95,7 +89,6 @@ class RoomViewSet(viewsets.ModelViewSet):
         obj = self.get_object()
         if obj.restaurant.owner != self.request.user:
             raise permissions.PermissionDenied("Accès interdit.")
-        # si le restaurateur change de restaurant via payload, revalider ownership
         new_restaurant = serializer.validated_data.get('restaurant', obj.restaurant)
         if new_restaurant.owner != self.request.user:
             raise permissions.PermissionDenied("Accès interdit (restaurant).")
@@ -113,30 +106,28 @@ class ReservationViewSet(viewsets.ModelViewSet):
     serializer_class = ReservationSerializer
 
     def get_permissions(self):
-        # modérer: restaurateur
-        if self.action in ['moderate']:
+        if self.action in ['assign', 'moderate']:
             return [IsAuthenticated(), IsRestaurateur()]
-        # tout le reste: utilisateur authentifié (client ou restaurateur)
         return [IsAuthenticated()]
 
     def get_queryset(self):
         user = self.request.user
         if getattr(user, 'role', None) == 'CLIENT':
-            return Reservation.objects.filter(customer=user)
+            return Reservation.objects.filter(customer=user).select_related('restaurant', 'room')
         elif getattr(user, 'role', None) == 'RESTAURATEUR':
-            # Un restaurateur voit toutes les réservations (ou on peut filtrer par ses restos)
-            return Reservation.objects.all()
+            # Un restaurateur voit toutes les réservations de ses restos
+            return Reservation.objects.filter(restaurant__owner=user).select_related('restaurant', 'room')
+        elif getattr(user, 'role', None) == 'ADMIN':
+            return Reservation.objects.all().select_related('restaurant', 'room')
         return Reservation.objects.none()
 
     def perform_create(self, serializer):
         user = self.request.user
         if getattr(user, 'role', None) == 'RESTAURATEUR':
-            # vérifie ownership sur la cible (room/restaurant)
-            room = serializer.validated_data.get('room')
-            restaurant = serializer.validated_data.get('restaurant') or (room.restaurant if room else None)
+            # ownership : le resto visé doit être à lui
+            restaurant = serializer.validated_data.get('restaurant')
             if not restaurant or restaurant.owner != user:
                 raise permissions.PermissionDenied("Accès interdit: restaurant non possédé.")
-            # le serializer gère customer_id -> customer
             serializer.save()
         else:
             # client standard
@@ -149,20 +140,122 @@ class ReservationViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @action(detail=True, methods=['post'], permission_classes=[IsRestaurateur])
+    def assign(self, request, pk=None):
+        """
+        Affectation par le restaurateur :
+        - soit {"room": <id>}  → vérifie capacité (room.capacity >= party_size) + conflits pour cette salle
+        - soit {"full_restaurant": true} → vérifie conflits (aucune salle réservée ni full_restaurant existant)
+        Confirme la réservation (status = CONFIRMED) si OK.
+        """
+        reservation = self.get_object()
+        if reservation.restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
+            return Response({"detail": "Accès interdit."}, status=403)
+
+        if reservation.status == 'CANCELLED':
+            return Response({"detail": "Réservation déjà annulée."}, status=400)
+
+        want_full = request.data.get('full_restaurant', None)
+        room_id = request.data.get('room', None)
+
+        if want_full not in [None, False, True]:
+            return Response({"detail": "full_restaurant doit être un booléen."}, status=400)
+
+        # fenêtres de temps
+        date_ = reservation.date
+        start = reservation.start_time
+        end = reservation.end_time
+        restaurant = reservation.restaurant
+
+        # Conflit avec évènements bloquants
+        ev_qs = Evenement.objects.filter(
+            restaurant=restaurant, date=date_,
+            is_blocking=True, status__in=["PUBLISHED", "FULL"],
+            start_time__lt=end, end_time__gt=start
+        )
+        if ev_qs.exists():
+            return Response({"detail": "Créneau indisponible (événement bloquant)."}, status=400)
+
+        # Affecter "Tout le restaurant"
+        if want_full is True:
+            # Aucune salle ne doit être déjà réservée sur le créneau
+            room_conflicts = Reservation.objects.filter(
+                restaurant=restaurant, date=date_,
+                start_time__lt=end, end_time__gt=start,
+                full_restaurant=False, room__isnull=False
+            )
+            # exclure soi-même si déjà affecté (reaffectation)
+            room_conflicts = room_conflicts.exclude(pk=reservation.pk)
+            if room_conflicts.exists():
+                return Response({"detail": "Des salles sont déjà réservées sur ce créneau."}, status=400)
+            # Pas de full existant
+            full_conflicts = Reservation.objects.filter(
+                restaurant=restaurant, date=date_,
+                start_time__lt=end, end_time__gt=start,
+                full_restaurant=True
+            ).exclude(pk=reservation.pk)
+            if full_conflicts.exists():
+                return Response({"detail": "Le restaurant est déjà réservé en entier sur ce créneau."}, status=400)
+
+            reservation.full_restaurant = True
+            reservation.room = None
+            reservation.status = 'CONFIRMED'
+            reservation.save(update_fields=['full_restaurant', 'room', 'status'])
+            return Response(ReservationSerializer(reservation).data, status=200)
+
+        # Affecter à une salle précise
+        if room_id is None:
+            return Response({"detail": "Fournir soit 'full_restaurant': true, soit 'room': <id>."}, status=400)
+
+        try:
+            room = Room.objects.get(pk=room_id, restaurant=restaurant)
+        except Room.DoesNotExist:
+            return Response({"detail": "Salle introuvable dans ce restaurant."}, status=404)
+
+        # Capacité
+        if room.capacity < reservation.party_size:
+            return Response({"detail": f"Capacité insuffisante (capacité {room.capacity} < {reservation.party_size})."}, status=400)
+
+        # Conflits sur la salle
+        room_conflicts = Reservation.objects.filter(
+            room=room, date=date_,
+            start_time__lt=end, end_time__gt=start
+        ).exclude(pk=reservation.pk)
+        if room_conflicts.exists():
+            return Response({"detail": "Cette salle est déjà réservée sur ce créneau."}, status=400)
+
+        # Conflit avec full_restaurant existant
+        full_conflicts = Reservation.objects.filter(
+            restaurant=restaurant, date=date_,
+            start_time__lt=end, end_time__gt=start,
+            full_restaurant=True
+        ).exclude(pk=reservation.pk)
+        if full_conflicts.exists():
+            return Response({"detail": "Le restaurant est réservé en entier sur ce créneau."}, status=400)
+
+        reservation.room = room
+        reservation.full_restaurant = False
+        reservation.status = 'CONFIRMED'
+        reservation.save(update_fields=['room', 'full_restaurant', 'status'])
+        return Response(ReservationSerializer(reservation).data, status=200)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsRestaurateur])
     def moderate(self, request, pk=None):
+        """
+        Conserve la modération manuelle si besoin:
+        - { "status": "CANCELLED" } pour annuler
+        - { "status": "CONFIRMED" } si tu veux confirmer sans affecter (peu recommandé)
+        """
         reservation = self.get_object()
         new_status = request.data.get('status')
-
         if new_status not in ['CONFIRMED', 'CANCELLED']:
             return Response({'error': 'Statut invalide.'}, status=drf_status.HTTP_400_BAD_REQUEST)
 
-        # contrôle ownership
-        target_restaurant = reservation.room.restaurant if reservation.room else reservation.restaurant
+        target_restaurant = reservation.restaurant
         if not target_restaurant or target_restaurant.owner != request.user:
             return Response({'error': "Accès interdit."}, status=403)
 
         reservation.status = new_status
-        reservation.save()
+        reservation.save(update_fields=['status'])
         return Response({'status': f"Réservation {reservation.id} mise à jour avec succès."})
 
     def update(self, request, *args, **kwargs):
@@ -174,7 +267,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
             return Response({'error': 'Vous ne pouvez pas modifier cette réservation.'}, status=403)
 
         if getattr(request.user, 'role', None) == 'RESTAURATEUR':
-            target_restaurant = reservation.room.restaurant if reservation.room else reservation.restaurant
+            target_restaurant = reservation.restaurant
             if not target_restaurant or target_restaurant.owner != request.user:
                 return Response({'error': 'Accès interdit.'}, status=403)
 
@@ -193,7 +286,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
             return Response({"error": "Vous ne pouvez pas annuler cette réservation."}, status=403)
 
         if getattr(request.user, 'role', None) == 'RESTAURATEUR':
-            target_restaurant = reservation.room.restaurant if reservation.room else reservation.restaurant
+            target_restaurant = reservation.restaurant
             if not target_restaurant or target_restaurant.owner != request.user:
                 return Response({'error': 'Accès interdit.'}, status=403)
 
@@ -210,13 +303,14 @@ class ReservationViewSet(viewsets.ModelViewSet):
             return Response({"error": "Vous ne pouvez pas annuler cette réservation."}, status=403)
 
         if getattr(request.user, 'role', None) == 'RESTAURATEUR':
-            target_restaurant = reservation.room.restaurant if reservation.room else reservation.restaurant
+            target_restaurant = reservation.restaurant
             if not target_restaurant or target_restaurant.owner != request.user:
                 return Response({'error': 'Accès interdit.'}, status=403)
 
         reservation.status = 'CANCELLED'
-        reservation.save()
+        reservation.save(update_fields=['status'])
         return Response({"status": "Réservation annulée avec succès."})
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsRestaurateur])
@@ -227,11 +321,10 @@ def restaurant_reservations_view(request, restaurant_id):
 
     status_filter = request.GET.get('status')
 
-    # ⬇️ Inclure les réservations de salles ET les réservations "restaurant entier"
     qs = (
         Reservation.objects
-        .select_related('restaurant', 'room', 'room__restaurant', 'customer')
-        .filter(Q(room__restaurant=restaurant) | Q(restaurant=restaurant))
+        .select_related('restaurant', 'room', 'customer')
+        .filter(restaurant=restaurant)
         .order_by('-date', 'start_time')
     )
 
@@ -254,7 +347,6 @@ def availability_dashboard(request, restaurant_id):
         return Response({"error": "Format de date invalide."}, status=400)
 
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-    # contrôle owner (sécurisation)
     if restaurant.owner != request.user and getattr(request.user, 'role', None) != 'ADMIN':
         return Response({"detail": "Accès interdit."}, status=403)
 
@@ -278,12 +370,14 @@ def availability_dashboard(request, restaurant_id):
         "evenements": list(events_qs)
     })
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsRestaurateur | IsAdminVegNBio])
 def all_reservations_view(request):
-    reservations = Reservation.objects.select_related('room', 'customer', 'room__restaurant').all()
+    reservations = Reservation.objects.select_related('room', 'customer', 'restaurant').all()
     serializer = ReservationSerializer(reservations, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsRestaurateur | IsAdminVegNBio])
@@ -327,7 +421,8 @@ def reservations_stats_view(request):
     return Response(data)
 
 
-# -------- EVENEMENTS (inchangé sauf sécurités déjà présentes) --------
+# -------- EVENEMENTS et FERMETURES --------
+# (inchangés par rapport à ta version précédente)
 class EvenementViewSet(viewsets.ModelViewSet):
     queryset = Evenement.objects.select_related('restaurant').all()
     serializer_class = EvenementSerializer
@@ -362,15 +457,12 @@ class EvenementViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         restaurant = serializer.validated_data['restaurant']
         if restaurant.owner != self.request.user:
-            # AVANT: return Response(..., status=403) ❌
-            # MAINTENANT:
             raise PermissionDenied("Vous ne pouvez créer que pour vos restaurants.")
         serializer.save(created_by=self.request.user)
 
     def perform_update(self, serializer):
         obj = self.get_object()
         if obj.restaurant.owner != self.request.user and getattr(self.request.user, 'role', None) != 'ADMIN':
-            # AVANT: return Response(..., status=403) ❌
             raise PermissionDenied("Accès interdit.")
         serializer.save()
 
@@ -519,13 +611,11 @@ class EvenementViewSet(viewsets.ModelViewSet):
         return Response({"status": "Évènement réouvert."})
 
 
-# -------- FERMETURES --------
 class RestaurantClosureViewSet(viewsets.ModelViewSet):
     queryset = RestaurantClosure.objects.select_related('restaurant').all()
     serializer_class = RestaurantClosureSerializer
 
     def get_permissions(self):
-        # lecture possible pour owner / admin uniquement (on peut étendre)
         if self.action in ['list', 'retrieve', 'create', 'update', 'partial_update', 'destroy']:
             return [IsAuthenticated(), IsRestaurateur()]
         return [IsAuthenticated()]
@@ -535,7 +625,6 @@ class RestaurantClosureViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if getattr(user, 'role', None) == 'ADMIN':
             return qs
-        # ne voir que ses fermetures
         return qs.filter(restaurant__owner=user)
 
     def perform_create(self, serializer):

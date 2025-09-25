@@ -1,0 +1,10 @@
+[
+  { "name": "Labrador Retriever", "aliases": ["Labrador", "Lab"] },
+  { "name": "German Shepherd", "aliases": ["Berger Allemand"] },
+  { "name": "Golden Retriever", "aliases": [] },
+  { "name": "Bulldog", "aliases": [] },
+  { "name": "Poodle", "aliases": ["Caniche"] },
+  { "name": "Beagle", "aliases": [] },
+  { "name": "Rottweiler", "aliases": [] },
+  { "name": "Yorkshire Terrier", "aliases": ["Yorkshire"] }
+]

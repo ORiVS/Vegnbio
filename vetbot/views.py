@@ -1,207 +1,173 @@
-from typing import List, Dict, Any
-from django.db.models import Q
-from rest_framework import generics, status
-from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
-from .models import (
-    Species, Breed, Symptom, Disease, DiseaseSymptom, DiseaseBreedRisk,
-    Consultation, Feedback, ReportEvent
-)
-from .serializers import (
-    SymptomSerializer, BreedSerializer,
-    AskInputSerializer, AskResponseSerializer, DiseaseShortSerializer, PredictionSerializer,
-    FeedbackSerializer, ReportEventSerializer
-)
+from .models import Symptom
+from .serializers import ParseInputSerializer, ParseOutputSerializer
+from vetbot.llm.client import LLMClient
+from vetbot.llm.prompts import SYSTEM_JSON_EXTRACTOR, build_parse_prompt
 
-CRITICAL_SYMPTOMS = {"seizure", "bleeding", "poisoning"}  # à étendre si besoin
+from django.conf import settings
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
-# ── Autocomplétion symptômes ───────────────────────────────────────────────
-class SymptomsView(generics.ListAPIView):
-    serializer_class = SymptomSerializer
+from .serializers import TriageInputSerializer, TriageOutputSerializer
+from .logic.scoring import score_case, decide_triage
+from .models import Disease, Case
+from .llm.client import LLMClient
+from .llm.prompts import SYSTEM_TRIAGE, build_explain_prompt
 
-    def get_queryset(self):
-        q = self.request.query_params.get("q","").strip()
-        qs = Symptom.objects.all().order_by("label")
-        if q:
-            qs = qs.filter(Q(label__icontains=q) | Q(code__icontains=q))
-        return qs[:50]
 
-# ── Autocomplétion races ───────────────────────────────────────────────────
-class BreedsView(generics.ListAPIView):
-    serializer_class = BreedSerializer
+SYM_ALIAS = {
+    # Aliases utiles si le modèle renvoie des libellés en français
+    "vomissements": "vomiting",
+    "fièvre": "fever",
+    "apathie": "lethargy",
+    "fatigue": "lethargy",
+    "toux": "cough",
+    "éternuements": "sneezing",
+    # ajoute au fur et à mesure...
+}
 
-    def get_queryset(self):
-        species_code = self.request.query_params.get("species","").strip()
-        q = self.request.query_params.get("q","").strip()
-        try:
-            sp = Species.objects.get(code=species_code)
-        except Species.DoesNotExist:
-            return Breed.objects.none()
-        qs = Breed.objects.filter(species=sp).order_by("name")
-        if q:
-            qs = qs.filter(name__icontains=q)
-        return qs[:50]
+def _map_symptom_code(code: str) -> str:
+    c = (code or "").strip().lower()
+    return SYM_ALIAS.get(c, c)
 
-# ── Chatbot ASK ────────────────────────────────────────────────────────────
-class AskView(APIView):
+class ParseView(APIView):
     def post(self, request):
-        ser = AskInputSerializer(data=request.data)
+        ser = ParseInputSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
-        species_code = ser.validated_data["species"]
-        breed_id = ser.validated_data.get("breed_id")
-        input_symptoms: List[str] = [s.strip() for s in ser.validated_data["symptoms"] if s.strip()]
+        text = ser.validated_data["text"]
 
-        # species & breed
-        try:
-            sp = Species.objects.get(code=species_code)
-        except Species.DoesNotExist:
-            return Response({"detail":"Unknown species"}, status=400)
-        breed = None
-        if breed_id:
-            try:
-                breed = Breed.objects.get(id=breed_id, species=sp)
-            except Breed.DoesNotExist:
-                return Response({"detail":"Breed not found for given species"}, status=400)
+        raw = LLMClient.generate_json(SYSTEM_JSON_EXTRACTOR, build_parse_prompt(text))
+        data = _normalize_parse_output(raw, text)
 
-        # candidats = maladies de l'espèce
-        diseases = Disease.objects.filter(species=sp).distinct()
+        # mapping codes → référentiel interne
+        cleaned = []
+        known_codes = set(Symptom.objects.values_list("code", flat=True))
+        for s in data.get("symptoms", []):
+            code = _map_symptom_code(s.get("code"))
+            if code in known_codes:
+                item = {"code": code}
+                if "duration_days" in s and isinstance(s["duration_days"], (int, float)):
+                    item["duration_days"] = int(s["duration_days"])
+                if "severity" in s:
+                    item["severity"] = str(s["severity"])
+                cleaned.append(item)
 
-        preds = []
-        for d in diseases:
-            # must / nice sets
-            must_codes = set(
-                DiseaseSymptom.objects.filter(disease=d, kind="MUST")
-                .select_related("symptom").values_list("symptom__code", flat=True)
-            )
-            nice_codes = set(
-                DiseaseSymptom.objects.filter(disease=d, kind="NICE")
-                .select_related("symptom").values_list("symptom__code", flat=True)
-            )
+        # valeurs par défaut si le modèle n'a rien trouvé
+        species = data.get("species") or "unknown"
+        breed = data.get("breed") or ""
 
-            # must_have : tous présents ?
-            if must_codes and not must_codes.issubset(input_symptoms):
-                continue  # score 0, on ne retient pas
+        out = {
+            "species": species,
+            "breed": breed,
+            "symptoms": cleaned
+        }
+        # valider le contrat de sortie
+        out_ser = ParseOutputSerializer(data=out)
+        out_ser.is_valid(raise_exception=True)
+        return Response(out_ser.data, status=status.HTTP_200_OK)
 
-            # score de base
-            base = 0.7
-            # bonus
-            total_bonus = len(nice_codes)
-            found_bonus = len(nice_codes.intersection(input_symptoms)) if total_bonus else 0
-            bonus_ratio = (found_bonus / total_bonus) if total_bonus else 0.0
-            score = base + 0.3 * bonus_ratio  # ∈ [0.7 ; 1.0]
+def _normalize_parse_output(raw, user_text: str):
+    """
+    Garantit un dict avec keys: species (str), breed (str), symptoms (list[dict]).
+    Convertit les sorties partielles (ex: un seul objet symptôme) en structure complète.
+    """
+    # Si le modèle a renvoyé directement la structure complète
+    if isinstance(raw, dict) and {"species","breed","symptoms"} <= set(raw.keys()):
+        # ménage minimum
+        species = str(raw.get("species") or "unknown").lower()
+        breed = str(raw.get("breed") or "")
+        symptoms = raw.get("symptoms") or []
+        if not isinstance(symptoms, list):
+            symptoms = []
+        return {"species": species, "breed": breed, "symptoms": symptoms}
 
-            # multiplicateur race
-            if breed:
-                risk = DiseaseBreedRisk.objects.filter(disease=d, breed=breed).first()
-                weight = risk.weight if risk else 0.0  # ex: 0.1 => +10%
-                score = max(0.0, min(1.0, score * (1.0 + weight)))
+    # Si le modèle a renvoyé un SEUL objet symptôme (ton cas actuel)
+    if isinstance(raw, dict) and "code" in raw:
+        return {
+            "species": "unknown",
+            "breed": "",
+            "symptoms": [raw]
+        }
 
-            # triage
-            triage = "low"
-            if d.severity == "high" or CRITICAL_SYMPTOMS.intersection(input_symptoms):
-                triage = "high"
-            elif score >= 0.5:
-                triage = "medium"
+    # Si c'est une liste de symptômes
+    if isinstance(raw, list) and all(isinstance(x, dict) and "code" in x for x in raw):
+        return {
+            "species": "unknown",
+            "breed": "",
+            "symptoms": raw
+        }
 
-            preds.append({
-                "disease": d,
-                "score": round(float(score), 2),
-                "triage": triage,
+    # Dernier recours: rien d'exploitable → squelette vide
+    return {"species":"unknown", "breed":"", "symptoms":[]}
+
+
+class TriageView(APIView):
+    def post(self, request):
+        ser = TriageInputSerializer(data=request.data)
+        ser.is_valid(raise_exception=True)
+        species = ser.validated_data["species"]
+        breed = ser.validated_data.get("breed", "")
+        symptoms = ser.validated_data["symptoms"]  # ex: ["vomiting","fever","lethargy"]
+
+        # 1) Scoring déterministe
+        probs, meta = score_case(species, symptoms)
+        diseases_qs = Disease.objects.filter(species__code=species)\
+            .prefetch_related("red_flags", "symptom_links", "symptom_links__symptom")
+
+        triage, top = decide_triage(probs, meta)
+
+        # 2) Construire differential + red flags fusionnés
+        id_to_obj = {d.id: d for d in diseases_qs}
+        differential = []
+        red_flags = []
+        for dis_id, p in top:
+            d = id_to_obj.get(dis_id)
+            if not d:
+                continue
+            differential.append({
+                "disease": d.name,
+                "prob": round(p, 3),
+                "why": meta[dis_id].get("why", "")
             })
+            red_flags += [rf.text for rf in d.red_flags.all()]
+        red_flags = list(dict.fromkeys(red_flags))[:6]  # unique + limite
 
-        # trier par score et garder top-3 (ou vide si aucun must ne match)
-        preds = sorted(preds, key=lambda x: x["score"], reverse=True)[:3]
-
-        # sauvegarder consultation
-        cons = Consultation.objects.create(
-            user=request.user if request.user and request.user.is_authenticated else None,
-            species=sp,
-            breed=breed,
-            input_symptoms=input_symptoms,
-            predictions=[{
-                "disease_id": p["disease"].id,
-                "name": p["disease"].name,
-                "score": p["score"],
-                "triage": p["triage"],
-            } for p in preds]
+        # 3) Advice par défaut
+        advice = (
+            "Donnez de l’eau en petites quantités, observez 6–12h. "
+            "Consultez un vétérinaire si des signaux d’alerte apparaissent."
         )
 
-        # réponse
-        data = {
-            "predictions": [{
-                "disease": {"id": p["disease"].id, "name": p["disease"].name},
-                "score": p["score"],
-                "triage": p["triage"],
-            } for p in preds],
-            "advice": "Ce résultat est indicatif et ne remplace pas un avis vétérinaire.",
-            "consultation_id": cons.id
-        }
-        return Response(data, status=200)
-
-# ── Feedback ────────────────────────────────────────────────────────────────
-class FeedbackView(APIView):
-    def post(self, request):
-        ser = FeedbackSerializer(data=request.data)
-        ser.is_valid(raise_exception=True)
-        cid = ser.validated_data["consultation_id"]
-        is_useful = ser.validated_data["is_useful"]
-        notes = ser.validated_data.get("notes","")
-        chosen_id = ser.validated_data.get("chosen_diagnosis_id")
-
+        # 4) Reformulation par le LLM (facultatif; robuste aux erreurs)
         try:
-            cons = Consultation.objects.get(id=cid)
-        except Consultation.DoesNotExist:
-            return Response({"detail":"Consultation not found"}, status=400)
+            expl = LLMClient.generate(
+                SYSTEM_TRIAGE,
+                build_explain_prompt(species, breed, differential, red_flags, advice),
+                max_tokens=220, temperature=0.0
+            )
+            if expl and len(expl) < 1200:
+                advice = expl
+        except Exception:
+            pass
 
-        chosen = None
-        if chosen_id:
-            try:
-                chosen = Disease.objects.get(id=chosen_id)
-            except Disease.DoesNotExist:
-                return Response({"detail":"chosen_diagnosis_id invalid"}, status=400)
-
-        Feedback.objects.create(
-            consultation=cons,
-            is_useful=is_useful,
-            notes=notes,
-            chosen_diagnosis=chosen
+        # 5) Sauvegarde du Case (audit/feedback)
+        case = Case.objects.create(
+            species=diseases_qs.first().species if diseases_qs.exists() else None,
+            breed=None,  # tu pourras faire un resolve sur Breed plus tard
+            user_text="",  # si tu viens de /parse, tu peux stocker le texte ici
+            extracted_symptoms=[], symptom_codes=symptoms,
+            triage=triage, differential=differential, advice=advice,
+            model_trace={"engine": "ollama", "model": settings.OLLAMA_MODEL}
         )
-        return Response({"ok": True}, status=200)
 
-# ── Reporting (remontée d'erreurs / signalements) ───────────────────────────
-class ReportEventView(APIView):
-    def post(self, request):
-        ser = ReportEventSerializer(data=request.data)
-        ser.is_valid(raise_exception=True)
-        v = ser.validated_data
-
-        cons = None
-        if v.get("consultation_id"):
-            cons = Consultation.objects.filter(id=v["consultation_id"]).first()
-
-        evt = ReportEvent.objects.create(
-            user=request.user if request.user and request.user.is_authenticated else None,
-            source=v.get("source", "mobile"),
-            event_type=v["event_type"],
-            category=v["category"],
-            message=v.get("message",""),
-            context_json=v.get("context", {}),
-            consultation=cons,
-            endpoint=v.get("endpoint",""),
-            http_status=v.get("http_status"),
-            request_id=v.get("request_id",""),
-        )
-        return Response({"ok": True, "event_id": evt.id}, status=201)
-
-class ReportingSummaryView(APIView):
-    def get(self, request):
-        data = {
-            "total": ReportEvent.objects.count(),
-            "by_category": dict(
-                ReportEvent.objects.values_list("category")
-                .order_by().annotate(n=models.Count("id"))
-                .values_list("category","n")
-            ),
-        }
-        return Response(data, status=200)
+        out = TriageOutputSerializer({
+            "triage": triage,
+            "differential": differential,
+            "red_flags": red_flags,
+            "advice": advice
+        }).data
+        return Response(out, status=status.HTTP_200_OK)

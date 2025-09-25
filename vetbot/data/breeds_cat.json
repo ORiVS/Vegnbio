@@ -1,0 +1,9 @@
+[
+  { "name": "European Shorthair", "aliases": ["Européen"] },
+  { "name": "Siamese", "aliases": ["Siamois"] },
+  { "name": "Maine Coon", "aliases": [] },
+  { "name": "Persian", "aliases": ["Persan"] },
+  { "name": "British Shorthair", "aliases": [] },
+  { "name": "Bengal", "aliases": [] },
+  { "name": "Sphynx", "aliases": [] }
+]

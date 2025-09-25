@@ -4,26 +4,22 @@ from rest_framework.response import Response
 from django.utils.dateparse import parse_date
 from django.db.models import Q
 
-from .models import Allergen, Product, Dish, DishAvailability, Menu, MenuItem
+from .models import Allergen, Product, Dish, DishAvailability, Menu
 from .serializers import (
     AllergenSerializer, ProductSerializer, DishSerializer,
     DishAvailabilitySerializer, MenuSerializer
 )
-
 from restaurants.permissions import IsRestaurateur
 
-# --- Lecture publique; écriture = restaurateur ---
 class PublicReadMixin:
     def get_permissions(self):
         if self.action in ["create", "update", "partial_update", "destroy", "publish", "unpublish"]:
             return [permissions.IsAuthenticated(), IsRestaurateur()]
         return [permissions.AllowAny()]
 
-
 class AllergenViewSet(PublicReadMixin, viewsets.ModelViewSet):
     queryset = Allergen.objects.all()
     serializer_class = AllergenSerializer
-
 
 class ProductViewSet(PublicReadMixin, viewsets.ModelViewSet):
     queryset = Product.objects.prefetch_related("allergens").all()
@@ -40,7 +36,6 @@ class ProductViewSet(PublicReadMixin, viewsets.ModelViewSet):
             qs = qs.filter(allergens__code__in=p.get("allergen").split(",")).distinct()
         return qs
 
-
 class DishViewSet(PublicReadMixin, viewsets.ModelViewSet):
     queryset = Dish.objects.prefetch_related("products__allergens", "extra_allergens").all()
     serializer_class = DishSerializer
@@ -48,8 +43,6 @@ class DishViewSet(PublicReadMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         qs = super().get_queryset()
         p = self.request.query_params
-
-        # Filtrage client
         if p.get("is_active") in ["true", "false"]:
             qs = qs.filter(is_active=(p["is_active"] == "true"))
         if p.get("is_vegan") in ["true", "false"]:
@@ -75,7 +68,6 @@ class DishViewSet(PublicReadMixin, viewsets.ModelViewSet):
         dish.save()
         return Response({"status": "dish activated"})
 
-
 class DishAvailabilityViewSet(PublicReadMixin, viewsets.ModelViewSet):
     queryset = DishAvailability.objects.select_related("dish", "restaurant").all()
     serializer_class = DishAvailabilitySerializer
@@ -89,8 +81,6 @@ class DishAvailabilityViewSet(PublicReadMixin, viewsets.ModelViewSet):
             qs = qs.filter(date=p["date"])
         return qs
 
-
-# menu/views.py (extrait MenuViewSet)
 class MenuViewSet(PublicReadMixin, viewsets.ModelViewSet):
     queryset = Menu.objects.prefetch_related("items__dish", "restaurants").all()
     serializer_class = MenuSerializer
@@ -98,23 +88,16 @@ class MenuViewSet(PublicReadMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         qs = super().get_queryset()
         p = self.request.query_params
-
         include_unpublished = p.get("include_unpublished") == "true"
-
-        # Par défaut, ne montrer que les menus publiés (même si user auth)
         if not include_unpublished:
             qs = qs.filter(is_published=True)
-
         if p.get("restaurant"):
             qs = qs.filter(restaurants__id=p["restaurant"])
-
         if p.get("date"):
             d = parse_date(p["date"])
             if d:
                 qs = qs.filter(start_date__lte=d, end_date__gte=d)
-
         return qs.distinct()
-
 
     @action(detail=True, methods=["post"])
     def publish(self, request, pk=None):

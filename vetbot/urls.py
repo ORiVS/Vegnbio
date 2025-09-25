@@ -1,11 +1,12 @@
+# vetbot/urls.py
 from django.urls import path
-from .views import SymptomsView, BreedsView, AskView, FeedbackView, ReportEventView, ReportingSummaryView
+from . import views
+from .views import ParseView, TriageView
+
+app_name = "vetbot"
 
 urlpatterns = [
-    path("symptoms/", SymptomsView.as_view()),
-    path("breeds/", BreedsView.as_view()),
-    path("ask/", AskView.as_view()),
-    path("feedback/", FeedbackView.as_view()),
-    path("report/", ReportEventView.as_view()),
-    path("reporting/summary/", ReportingSummaryView.as_view()),
+    path("api/v1/vetbot/parse/", views.ParseView.as_view(), name="parse"),
+    path("parse/", ParseView.as_view(), name="vetbot-parse"),
+    path("triage/", TriageView.as_view(), name="vetbot-triage"),
 ]

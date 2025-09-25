@@ -31,6 +31,7 @@ class CartSerializer(serializers.ModelSerializer):
 
 
 class CartAddSerializer(serializers.Serializer):
+    restaurant_id = serializers.IntegerField()
     external_item_id = serializers.CharField()
     name = serializers.CharField()
     unit_price = serializers.DecimalField(max_digits=10, decimal_places=2)

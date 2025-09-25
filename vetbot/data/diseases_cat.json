@@ -1,0 +1,35 @@
+[
+  {
+    "code": "feline_uri",
+    "name": "Coryza du chat (URI)",
+    "description": "Infection respiratoire haute; éternuements, toux, fièvre.",
+    "prevalence": 0.5,
+    "symptoms": [
+      { "code": "sneezing", "weight": 1.0 },
+      { "code": "cough", "weight": 0.6 },
+      { "code": "fever", "weight": 0.4 },
+      { "code": "anorexia", "weight": 0.4 }
+    ],
+    "red_flags": [
+      "Détresse respiratoire",
+      "Refus total de s’alimenter >24 h"
+    ],
+    "references": []
+  },
+  {
+    "code": "feline_cystitis",
+    "name": "Cystite féline (FLUTD)",
+    "description": "Troubles urinaires bas; dysurie, hématurie.",
+    "prevalence": 0.3,
+    "symptoms": [
+      { "code": "dysuria", "weight": 1.2, "critical": true },
+      { "code": "hematuria", "weight": 0.9 },
+      { "code": "lethargy", "weight": 0.3 }
+    ],
+    "red_flags": [
+      "Blocage urinaire (urgence vitale)",
+      "Douleur marquée, efforts inefficaces"
+    ],
+    "references": []
+  }
+]

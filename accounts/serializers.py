@@ -8,6 +8,15 @@ import logging
 
 from restaurants.models import Restaurant
 from .models import CustomUser, UserProfile
+from django.conf import settings
+
+
+REGIONS_ALLOWED = getattr(settings, "REGIONS_ALLOWED", ["Île-de-France"])
+
+def _is_region_allowed(val: str) -> bool:
+    if not val:
+        return False
+    return val.strip().casefold() in {r.casefold() for r in REGIONS_ALLOWED}
 
 logger = logging.getLogger(__name__)
 
@@ -61,6 +70,21 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
+    def validate(self, attrs):
+        # garde le comportement existant
+        data = super().validate(attrs) if hasattr(super(), "validate") else attrs
+
+        role = data.get("role")
+        profile = (data.get("profile") or {}) if "profile" in data else {}
+
+        # ✅ Bloquer l'inscription des FOURNISSEUR hors IDF
+        if role == "FOURNISSEUR":
+            region = profile.get("region")
+            if not _is_region_allowed(region):
+                raise serializers.ValidationError(
+                    {"profile": {"region": f"Région non autorisée. Exigée: {', '.join(REGIONS_ALLOWED)}"}}
+                )
+        return data
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -147,4 +171,17 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         profile.save()
 
         return instance
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        user = self.instance
+        role = getattr(user, "role", None)
+        prof = data.get("profile") or {}
+
+        if role == "FOURNISSEUR" and "region" in prof:
+            if not _is_region_allowed(prof.get("region")):
+                raise serializers.ValidationError(
+                    {"profile": {"region": f"Région non autorisée. Exigée: {', '.join(REGIONS_ALLOWED)}"}}
+                )
+        return data
 

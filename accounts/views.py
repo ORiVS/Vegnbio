@@ -4,9 +4,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import RegisterSerializer, LoginSerializer, UserWithProfileSerializer, UserUpdateSerializer
+from drf_yasg.utils import swagger_auto_schema
+
 
 
 class RegisterView(APIView):
+    @swagger_auto_schema(
+        request_body=RegisterSerializer,
+        responses={201: 'Utilisateur créé', 400: 'Erreur de validation'}
+    )
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():

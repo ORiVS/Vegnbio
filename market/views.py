@@ -1,16 +1,18 @@
-from datetime import datetime
+from datetime import date
+from django.db import transaction
 from django.db.models import Q
 from django.utils.dateparse import parse_date
+from django.core.mail import send_mail
+
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 
 from .models import SupplierOffer, OfferReview, OfferReport, OfferComment
 from .serializers import SupplierOfferSerializer, OfferReviewSerializer, OfferReportSerializer, OfferCommentSerializer
 from .permissions import IsSupplier, IsRestaurateur, IsAdminVegNBio
-from menu.models import Product, Allergen  # import pour import_to_product
+from menu.models import Product
 
 class SupplierOfferViewSet(viewsets.ModelViewSet):
     queryset = SupplierOffer.objects.select_related("supplier").prefetch_related("allergens","reviews").all()
@@ -19,7 +21,6 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ["create","update","partial_update","destroy","publish","unlist","draft"]:
             return [permissions.IsAuthenticated(), IsSupplier()]
-        # lecture: restaurateur (principal) + admin + (option) public
         if self.action in ["list","retrieve","compare"]:
             return [permissions.AllowAny()]
         if self.action in ["import_to_product"]:
@@ -30,14 +31,12 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
         qs = super().get_queryset()
         p = self.request.query_params
 
-        # visibilité: on affiche par défaut seulement PUBLISHED (sauf si supplier voit ses brouillons)
-        if not (self.request.user.is_authenticated and self.request.user.role == "FOURNISSEUR"):
+        if not (self.request.user.is_authenticated and getattr(self.request.user, "role", None) == "FOURNISSEUR"):
             qs = qs.filter(status="PUBLISHED")
         else:
-            # un fournisseur voit ses propres offres (tous statuts) + offres publiques
             qs = qs.filter(Q(status="PUBLISHED") | Q(supplier=self.request.user))
 
-        # recherche & filtres
+        # recherche / filtres
         if p.get("q"):
             q = p["q"]
             qs = qs.filter(Q(product_name__icontains=q) | Q(producer_name__icontains=q) | Q(description__icontains=q))
@@ -49,10 +48,17 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
             qs = qs.filter(allergens__code__in=p["allergen"].split(",")).distinct()
         if p.get("exclude_allergens"):
             qs = qs.exclude(allergens__code__in=p["exclude_allergens"].split(",")).distinct()
+
+        # filtre disponibilité par date en conservant un queryset
         if p.get("available_on"):
             d = parse_date(p["available_on"])
             if d:
-                qs = [o for o in qs if o.is_available_on(d)]
+                qs = qs.filter(
+                    Q(available_from__isnull=True) | Q(available_from__lte=d),
+                    Q(available_to__isnull=True)   | Q(available_to__gte=d),
+                    stock_qty__gt=0
+                )
+
         # tri
         if p.get("sort") == "price":
             qs = qs.order_by("price")
@@ -66,6 +72,7 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
         if offer.supplier != request.user:
             return Response({"detail":"Interdit"}, status=403)
         offer.status = "PUBLISHED"
+        offer.full_clean()
         offer.save()
         return Response({"status":"published"})
 
@@ -75,7 +82,7 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
         if offer.supplier != request.user:
             return Response({"detail":"Interdit"}, status=403)
         offer.status = "UNLISTED"
-        offer.save()
+        offer.save(update_fields=["status"])
         return Response({"status":"unlisted"})
 
     @action(detail=True, methods=["post"])
@@ -84,7 +91,7 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
         if offer.supplier != request.user:
             return Response({"detail":"Interdit"}, status=403)
         offer.status = "DRAFT"
-        offer.save()
+        offer.save(update_fields=["status"])
         return Response({"status":"draft"})
 
     @action(detail=False, methods=["get"])
@@ -99,9 +106,7 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def import_to_product(self, request, pk=None):
-        """Restaurateur: créer un Product (module menu) depuis une offre"""
         offer = self.get_object()
-        # créer Product
         prod = Product.objects.create(
             name=offer.product_name,
             is_bio=offer.is_bio,
@@ -115,34 +120,29 @@ class SupplierOfferViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"], permission_classes=[permissions.IsAuthenticated])
     def flag(self, request, pk=None):
-        """
-        Tout utilisateur authentifié peut signaler une offre.
-        Body: { "reason": "...", "details": "..." }
-        """
         offer = self.get_object()
         reason = request.data.get("reason")
         details = request.data.get("details", "")
         if not reason:
             return Response({"detail": "reason requis."}, status=400)
+        if offer.supplier == request.user:
+            return Response({"detail": "Impossible de signaler votre propre offre."}, status=400)
 
-        # créer un report
-        OfferReport.objects.create(
-            offer=offer,
-            reporter=request.user,
-            reason=reason,
-            details=details
-        )
-        # marquer l'offre comme FLAGGED
+        OfferReport.objects.create(offer=offer, reporter=request.user, reason=reason, details=details)
         offer.status = "FLAGGED"
         offer.save(update_fields=["status"])
+
+        send_mail(
+            subject="Offre signalée",
+            message=f"Votre offre '{offer.product_name}' a été signalée pour: {reason}.",
+            from_email=None,  # DEFAULT_FROM_EMAIL
+            recipient_list=[offer.supplier.email],
+            fail_silently=True,
+        )
         return Response({"status": "flagged"}, status=201)
 
     @action(detail=True, methods=["post"], permission_classes=[permissions.IsAuthenticated, IsAdminVegNBio()])
     def moderate_status(self, request, pk=None):
-        """
-        Admin: remettre le statut d'une offre après revue.
-        Body: { "status": "PUBLISHED" | "UNLISTED" | "DRAFT" }
-        """
         offer = self.get_object()
         new_status = request.data.get("status")
         if new_status not in ["PUBLISHED", "UNLISTED", "DRAFT"]:
@@ -158,13 +158,13 @@ class OfferReviewViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in ["create"]:
-            # Uniquement restaurateurs (ou admin) laissent des avis
             return [permissions.IsAuthenticated()]
         return [permissions.AllowAny()]
 
     def perform_create(self, serializer):
-        if self.request.user.role not in ["RESTAURATEUR", "ADMIN"]:
-            raise PermissionError("Seuls restaurateurs/admin peuvent noter.")
+        role = getattr(self.request.user, "role", None)
+        if role not in ["RESTAURATEUR", "ADMIN"]:
+            raise PermissionDenied("Seuls restaurateurs/admin peuvent noter.")
         serializer.save()
 
 
@@ -189,7 +189,8 @@ class OfferReportViewSet(viewsets.ModelViewSet):
         report.save()
         return Response({"status": report.status})
 
-class IsAuthorOrAdmin(BasePermission):
+
+class IsAuthorOrAdmin(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         role = getattr(request.user, "role", None)
         return obj.author == request.user or role == "ADMIN"
@@ -206,10 +207,8 @@ class OfferCommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        # filtre public par défaut
         if not (self.request.user.is_authenticated and getattr(self.request.user, "role", None) == "ADMIN"):
             qs = qs.filter(is_public=True)
-        # filtre par offre ?offer=ID
         offer_id = self.request.query_params.get("offer")
         if offer_id:
             qs = qs.filter(offer_id=offer_id)
