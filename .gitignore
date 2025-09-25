@@ -1,2 +1,29 @@
 logs/api.log
 seeds
+
+ni .gitignore -Force
+@"
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.env
+.venv/
+venv/
+env/
+
+# Django
+/staticfiles/
+/media/
+/db.sqlite3
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+"@ | Out-File .gitignore -Encoding utf8
