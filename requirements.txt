@@ -11,3 +11,5 @@ django-cors-headers>=4.4
 whitenoise>=6.6
 drf-yasg~=1.21.10
 psycopg[binary]>=3.2
+gunicorn>=21.2,<22
+
