@@ -4,7 +4,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("vetbot", "0004_add_case_to_feedback"),
+        ("vetbot", "0005_add_case_to_feedback"),
     ]
 
     operations = [
