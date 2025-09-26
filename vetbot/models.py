@@ -113,7 +113,7 @@ class Case(models.Model):
 
 
 class Feedback(models.Model):
-    case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name="feedbacks")
+    case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name="feedbacks", null=True, blank=True)
     useful = models.BooleanField(null=True, blank=True)
     validated_diagnosis = models.CharField(max_length=128, blank=True)  # si confirmé plus tard
     by_vet = models.BooleanField(default=False)
