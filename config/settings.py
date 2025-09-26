@@ -218,3 +218,19 @@ REGIONS_ALLOWED = ["Île-de-France"]
 
 # Limite de créations d'offres par fournisseur sur 7 jours glissants
 SUPPLIER_WEEKLY_OFFER_LIMIT = 5
+
+# settings.py
+SWAGGER_SETTINGS = {
+    "USE_SESSION_AUTH": False,  # enlève le popup Basic/Session
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {               # nom affiché dans le cadenas
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": (
+                'JWT dans le header Authorization. '
+                'Exemple: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi...'
+            ),
+        }
+    },
+}
