@@ -5,19 +5,36 @@ from rest_framework.response import Response
 
 from .models import LoyaltyProgram, Membership, PointsTransaction
 
+
 def get_program():
     program, _ = LoyaltyProgram.objects.get_or_create(id=1)
     return program
 
+
 def get_or_create_membership(user):
-    membership, _ = Membership.objects.get_or_create(user=user)
-    return membership
+    """
+    Retourne (membership, created)
+    created=True si l'adhésion vient d'être créée.
+    """
+    return Membership.objects.get_or_create(user=user)
+
 
 class JoinProgramView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    @transaction.atomic
     def post(self, request):
-        membership = get_or_create_membership(request.user)
+        membership, created = get_or_create_membership(request.user)
+        if created:
+            # 🎁 Bonus d'inscription : 200 points
+            membership.points_balance += 200
+            membership.save(update_fields=["points_balance"])
+            PointsTransaction.objects.create(
+                membership=membership,
+                kind=PointsTransaction.ADJUST,
+                points=200,
+                reason="Welcome bonus"
+            )
         return Response({"message": "Adhésion confirmée", "points_balance": membership.points_balance})
 
 
@@ -25,7 +42,7 @@ class PointsBalanceView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        membership = get_or_create_membership(request.user)
+        membership, _ = get_or_create_membership(request.user)
         program = get_program()
         return Response({
             "points_balance": membership.points_balance,
@@ -38,7 +55,7 @@ class TransactionsListView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        membership = get_or_create_membership(request.user)
+        membership, _ = get_or_create_membership(request.user)
         qs = membership.transactions.all()
         from .serializers import PointsTransactionSerializer
         return Response(PointsTransactionSerializer(qs, many=True).data)
@@ -57,7 +74,7 @@ class SpendPointsView(views.APIView):
         if points <= 0:
             return Response({"detail": "Nombre de points invalide."}, status=status.HTTP_400_BAD_REQUEST)
 
-        membership = get_or_create_membership(request.user)
+        membership, _ = get_or_create_membership(request.user)
         if membership.points_balance < points:
             return Response({"detail": "Solde de points insuffisant."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -71,4 +88,9 @@ class SpendPointsView(views.APIView):
         )
         program = get_program()
         euro_value = Decimal(points) * program.redeem_rate_euro_per_point
-        return Response({"message": "Points dépensés", "points_spent": points, "euro_value": str(euro_value), "points_balance": membership.points_balance})
+        return Response({
+            "message": "Points dépensés",
+            "points_spent": points,
+            "euro_value": str(euro_value),
+            "points_balance": membership.points_balance
+        })

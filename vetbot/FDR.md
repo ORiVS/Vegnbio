@@ -1,104 +1,106 @@
-## Étape 0 — Cadrage
 
-**Objectif** : Bien définir le périmètre du chatbot vétérinaire.
 
-* Identifier les données minimales à gérer (espèces = chien/chat, \~40 symptômes, \~40–50 maladies).
-* Fixer les règles de triage : *low / medium / high*, avec des red flags.
-* Préparer un README qui décrit ce que le MVP doit savoir faire.
 
----
+But : petit **assistant triage vétérinaire** (“bot”) pour transformer un texte libre en entités (espèce, race, symptômes) puis **estimer l’urgence** et proposer un **différentiel** + **conseils**.
 
-## Étape 1 — Schéma de données (Django)
+* Endpoints exposés :
 
-**Objectif** : Créer la structure pour stocker les infos médicales.
-
-* Créer une app `vetbot/`.
-* Modèles : `Species`, `Breed`, `Symptom`, `Disease`, `DiseaseSymptom`, `DiseaseRedFlag`, `Case`, `Feedback`.
-* Migration et admin pour pouvoir gérer ces données.
+  * `POST /api/vetbot/parse/` → NER “léger” (extraction)
+  * `POST /api/vetbot/triage/` → triage (low/medium/high) + différentiel + red flags + conseil
+* Moteur : règles + mini base de connaissances (`vetbot/logic/knowledge.py`) + un client LLM optionnel (`vetbot/llm/client.py`) **piloté par tes variables d’env** que tu as déjà dans `settings.py` (`LLM_PROVIDER`, `HF_MODEL`, `OLLAMA_MODEL`, etc.).
+* Modèles présents (non exposés en API dans les urls) : `Symptom`, `Condition`, `Breed`, `Case` — utiles pour back-office & historiques.
+* Sérialiseurs (vérifiés dans `vetbot/serializers.py`) : très **simples et stricts** → ça facilite les tests Postman/Swagger.
 
 ---
 
-## Étape 2 — Données de base (seed)
+# Endpoints (prêts Postman)
 
-**Objectif** : Remplir la base pour pouvoir tester rapidement.
+Base path (d’après ton `config/urls.py`) :
+`/api/vetbot/`
 
-* Créer un dossier `vetbot/data/` avec des fichiers JSON : espèces, races, symptômes, maladies.
-* Écrire une commande `seed_vetbot` pour importer ces données.
-* Vérifier que dans l’admin, tu as déjà des maladies avec symptômes et red flags.
+## 1) Parser le texte — `POST /parse/`
 
----
+Extrait **species**, **breed**, **symptoms** (listes d’objets) à partir d’un texte libre.
 
-## Étape 3 — Intégration du modèle LLM
+### Body (JSON)
 
-**Objectif** : Permettre à Django d’appeler le modèle open-source **Llama3-OpenBioLLM-8B** via Ollama (ou Transformers).
+```json
+{
+  "text": "Mon chat européen vomit depuis 2 jours et ne mange plus"
+}
+```
 
-* Créer `vetbot/llm/client.py` pour centraliser les appels au modèle.
-* Créer `vetbot/llm/prompts.py` pour gérer les instructions données à l’IA.
-* Ajouter l’endpoint `/parse` : il prend un texte utilisateur et renvoie `{species, breed, symptoms[...]}` en JSON.
-* Tester avec un exemple : ça marche, tu récupères bien les symptômes extraits du texte.
+### Réponse (200)
 
----
+```json
+{
+  "species": "cat",
+  "breed": "European Shorthair",
+  "symptoms": [
+    {"name": "vomiting"},
+    {"name": "anorexia"},
+    {"name": "lethargy"}
+  ]
+}
+```
 
-## Étape 4 — Scoring déterministe & triage
+* Schéma exact (vu dans `ParseOutputSerializer`) :
 
-**Objectif** : Donner une réponse médicale simplifiée à partir des symptômes.
+  * `species`: string
+  * `breed`: string (peut être vide selon extraction)
+  * `symptoms`: **List[Dict]** (chaque dict porte au moins un `name`)
 
-* Écrire une logique de scoring qui compare les symptômes extraits avec la base des maladies (`DiseaseSymptom`).
-* Calculer un top-3 de maladies probables avec un score/probabilité.
-* Déterminer le niveau de triage (low/medium/high) selon les red flags et les scores.
-* Créer l’endpoint `/triage` qui renvoie :
-
-  ```json
-  {
-    "triage": "medium",
-    "differential": [
-      {"disease": "Gastro-entérite", "prob": 0.45, "why": "..."},
-      {"disease": "Pancréatite", "prob": 0.30, "why": "..."},
-      {"disease": "Corps étranger digestif", "prob": 0.20, "why": "..."}
-    ],
-    "red_flags": ["Vomissements persistants", "Déshydratation"],
-    "advice": "Explication simple pour l’utilisateur"
-  }
-  ```
+> La logique d’extraction utilise `vetbot/logic/triage.py` + `knowledge.py` (synonymes, mapping espèces/races/symptômes).
 
 ---
 
-## Étape 5 — Feedback utilisateur
+## 2) Triage — `POST /triage/`
 
-**Objectif** : Améliorer le chatbot grâce aux retours.
+Calcule l’urgence (low/medium/high), propose un **différentiel** et des **red_flags** + **advice**.
 
-* Créer l’endpoint `/feedback` pour stocker : “utile / pas utile”, diagnostic confirmé, note du vétérinaire.
-* Lier chaque feedback à un `Case`.
+### Body (JSON)
+
+```json
+{
+  "species": "cat",
+  "breed": "European Shorthair",
+  "symptoms": ["vomiting", "anorexia"]
+}
+```
+
+> `TriageInputSerializer` est **minimal** : `species` (str), `breed` (str, facultatif), `symptoms` (List[str]).
+
+### Réponse (200)
+
+```json
+{
+  "triage": "medium",
+  "differential": [
+    {"condition": "Gastroenteritis", "risk": 0.62},
+    {"condition": "Foreign body",    "risk": 0.28}
+  ],
+  "red_flags": ["persistent vomiting >24h"],
+  "advice": "Hydratez, surveillez; consultez si aggravation, déshydratation ou douleur."
+}
+```
+
+* Schéma (vu dans `TriageOutputSerializer`) :
+
+  * `triage`: `"low" | "medium" | "high"`
+  * `differential`: `List[Dict]` (par ex. `{condition, risk}`)
+  * `red_flags`: `List[str]`
+  * `advice`: `str`
+
+> La pondération vient de `logic/scoring.py` + règles/flags de `logic/triage.py`.
+> Si `LLM_PROVIDER` est configuré, la **raisonnement/expansion d’entités** peut s’appuyer sur `vetbot/llm/client.py` (HuggingFace/OLLAMA).
+
+# Bonnes pratiques & extensions
+
+* **Sécurité / Disclaimer** : ajoute un bandeau “*Cet outil n’est pas un diagnostic vétérinaire*…”.
+* **Auth** : si tu veux **tracer des cas** par utilisateur, mets `IsAuthenticated` sur `/triage/` et enregistre un `Case` (espèce, symptômes, sortie triage).
+* **Enrichir le schéma** : tu peux facilement étendre `TriageInputSerializer` (âge, poids, durée, contexte). La logique (`logic/triage.py`) est déjà structurée pour absorber plus de signaux.
+* **Seed Admin** : tu peux remplir `Symptom`, `Condition`, `Breed` avec les données de `logic/knowledge.py` (petit script de management si besoin).
 
 ---
 
-## Étape 6 — Intégration Flutter (mobile)
-
-**Objectif** : Permettre aux clients d’utiliser le chatbot depuis l’app.
-
-* Écran 1 : saisie texte (ou choix guidé).
-* Écran 2 : affichage résultat (triage, top-3 maladies, conseils).
-* Écran 3 : formulaire de feedback.
-* Appels API : `/parse`, `/triage`, `/feedback`.
-
----
-
-## Étape 7 — Observabilité et sécurité
-
-**Objectif** : Fiabilité et conformité.
-
-* Ajouter un disclaimer (“Ce n’est pas un diagnostic, consultez un vétérinaire…”).
-* Logger tous les cas pour audit.
-* RGPD : anonymiser les données sensibles.
-* Ajouter des métriques simples (taux de cas *high*, % feedback utiles…).
-
----
-
-## Étape 8 — Déploiement
-
-**Objectif** : Mettre en ligne un chatbot fonctionnel.
-
-* Conteneurisation (Docker).
-* Déploiement sur Render / Railway.
-* Variables d’environnement pour configurer Ollama/HF, DB, email.
-* Vérification avec l’app mobile en production.
+Si tu veux, je te file ensuite un **script de management** pour “seeder” les tables (`Symptom`, `Condition`, `Breed`) depuis `knowledge.py`, ou je te prépare la **doc narrative par rôle** (ex. *Public* vs *Véto interne/Admin contenu*).
