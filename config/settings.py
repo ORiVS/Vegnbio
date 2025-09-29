@@ -11,6 +11,8 @@ import dj_database_url
 
 from decouple import config
 
+from corsheaders.defaults import default_headers
+
 LLM_PROVIDER   = config("LLM_PROVIDER",   default="ollama")
 HF_MODEL       = config("HF_MODEL",       default="aaditya/Llama3-OpenBioLLM-8B")
 HF_TOKEN       = config("HF_TOKEN",       default="")
@@ -180,14 +182,38 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="VegNBio <odogbevi@gmails.com>")
 
 # ────────────────────────────────────────────────────────────────────────────────
-# CORS / CSRF (à piloter via variables d'env sur Render)
+# CORS / CSRF
 # ────────────────────────────────────────────────────────────────────────────────
 # Exemple d’ENV à poser sur Render :
-# CORS_ALLOWED_ORIGINS="https://ton-front.com http://localhost:3000"
+CORS_ALLOWED_ORIGINS="https://vegnbio-pos.vercel.app http://localhost:3000"
 # CSRF_TRUSTED_ORIGINS="https://ton-service.onrender.com https://ton-front.com"
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split()
-CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split()
+CORS_ALLOWED_ORIGINS = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "https://vegnbio-pos.vercel.app http://localhost:3000"
+).split()
 
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
+
+
+# Pas de cookies → pas besoin d'autoriser les credentials
+CORS_ALLOW_CREDENTIALS = False
+
+# Autorise les headers utilisés par le front (JWT en Authorization, etc.)
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "authorization",
+    "content-type",
+    "x-csrftoken",
+]
+# Limite CORS à l'API
+CORS_URLS_REGEX = r"^/api/.*$"
+
+# CSRF : utile si tu utilises l’admin/browsable API depuis ces domaines
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    "CSRF_TRUSTED_ORIGINS",
+    "https://vegnbio.onrender.com https://vegnbio-pos.vercel.app"
+).split()
 # ────────────────────────────────────────────────────────────────────────────────
 # Sécurité & HTTPS (derrière proxy Render)
 # ────────────────────────────────────────────────────────────────────────────────
