@@ -1,0 +1,28 @@
+[
+  {
+    "email": "fournisseur.dupont@vegnbio.fr",
+    "password": "Fourn#2025A!",
+    "first_name": "Lucie",
+    "last_name": "Dupont",
+    "role": "FOURNISSEUR",
+    "profile": {
+      "phone": "0650000001",
+      "company_name": "Ferme Dupont",
+      "product_type": "Légumes bio",
+      "region": "Île-de-France"
+    }
+  },
+  {
+    "email": "fournisseur.moreau@vegnbio.fr",
+    "password": "Fourn#2025B!",
+    "first_name": "Arnaud",
+    "last_name": "Moreau",
+    "role": "FOURNISSEUR",
+    "profile": {
+      "phone": "0650000002",
+      "company_name": "Vergers Moreau",
+      "product_type": "Fruits bio",
+      "region": "Île-de-France"
+    }
+  }
+]

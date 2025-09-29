@@ -8,15 +8,21 @@ from menu.models import Allergen
 
 class SupplierOfferSerializer(serializers.ModelSerializer):
     supplier = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    # ⬇️ expose l'id du fournisseur pour le front
+    supplier_id = serializers.IntegerField(source="supplier.id", read_only=True)
     allergens = serializers.PrimaryKeyRelatedField(queryset=Allergen.objects.all(), many=True, required=False)
     avg_rating = serializers.SerializerMethodField()
 
     class Meta:
         model = SupplierOffer
-        fields = ["id","supplier","product_name","description","is_bio","producer_name","region","allergens",
-                  "unit","price","min_order_qty","stock_qty","available_from","available_to","status",
-                  "avg_rating","created_at"]
-        read_only_fields = ["status","avg_rating","created_at"]
+        fields = [
+            "id", "supplier", "supplier_id",
+            "product_name", "description", "is_bio", "producer_name", "region", "allergens",
+            "unit", "price", "min_order_qty", "stock_qty",
+            "available_from", "available_to",
+            "status", "avg_rating", "created_at",
+        ]
+        read_only_fields = ["status", "avg_rating", "created_at", "supplier_id"]
 
     def get_avg_rating(self, obj):
         ratings = list(obj.reviews.all().values_list("rating", flat=True))
@@ -42,11 +48,11 @@ class SupplierOfferSerializer(serializers.ModelSerializer):
         if "is_bio" in data and data["is_bio"] is False:
             raise serializers.ValidationError("Seuls des produits biologiques (is_bio=true) sont autorisés.")
 
-        # prix et quantités
+        # prix / quantités
         if data.get("price", 0) < 0 or data.get("min_order_qty", 0) <= 0:
             raise serializers.ValidationError("Prix et quantité minimale doivent être positifs.")
 
-        # fréquence hebdo des offres (création uniquement)
+        # limite hebdo (création uniquement)
         request = self.context.get("request")
         is_create = request and request.method == "POST"
         if is_create:
