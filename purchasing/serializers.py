@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.db import transaction
+from django.utils import timezone
 from rest_framework import serializers
 from .models import SupplierOrder, SupplierOrderItem
 from market.models import SupplierOffer
@@ -15,6 +16,9 @@ class SupplierOrderItemCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Impossible de commander une offre non publiée.")
         if offer.stock_qty <= 0:
             raise serializers.ValidationError("Stock indisponible.")
+        # respecter min_order_qty
+        if data["qty_requested"] < offer.min_order_qty:
+            raise serializers.ValidationError(f"Quantité minimale: {offer.min_order_qty}.")
         return data
 
 
@@ -49,6 +53,7 @@ class SupplierOrderItemReadSerializer(serializers.ModelSerializer):
         fields = ["id","offer","product_name","unit","qty_requested","qty_confirmed","unit_price"]
 
 
+
 class SupplierOrderReadSerializer(serializers.ModelSerializer):
     items = SupplierOrderItemReadSerializer(many=True, read_only=True)
     class Meta:
@@ -70,17 +75,31 @@ class SupplierOrderSupplierReviewSerializer(serializers.Serializer):
     # }
 
     def validate(self, data):
-        # vérifier existence des items et non dépassement du stock
         order: SupplierOrder = self.context["order"]
         items_input = data["items"]
-        items_map = {int(i["id"]): i["qty_confirmed"] for i in items_input}
+        items_map = {}
+        for i in items_input:
+            try:
+                item_id = int(i["id"])
+                qty_conf = Decimal(i["qty_confirmed"])
+            except Exception:
+                raise serializers.ValidationError("Items invalides.")
+            if qty_conf < 0:
+                raise serializers.ValidationError("Quantité confirmée ne peut pas être négative.")
+            items_map[item_id] = qty_conf
+
         db_items = {itm.id: itm for itm in order.items.select_related("offer")}
         for item_id, qty_conf in items_map.items():
             if item_id not in db_items:
                 raise serializers.ValidationError(f"Item {item_id} introuvable dans la commande.")
-            if qty_conf < 0:
-                raise serializers.ValidationError("Quantité confirmée ne peut pas être négative.")
-            offer = db_items[item_id].offer
+            itm = db_items[item_id]
+            offer = itm.offer
+            # ✅ NE PAS CONFIRMER PLUS QUE DEMANDÉ
+            if qty_conf > itm.qty_requested:
+                raise serializers.ValidationError(
+                    f"Quantité confirmée ({qty_conf}) dépasse la quantité demandée ({itm.qty_requested}) pour l'item {item_id}."
+                )
+            # ✅ NE PAS DÉPASSER LE STOCK
             if qty_conf > offer.stock_qty:
                 raise serializers.ValidationError(
                     f"Quantité confirmée ({qty_conf}) dépasse le stock dispo ({offer.stock_qty}) pour l'offre {offer.id}."
@@ -94,7 +113,7 @@ class SupplierOrderSupplierReviewSerializer(serializers.Serializer):
             raise serializers.ValidationError("Seul le producteur concerné peut valider cette commande.")
 
         items_input = self.validated_data["items"]
-        items_map = {int(i["id"]): i["qty_confirmed"] for i in items_input}
+        items_map = {int(i["id"]): Decimal(i["qty_confirmed"]) for i in items_input}
         partial = False
         all_zero = True
 
@@ -114,11 +133,14 @@ class SupplierOrderSupplierReviewSerializer(serializers.Serializer):
                     offer.stock_qty = offer.stock_qty - qty_conf
                     offer.save(update_fields=["stock_qty"])
 
+            # statut + horodatage confirmation
             if all_zero:
                 order.status = "REJECTED"
             elif partial:
                 order.status = "PARTIALLY_CONFIRMED"
             else:
                 order.status = "CONFIRMED"
-            order.save(update_fields=["status"])
+            order.confirmed_at = timezone.now()
+            order.save(update_fields=["status","confirmed_at"])
+
         return order
