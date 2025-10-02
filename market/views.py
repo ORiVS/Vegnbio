@@ -161,6 +161,20 @@ class OfferReviewViewSet(viewsets.ModelViewSet):
             return [permissions.IsAuthenticated()]
         return [permissions.AllowAny()]
 
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        p = self.request.query_params
+        offer_id = p.get("offer")
+        rating = p.get("rating")
+
+        if offer_id and offer_id.isdigit():
+            qs = qs.filter(offer_id=int(offer_id))
+        if rating and rating.isdigit():
+            qs = qs.filter(rating=int(rating))
+
+        return qs.order_by("-created_at")
+
     def perform_create(self, serializer):
         role = getattr(self.request.user, "role", None)
         if role not in ["RESTAURATEUR", "ADMIN"]:
