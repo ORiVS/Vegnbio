@@ -1,9 +1,13 @@
-from rest_framework import serializers
-from django.contrib.auth import get_user_model
-from django.db.models import Q
-from .models import Restaurant, Room, Reservation, Evenement, EvenementRegistration, EventInvite, RestaurantClosure
 from datetime import datetime
 from django.utils import timezone
+from django.contrib.auth import get_user_model
+from django.db.models import Q
+from rest_framework import serializers
+
+from .models import (
+    Restaurant, Room, Reservation, Evenement,
+    EvenementRegistration, EventInvite, RestaurantClosure
+)
 
 User = get_user_model()
 
@@ -57,14 +61,11 @@ class RestaurantUpdateSerializer(serializers.ModelSerializer):
         ]
 
 
+# --- RESERVATION ---
 class ReservationSerializer(serializers.ModelSerializer):
-    # Par défaut (rôle CLIENT), le client = utilisateur courant
     customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
-    # Création par restaurateur possible via email du client
     customer_email = serializers.EmailField(write_only=True, required=False)
 
-    # Affichages utiles
     customer_email_read = serializers.EmailField(source='customer.email', read_only=True)
     customer_first_name = serializers.CharField(source='customer.first_name', read_only=True)
     customer_last_name = serializers.CharField(source='customer.last_name', read_only=True)
@@ -83,7 +84,6 @@ class ReservationSerializer(serializers.ModelSerializer):
             'restaurant', 'restaurant_name',
             'date', 'start_time', 'end_time',
             'party_size',
-            # Affectation décidée par le restaurateur (lecture autorisée, écriture via endpoint dédié)
             'room', 'room_name', 'full_restaurant',
             'status', 'created_at'
         ]
@@ -99,20 +99,17 @@ class ReservationSerializer(serializers.ModelSerializer):
         return obj.restaurant.name if obj.restaurant else None
 
     def validate(self, data):
-        # Récup valeurs
         restaurant = data.get('restaurant')
         date_ = data.get('date')
         start = data.get('start_time')
         end = data.get('end_time')
         party_size = data.get('party_size')
 
-        # Champs obligatoires
         if not restaurant:
             raise serializers.ValidationError("Le restaurant est requis.")
         if not party_size or party_size <= 0:
             raise serializers.ValidationError("party_size (nombre de places) doit être > 0.")
 
-        # Temps
         today = timezone.localdate()
         now_t = timezone.localtime().time()
         if date_ < today:
@@ -122,11 +119,9 @@ class ReservationSerializer(serializers.ModelSerializer):
         if start >= end:
             raise serializers.ValidationError("L'heure de début doit être avant l'heure de fin.")
 
-        # Horaires d’ouverture
         if not restaurant.is_time_range_within_opening(date_, start, end):
             raise serializers.ValidationError("Créneau hors horaires d'ouverture du restaurant.")
 
-        # Événements bloquants (publiés ou complets)
         ev_qs = Evenement.objects.filter(
             restaurant=restaurant,
             date=date_,
@@ -138,8 +133,6 @@ class ReservationSerializer(serializers.ModelSerializer):
         if ev_qs.exists():
             raise serializers.ValidationError("Créneau indisponible (événement bloquant).")
 
-        # Conflit avec réservation "tout restaurant" existante
-        # (même sans affectation, on ne crée pas si tout le resto est déjà pris)
         from .models import Reservation as Res
         conflicts_full = Res.objects.filter(
             restaurant=restaurant, date=date_,
@@ -154,10 +147,6 @@ class ReservationSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated):
-        """
-        - CLIENT : 'customer' = CurrentUserDefault()
-        - RESTAURATEUR : customer_email requis pour créer au nom d’un client (ownership contrôlé en view)
-        """
         request = self.context.get('request')
         email = (validated.pop('customer_email', None) or "").strip()
 
@@ -172,10 +161,10 @@ class ReservationSerializer(serializers.ModelSerializer):
             validated['customer'] = customer
             return super().create(validated)
 
-        # Client standard
         return super().create(validated)
 
 
+# --- EVENEMENTS ---
 class EvenementSerializer(serializers.ModelSerializer):
     restaurant_name = serializers.CharField(source='restaurant.name', read_only=True)
     current_registrations = serializers.IntegerField(source='registrations.count', read_only=True)
@@ -270,28 +259,39 @@ class EvenementRegistrationSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'user', 'created_at']
 
 
-class EventInviteSerializer(serializers.ModelSerializer):
+# --- INVITES (in-app) ---
+class EventLiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evenement
+        fields = ['id', 'title', 'date', 'start_time', 'end_time', 'status']
+
+
+class EventInviteListSerializer(serializers.ModelSerializer):
+    event = EventLiteSerializer(read_only=True)
+    supplier_deadline_at = serializers.SerializerMethodField()
+
     class Meta:
         model = EventInvite
-        fields = ['id', 'event', 'email', 'phone', 'token', 'status', 'created_at', 'expires_at']
-        read_only_fields = ['id', 'token', 'status', 'created_at']
+        fields = [
+            'id', 'status', 'expires_at',
+            'supplier_deadline_at',
+            'event',
+        ]
+
+    def get_supplier_deadline_at(self, obj):
+        dt = obj.supplier_deadline_at()
+        return dt.isoformat() if dt else None
 
 
-class EventInviteBulkCreateSerializer(serializers.Serializer):
-    event = serializers.IntegerField()
-    emails = serializers.ListField(
-        child=serializers.EmailField(), allow_empty=False, required=True
-    )
-
-    def validate(self, data):
-        from .models import Evenement
-        event_id = data['event']
-        try:
-            data['event_obj'] = Evenement.objects.get(pk=event_id)
-        except Evenement.DoesNotExist:
-            raise serializers.ValidationError("Évènement introuvable.")
-        return data
-
+class EventInviteCreateSerializer(serializers.ModelSerializer):
+    """
+    (optionnel) si tu veux créer des invites en admin/owner par API,
+    soit par invited_user, soit par email/phone.
+    """
+    class Meta:
+        model = EventInvite
+        fields = ['id', 'event', 'invited_user', 'email', 'phone', 'expires_at', 'status']
+        read_only_fields = ['id', 'status']
 
 class RestaurantClosureSerializer(serializers.ModelSerializer):
     class Meta:

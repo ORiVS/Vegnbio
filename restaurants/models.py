@@ -1,11 +1,10 @@
 import secrets
+from datetime import time, timedelta, datetime as ddatetime, time as dtime
 
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
-from datetime import time, timedelta, datetime as ddatetime, time as dtime
 
 User = settings.AUTH_USER_MODEL
 
@@ -110,19 +109,14 @@ class Reservation(models.Model):
     ]
 
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reservations')
-
-    # Désormais, le client choisit le RESTAURANT, pas la salle.
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='reservations')
 
-    # Nombre de places demandé par le client
     party_size = models.PositiveIntegerField(help_text="Nombre de couverts demandés")
 
-    # Créneau souhaité
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
 
-    # Affectation décidée par le restaurateur (après création)
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='reservations', blank=True, null=True)
     full_restaurant = models.BooleanField(default=False, help_text="Réservation de tout le restaurant (décision resto)")
 
@@ -132,7 +126,6 @@ class Reservation(models.Model):
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError("L'heure de début doit être avant l'heure de fin.")
-        # Ne pas imposer de salle ici : l’affectation se fait plus tard par le restaurateur.
 
     def __str__(self):
         cible = "Tout le restaurant" if self.full_restaurant else (self.room.name if self.room else "À affecter")
@@ -186,7 +179,7 @@ class Evenement(models.Model):
     full_at = models.DateTimeField(null=True, blank=True)
     cancelled_at = models.DateTimeField(null=True, blank=True)
 
-    # Producteurs (déjà présents dans ta précédente version des events si tu les as ajoutés)
+    # Invitations fournisseurs
     requires_supplier_confirmation = models.BooleanField(
         default=False,
         help_text="Si vrai, les invitations 'producteurs' doivent être acceptées avant une date limite."
@@ -232,11 +225,20 @@ class EventInvite(models.Model):
         ("PENDING", "En attente"),
         ("ACCEPTED", "Acceptée"),
         ("REVOKED", "Révoquée"),
+        ("DECLINED", "Refusée"),
     ]
 
     event = models.ForeignKey(Evenement, on_delete=models.CASCADE, related_name='invites')
+
+    # Ciblage : par utilisateur connecté (in-app) OU par email/téléphone (email+deeplink)
+    invited_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='event_invites',
+        limit_choices_to={'role': 'FOURNISSEUR'}
+    )
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
+
     token = models.CharField(max_length=64, unique=True, editable=False)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="PENDING")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -246,6 +248,7 @@ class EventInvite(models.Model):
         indexes = [
             models.Index(fields=['token']),
             models.Index(fields=['event', 'status']),
+            models.Index(fields=['invited_user', 'status']),
         ]
 
     def save(self, *args, **kwargs):
@@ -255,11 +258,22 @@ class EventInvite(models.Model):
             self.expires_at = timezone.now() + timedelta(days=14)
         super().save(*args, **kwargs)
 
+    def supplier_deadline_at(self):
+        return self.event.supplier_deadline_at()
+
     def is_valid(self):
-        return self.status == "PENDING" and (self.expires_at is None or self.expires_at >= timezone.now())
+        if self.status != "PENDING":
+            return False
+        if self.expires_at and self.expires_at < timezone.now():
+            return False
+        # Si deadline fournisseur activée, la respecter aussi
+        sdl = self.supplier_deadline_at()
+        if sdl and timezone.now() > sdl:
+            return False
+        return True
 
     def __str__(self):
-        ident = self.email or self.phone or "contact"
+        ident = self.invited_user or self.email or self.phone or "contact"
         return f"Invite {ident} → {self.event.title}"
 
 

@@ -10,10 +10,10 @@ def send_invite_email(invite, base_url):
     link = f"{base_url}/events/invite/accept?token={invite.token}"
 
     deadline_line = ""
-    if invite.invitee_role == "SUPPLIER" and invite.event.requires_supplier_confirmation:
+    if invite.event.requires_supplier_confirmation:
         dl = _fmt_deadline(invite.event)
         if dl:
-            deadline_line = f"\nDate limite d'acceptation (producteur) : {dl}"
+            deadline_line = f"\nDate limite de réponse (producteur) : {dl}"
 
     message = (
         f"Bonjour,\n\n"
@@ -30,7 +30,6 @@ def notify_event_published(event):
     pass
 
 def notify_event_cancelled(event):
-    from .models import EvenementRegistration
     subject = f"[Annulation] {event.title}"
     message = (
         f"L'évènement '{event.title}' du {event.date} est annulé.\n"
