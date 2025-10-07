@@ -380,7 +380,65 @@ class EvenementViewSet(viewsets.ModelViewSet):
     queryset = Evenement.objects.select_related('restaurant').all()
     serializer_class = EvenementSerializer
 
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def register(self, request, pk=None):
+        event = self.get_object()
 
+        # Conditions d'ouverture des inscriptions "publiques"
+        if event.status != 'PUBLISHED' or not event.is_public:
+            return Response({"detail": "Inscriptions indisponibles pour cet évènement."}, status=400)
+
+        # Pas d'inscription dans le passé
+        today = timezone.localdate()
+        now_t = timezone.localtime().time()
+        if event.date < today or (event.date == today and event.end_time <= now_t):
+            return Response({"detail": "Évènement passé."}, status=400)
+
+        # Déjà inscrit ?
+        exists = event.registrations.filter(user=request.user).exists()
+        if exists:
+            return Response({"detail": "Déjà inscrit."}, status=200)
+
+        # Capacité
+        if event.capacity is not None and event.registrations.count() >= event.capacity:
+            event.status = 'FULL'
+            event.full_at = timezone.now()
+            event.save(update_fields=['status', 'full_at', 'updated_at'])
+            return Response({"detail": "Évènement complet."}, status=400)
+
+        # Créer l'inscription
+        EvenementRegistration.objects.create(event=event, user=request.user)
+
+        # Si rempli après inscription → FULL
+        if event.capacity is not None and event.registrations.count() >= event.capacity:
+            event.status = 'FULL'
+            event.full_at = timezone.now()
+            event.save(update_fields=['status', 'full_at', 'updated_at'])
+            notify_event_full(event)
+
+        return Response({"status": "Inscription enregistrée."}, status=201)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def unregister(self, request, pk=None):
+        event = self.get_object()
+
+        # On empêche la désinscription une fois l'évènement terminé
+        today = timezone.localdate()
+        now_t = timezone.localtime().time()
+        if event.date < today or (event.date == today and event.end_time <= now_t):
+            return Response({"detail": "Évènement terminé."}, status=400)
+
+        deleted, _ = event.registrations.filter(user=request.user).delete()
+        if not deleted:
+            return Response({"detail": "Vous n'êtes pas inscrit."}, status=400)
+
+        # Si l'évènement était FULL, on peut le repasser en PUBLISHED si on veut rouvrir
+        if event.status == 'FULL':
+            # Option : le repasser ouvert
+            event.status = 'PUBLISHED'
+            event.save(update_fields=['status', 'updated_at'])
+
+        return Response({"status": "Désinscription effectuée."}, status=200)
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy',
