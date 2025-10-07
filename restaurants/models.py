@@ -194,11 +194,17 @@ class Evenement(models.Model):
             raise ValidationError("L'heure de début doit être avant l'heure de fin.")
 
     def supplier_deadline_at(self):
+        """
+        Date/heure limite locale (23:59:59) – compatible zoneinfo (pas de pytz.localize).
+        """
         if not self.date or not self.requires_supplier_confirmation:
             return None
-        tz = timezone.get_current_timezone()
         limit_date = self.date - timedelta(days=int(self.supplier_deadline_days or 0))
-        return tz.localize(ddatetime.combine(limit_date, dtime(23, 59, 59)))
+        naive = ddatetime.combine(limit_date, dtime(23, 59, 59))
+        tz = timezone.get_current_timezone()
+        if timezone.is_naive(naive):
+            return naive.replace(tzinfo=tz)
+        return naive.astimezone(tz)
 
     def __str__(self):
         return f"{self.title} ({self.date} - {self.restaurant.name})"
