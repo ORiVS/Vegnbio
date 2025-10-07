@@ -284,14 +284,16 @@ class EventInviteListSerializer(serializers.ModelSerializer):
 
 
 class EventInviteCreateSerializer(serializers.ModelSerializer):
-    """
-    (optionnel) si tu veux créer des invites en admin/owner par API,
-    soit par invited_user, soit par email/phone.
-    """
+
     class Meta:
         model = EventInvite
         fields = ['id', 'event', 'invited_user', 'email', 'phone', 'expires_at', 'status']
         read_only_fields = ['id', 'status']
+
+    def validate(self, attrs):
+        if not (attrs.get('invited_user') or attrs.get('email') or attrs.get('phone')):
+            raise serializers.ValidationError("Fournis 'invited_user' ou 'email' ou 'phone'.")
+        return attrs
 
 class RestaurantClosureSerializer(serializers.ModelSerializer):
     class Meta:

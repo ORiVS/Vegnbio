@@ -380,6 +380,8 @@ class EvenementViewSet(viewsets.ModelViewSet):
     queryset = Evenement.objects.select_related('restaurant').all()
     serializer_class = EvenementSerializer
 
+
+
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy',
                            'publish', 'cancel', 'close', 'reopen', 'invite', 'invite_bulk', 'registrations', 'accept_invite']:
@@ -428,11 +430,10 @@ class EvenementViewSet(viewsets.ModelViewSet):
         serializer = EventInviteCreateSerializer(data={**request.data, "event": event.id})
         serializer.is_valid(raise_exception=True)
         invite = serializer.save()
-        base_url = request.build_absolute_uri('/').rstrip('/')
-        # email/phone : envoi email si email fourni
-        if invite.email:
-            send_invite_email(invite, base_url)
+
+        # 👇 IMPORTANT : on ne déclenche plus aucun envoi d'email ici
         return Response(EventInviteListSerializer(invite).data, status=201)
+
 
     @action(detail=True, methods=['get'], url_path='registrations',
             permission_classes=[IsAuthenticated])
@@ -468,16 +469,14 @@ class EvenementViewSet(viewsets.ModelViewSet):
 
         emails = request.data.get('emails', [])
         created = []
-        base_url = request.build_absolute_uri('/').rstrip('/')
 
+        # 👇 Boucle front possible, mais on garde aussi ce bulk sans email
         with transaction.atomic():
             for email in emails:
                 inv = EventInvite.objects.create(event=event, email=email)
                 created.append(inv)
-                send_invite_email(inv, base_url)
 
         return Response(EventInviteListSerializer(created, many=True).data, status=201)
-
     @action(detail=True, methods=['post'])
     def accept_invite(self, request, pk=None):
         """
