@@ -2,13 +2,12 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
-from django.utils import timezone
-from django.db.models import Q
 
 from menu.models import Allergen
 
 REGION_IDF = "Île-de-France"
 REGIONS_ALLOWED = getattr(settings, "REGIONS_ALLOWED", [REGION_IDF])
+
 
 class SupplierOffer(models.Model):
     STATUS = [
@@ -17,6 +16,7 @@ class SupplierOffer(models.Model):
         ("UNLISTED", "Retirée"),
         ("FLAGGED", "Signalée"),
     ]
+
     supplier = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="offers")
     product_name = models.CharField(max_length=120)
     description = models.TextField(blank=True)
@@ -30,8 +30,14 @@ class SupplierOffer(models.Model):
 
     unit = models.CharField(max_length=32, default="kg")  # kg, pièce, botte...
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
-    min_order_qty = models.DecimalField(max_digits=10, decimal_places=2, default=1,
-                                        validators=[MinValueValidator(0.01)])
+
+    # ⬇️ rendue optionnelle (null/blank autorisés). Si renseignée, doit être >= 0.01
+    min_order_qty = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True, default=None,
+        validators=[MinValueValidator(0.01)],
+        help_text="Quantité minimale (optionnel)."
+    )
+
     stock_qty = models.DecimalField(max_digits=12, decimal_places=2, default=0,
                                     validators=[MinValueValidator(0)])
 

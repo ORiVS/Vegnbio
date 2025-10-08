@@ -1,67 +1,80 @@
+from django.db import transaction
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404
 
-from .models import SupplierOrder
+from .models import SupplierOrder, SupplierOrderItem
 from .serializers import (
     SupplierOrderCreateSerializer,
     SupplierOrderReadSerializer,
     SupplierOrderSupplierReviewSerializer,
 )
-from market.permissions import IsRestaurateur, IsSupplier
+from restaurants.permissions import IsRestaurateur, IsSupplier
 
-class SupplierOrderViewSet(viewsets.ModelViewSet):
-    queryset = SupplierOrder.objects.select_related("restaurateur","supplier").prefetch_related("items__offer").all()
 
-    def get_permissions(self):
-        if self.action in ["create", "my_restaurant_orders"]:
-            return [permissions.IsAuthenticated(), IsRestaurateur()]
-        if self.action in ["supplier_inbox", "supplier_review"]:
-            return [permissions.IsAuthenticated(), IsSupplier()]
-        return [permissions.IsAuthenticated()]
+class SupplierOrderViewSet(viewsets.GenericViewSet):
+    """
+    Endpoints principaux :
+    - POST   /api/purchasing/orders/                 (create_order) [restaurateur]
+    - GET    /api/purchasing/orders/my_restaurant/   (mes commandes) [restaurateur]
+    - GET    /api/purchasing/orders/supplier_inbox/  (boîte de réception) [fournisseur]
+    - POST   /api/purchasing/orders/{id}/review/     (validation fournisseur) [fournisseur]
+    - GET    /api/purchasing/orders/{id}/            (lecture)
+    """
+    queryset = SupplierOrder.objects.select_related("restaurateur", "supplier").prefetch_related("items")
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_class(self):
         if self.action == "create":
             return SupplierOrderCreateSerializer
-        elif self.action in ["list", "retrieve", "my_restaurant_orders", "supplier_inbox"]:
-            return SupplierOrderReadSerializer
-        elif self.action == "supplier_review":
-            return SupplierOrderSupplierReviewSerializer
         return SupplierOrderReadSerializer
 
-    def list(self, request, *args, **kwargs):
-        # admin only: tout voir
-        if getattr(request.user, "role", None) != "ADMIN":
-            return Response({"detail": "Réservé à l'admin."}, status=403)
-        return super().list(request, *args, **kwargs)
+    # ---------- RESTAURATEUR : créer une commande ----------
+    def create(self, request, *args, **kwargs):
+        """
+        Body:
+        {
+          "supplier": <id>,
+          "note": "...",
+          "items": [{ "offer": <id>, "qty_requested": <decimal> }, ...]
+        }
+        """
+        self.permission_classes = [permissions.IsAuthenticated, IsRestaurateur]
+        self.check_permissions(request)
 
-    def perform_create(self, serializer):
-        order = serializer.save()
-        send_mail(
-            subject="Nouvelle commande à valider",
-            message=f"Vous avez reçu une commande #{order.id} à confirmer.",
-            from_email=None,
-            recipient_list=[order.supplier.email],
-            fail_silently=True,
-        )
+        ser = SupplierOrderCreateSerializer(data=request.data, context={"request": request})
+        ser.is_valid(raise_exception=True)
+        order = ser.save()
+        return Response(SupplierOrderReadSerializer(order).data, status=status.HTTP_201_CREATED)
 
-    @action(detail=False, methods=["get"])
+    # ---------- RESTAURATEUR : mes commandes ----------
+    @action(detail=False, methods=["get"], url_path="my_restaurant", permission_classes=[permissions.IsAuthenticated, IsRestaurateur])
     def my_restaurant_orders(self, request):
-        qs = self.get_queryset().filter(restaurateur=request.user)
-        ser = SupplierOrderReadSerializer(qs, many=True)
-        return Response(ser.data)
+        qs = self.get_queryset().filter(restaurateur=request.user).order_by("-created_at")
+        return Response(SupplierOrderReadSerializer(qs, many=True).data)
 
-    @action(detail=False, methods=["get"])
+    # ---------- FOURNISSEUR : boîte de réception ----------
+    @action(detail=False, methods=["get"], url_path="supplier_inbox", permission_classes=[permissions.IsAuthenticated, IsSupplier])
     def supplier_inbox(self, request):
-        qs = self.get_queryset().filter(supplier=request.user)
-        ser = SupplierOrderReadSerializer(qs, many=True)
-        return Response(ser.data)
+        qs = self.get_queryset().filter(supplier=request.user, status__in=["PENDING_SUPPLIER"]).order_by("-created_at")
+        return Response(SupplierOrderReadSerializer(qs, many=True).data)
 
-    @action(detail=True, methods=["post"])
+    # ---------- FOURNISSEUR : review / validation ----------
+    @action(detail=True, methods=["post"], url_path="review", permission_classes=[permissions.IsAuthenticated, IsSupplier])
     def supplier_review(self, request, pk=None):
-        order = self.get_object()
+        order = get_object_or_404(self.get_queryset(), pk=pk)
+        if order.supplier != request.user:
+            return Response({"detail": "Accès interdit."}, status=403)
+
         ser = SupplierOrderSupplierReviewSerializer(data=request.data, context={"order": order, "request": request})
         ser.is_valid(raise_exception=True)
         order = ser.save()
-        return Response(SupplierOrderReadSerializer(order).data, status=200)
+        return Response(SupplierOrderReadSerializer(order).data)
+
+    # ---------- lecture simple ----------
+    def retrieve(self, request, pk=None):
+        order = get_object_or_404(self.get_queryset(), pk=pk)
+        if request.user not in [order.restaurateur, order.supplier] and getattr(request.user, "role", None) != "ADMIN":
+            return Response({"detail": "Accès interdit."}, status=403)
+        return Response(SupplierOrderReadSerializer(order).data)

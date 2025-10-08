@@ -1,9 +1,10 @@
 from decimal import Decimal
-from django.db import models, transaction
+from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
 from market.models import SupplierOffer
+
 
 class SupplierOrder(models.Model):
     STATUS = [

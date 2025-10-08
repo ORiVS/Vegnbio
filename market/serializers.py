@@ -6,12 +6,17 @@ from rest_framework import serializers
 from .models import SupplierOffer, OfferReview, OfferReport, OfferComment, REGIONS_ALLOWED
 from menu.models import Allergen
 
+
 class SupplierOfferSerializer(serializers.ModelSerializer):
     supplier = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    # ⬇️ expose l'id du fournisseur pour le front
     supplier_id = serializers.IntegerField(source="supplier.id", read_only=True)
     allergens = serializers.PrimaryKeyRelatedField(queryset=Allergen.objects.all(), many=True, required=False)
     avg_rating = serializers.SerializerMethodField()
+
+    # ⬇️ pour refléter l’optionnalité côté API
+    min_order_qty = serializers.DecimalField(
+        max_digits=10, decimal_places=2, required=False, allow_null=True, min_value=0.01
+    )
 
     class Meta:
         model = SupplierOffer
@@ -48,9 +53,11 @@ class SupplierOfferSerializer(serializers.ModelSerializer):
         if "is_bio" in data and data["is_bio"] is False:
             raise serializers.ValidationError("Seuls des produits biologiques (is_bio=true) sont autorisés.")
 
-        # prix / quantités
-        if data.get("price", 0) < 0 or data.get("min_order_qty", 0) <= 0:
-            raise serializers.ValidationError("Prix et quantité minimale doivent être positifs.")
+        # prix / quantités : min_order_qty est optionnelle → ne vérifier que si fournie
+        if data.get("price", 0) < 0:
+            raise serializers.ValidationError("Le prix doit être positif.")
+        if "min_order_qty" in data and data["min_order_qty"] is not None and data["min_order_qty"] <= 0:
+            raise serializers.ValidationError("La quantité minimale doit être > 0 si renseignée.")
 
         # limite hebdo (création uniquement)
         request = self.context.get("request")

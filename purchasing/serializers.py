@@ -2,8 +2,10 @@ from decimal import Decimal
 from django.db import transaction
 from django.utils import timezone
 from rest_framework import serializers
+
 from .models import SupplierOrder, SupplierOrderItem
 from market.models import SupplierOffer
+
 
 class SupplierOrderItemCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,13 +13,13 @@ class SupplierOrderItemCreateSerializer(serializers.ModelSerializer):
         fields = ["offer", "qty_requested"]
 
     def validate(self, data):
-        offer = data["offer"]
+        offer: SupplierOffer = data["offer"]
         if offer.status != "PUBLISHED":
             raise serializers.ValidationError("Impossible de commander une offre non publiée.")
         if offer.stock_qty <= 0:
             raise serializers.ValidationError("Stock indisponible.")
-        # respecter min_order_qty
-        if data["qty_requested"] < offer.min_order_qty:
+        # ⬇️ respecter min_order_qty uniquement si elle est définie
+        if offer.min_order_qty is not None and data["qty_requested"] < offer.min_order_qty:
             raise serializers.ValidationError(f"Quantité minimale: {offer.min_order_qty}.")
         return data
 
@@ -34,7 +36,7 @@ class SupplierOrderCreateSerializer(serializers.ModelSerializer):
         items_data = validated_data.pop("items")
         order = SupplierOrder.objects.create(restaurateur=user, **validated_data)
         for it in items_data:
-            offer = it["offer"]
+            offer: SupplierOffer = it["offer"]
             SupplierOrderItem.objects.create(
                 order=order,
                 offer=offer,
@@ -50,15 +52,15 @@ class SupplierOrderItemReadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SupplierOrderItem
-        fields = ["id","offer","product_name","unit","qty_requested","qty_confirmed","unit_price"]
-
+        fields = ["id", "offer", "product_name", "unit", "qty_requested", "qty_confirmed", "unit_price"]
 
 
 class SupplierOrderReadSerializer(serializers.ModelSerializer):
     items = SupplierOrderItemReadSerializer(many=True, read_only=True)
+
     class Meta:
         model = SupplierOrder
-        fields = ["id","restaurateur","supplier","status","created_at","confirmed_at","note","items"]
+        fields = ["id", "restaurateur", "supplier", "status", "created_at", "confirmed_at", "note", "items"]
 
 
 class SupplierOrderSupplierReviewSerializer(serializers.Serializer):
@@ -94,12 +96,12 @@ class SupplierOrderSupplierReviewSerializer(serializers.Serializer):
                 raise serializers.ValidationError(f"Item {item_id} introuvable dans la commande.")
             itm = db_items[item_id]
             offer = itm.offer
-            # ✅ NE PAS CONFIRMER PLUS QUE DEMANDÉ
+            # NE PAS CONFIRMER PLUS QUE DEMANDÉ
             if qty_conf > itm.qty_requested:
                 raise serializers.ValidationError(
                     f"Quantité confirmée ({qty_conf}) dépasse la quantité demandée ({itm.qty_requested}) pour l'item {item_id}."
                 )
-            # ✅ NE PAS DÉPASSER LE STOCK
+            # NE PAS DÉPASSER LE STOCK
             if qty_conf > offer.stock_qty:
                 raise serializers.ValidationError(
                     f"Quantité confirmée ({qty_conf}) dépasse le stock dispo ({offer.stock_qty}) pour l'offre {offer.id}."
@@ -141,6 +143,6 @@ class SupplierOrderSupplierReviewSerializer(serializers.Serializer):
             else:
                 order.status = "CONFIRMED"
             order.confirmed_at = timezone.now()
-            order.save(update_fields=["status","confirmed_at"])
+            order.save(update_fields=["status", "confirmed_at"])
 
         return order
