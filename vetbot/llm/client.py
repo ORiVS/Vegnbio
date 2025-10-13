@@ -1,7 +1,6 @@
 import json, os, requests
 from django.conf import settings
 
-# Optionnel : Transformers si LLM_PROVIDER=transformers
 try:
     if settings.LLM_PROVIDER == "transformers":
         import torch, transformers
@@ -19,9 +18,7 @@ except Exception:
 class LLMClient:
     @staticmethod
     def _format_llama_chat(system: str, user: str) -> str:
-        """Utilise le chat template Llama 3 pour de meilleures réponses."""
         if _pipe is None:
-            # fallback: format simple pour Ollama
             return f"{system}\n\n{user}"
         tok = _pipe.tokenizer
         msg = [
@@ -40,9 +37,7 @@ class LLMClient:
 
     @staticmethod
     def _gen_ollama(system: str, user: str, max_tokens=256, temperature=0.0) -> str:
-        import json, requests
         base = (settings.OLLAMA_BASE_URL or "http://127.0.0.1:11434").strip().rstrip("/")
-        # prompt simple: on rappelle le rôle + on exige JSON uniquement
         prompt = (
             f"SYSTEM:\n{system}\n\n"
             f"USER:\n{user}\n\n"
@@ -52,18 +47,12 @@ class LLMClient:
         payload = {
             "model": settings.OLLAMA_MODEL,
             "prompt": prompt,
-            "options": {
-                "temperature": temperature,
-                "num_predict": max_tokens,
-                "top_k": 40,
-                "top_p": 0.9
-            },
-            "format": "json",   # <— IMPORTANT: force un JSON strict côté Ollama
+            "options": {"temperature": temperature, "num_predict": max_tokens, "top_k": 40, "top_p": 0.9},
+            "format": "json",
             "stream": False
         }
         r = requests.post(f"{base}/api/generate", json=payload, timeout=180, proxies={"http": None, "https": None})
         r.raise_for_status()
-        # Avec format=json, Ollama renvoie du JSON pur dans le champ "response"
         data = r.json()
         return (data.get("response") or "").strip()
 
@@ -72,19 +61,17 @@ class LLMClient:
         if settings.LLM_PROVIDER == "transformers":
             return LLMClient._gen_transformers(system, user, max_tokens, temperature)
         return LLMClient._gen_ollama(system, user, max_tokens, temperature)
+
     @staticmethod
     def generate_json(system: str, user: str, max_tokens=256) -> dict:
         txt = LLMClient.generate(system, user, max_tokens=max_tokens, temperature=0.0).strip()
         if not txt:
             raise RuntimeError("Réponse vide du modèle.")
-
-        # 1) Tentative directe
         try:
             return json.loads(txt)
         except Exception:
             pass
 
-        # 2) Si jamais il y a du bruit: extraire le plus grand bloc {...} équilibré
         def _extract_json_block(s: str) -> str | None:
             start = s.find("{")
             if start == -1:
@@ -106,6 +93,5 @@ class LLMClient:
             except Exception:
                 pass
 
-        # 3) Dernier filet de sécurité: nettoyer les ``` éventuels
         cleaned = txt.replace("```json", "").replace("```", "").strip()
-        return json.loads(cleaned)  # laisser remonter l'erreur si vraiment pas JSON
+        return json.loads(cleaned)

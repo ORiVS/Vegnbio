@@ -11,20 +11,18 @@ SYSTEM_JSON_EXTRACTOR = (
 )
 
 def build_parse_prompt(user_text: str) -> str:
-    # Schéma contractuel + champs obligatoires
     schema = (
       "{\n"
-      '  "species": "dog|cat|unknown",              # OBLIGATOIRE\n'
-      '  "breed": "string",                          # OBLIGATOIRE (mettre "" si inconnu)\n'
-      '  "symptoms": [                               # OBLIGATOIRE, tableau d’objets\n'
-      '    { "code": "vomiting|fever|...",           # OBLIGATOIRE\n'
-      '      "duration_days": 0,                     # Facultatif (0 si non précisé)\n'
-      '      "severity": "mild|moderate|severe"      # Facultatif\n'
+      '  "species": "dog|cat|unknown",\n'
+      '  "breed": "string",\n'
+      '  "symptoms": [\n'
+      '    { "code": "vomiting|fever|...",\n'
+      '      "duration_days": 0,\n'
+      '      "severity": "mild|moderate|severe"\n'
       '    }\n'
       '  ]\n'
       "}\n"
     )
-
     example_ok = (
       '{\n'
       '  "species": "dog",\n'
@@ -36,15 +34,12 @@ def build_parse_prompt(user_text: str) -> str:
       '  ]\n'
       '}'
     )
-
-    # très explicite pour éviter les sorties partielles
     rules = (
-      "- Tous les champs au niveau racine sont OBLIGATOIRES (species, breed, symptoms).\n"
-      "- Si une information est absente, mets: species=\"unknown\", breed=\"\".\n"
-      "- RENDS UNIQUEMENT un objet JSON avec exactement ces 3 clés au niveau racine.\n"
-      "- NE rends pas juste un objet symptôme; rends l'objet complet.\n"
+      "- Tous les champs racine sont obligatoires.\n"
+      "- Si inconnu: species=\"unknown\", breed=\"\".\n"
+      "- Rends un seul objet JSON avec exactement ces 3 clés racine.\n"
+      "- Ne rends pas juste un objet symptôme.\n"
     )
-
     return (
       "TÂCHE: Extraire espèce, race et symptômes depuis un texte utilisateur.\n"
       f"TEXTE: {user_text}\n\n"
@@ -53,15 +48,9 @@ def build_parse_prompt(user_text: str) -> str:
       "RÈGLES:\n" + rules
     )
 
-# Pour /triage : reformulation (après ton scoring déterministe)
 def build_explain_prompt(species: str, breed: str, differential, red_flags, advice) -> str:
-    """
-    differential: list[ { 'disease': str, 'prob': float, 'why': str } ]
-    red_flags: list[str]
-    advice: str
-    """
     return (
-      "Contexte: on a déjà effectué un scoring déterministe interne.\n"
+      "Contexte: un scoring déterministe interne a déjà été effectué.\n"
       f"Espèce: {species} | Race: {breed or '-'}\n"
       f"Hypothèses (avec probabilités et raisons): {differential}\n"
       f"Red flags: {red_flags}\n"
