@@ -8,6 +8,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
+
 from .models import (
     Symptom, Species, Breed, Disease, DiseaseSymptom, Case, Feedback, ErrorLog
 )
@@ -57,6 +61,11 @@ def _append_legal_disclaimer(text: str) -> str:
 class ParseView(APIView):
     permission_classes = [permissions.AllowAny]
 
+    @swagger_auto_schema(
+        request_body=ParseInputSerializer,
+        responses={200: ParseOutputSerializer},
+        operation_description="Analyse un texte libre (FR) et retourne species/breed/symptoms."
+    )
     def post(self, request):
         ser = ParseInputSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
@@ -129,6 +138,11 @@ class ParseView(APIView):
 
 class TriageView(APIView):
     permission_classes = [permissions.AllowAny]
+    @swagger_auto_schema(
+        request_body=TriageInputSerializer,
+        responses={200: TriageOutputSerializer},
+        operation_description="Calcule un triage (low/medium/high) + hypothèses + conseils."
+    )
 
     def post(self, request):
         ser = TriageInputSerializer(data=request.data)
@@ -245,6 +259,11 @@ class DiseaseBySpeciesView(APIView):
 # feedback
 class FeedbackView(APIView):
     permission_classes = [permissions.AllowAny]
+    @swagger_auto_schema(
+        request_body=FeedbackInputSerializer,
+        responses={201: FeedbackOutputSerializer},
+        operation_description="Enregistre un feedback utilisateur/vétérinaire sur un case."
+    )
 
     def post(self, request):
         ser = FeedbackInputSerializer(data=request.data)
