@@ -1,5 +1,8 @@
+# vetbot/views.py
 from collections import Counter, defaultdict
 from datetime import timedelta
+import re
+
 from django.utils import timezone
 from django.db.models import Count, Q
 from django.conf import settings
@@ -10,7 +13,6 @@ from rest_framework import status, permissions
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-
 
 from .models import (
     Symptom, Species, Breed, Disease, DiseaseSymptom, Case, Feedback, ErrorLog
@@ -27,6 +29,8 @@ from .llm.client import LLMClient
 from .llm.prompts import SYSTEM_JSON_EXTRACTOR, SYSTEM_TRIAGE, build_parse_prompt, build_explain_prompt
 
 
+# --------- Aliases & Fallback helpers ---------
+
 # alias FR->code
 SYM_ALIAS = {
     "vomissements": "vomiting",
@@ -40,6 +44,27 @@ SYM_ALIAS = {
     "eternuements": "sneezing",
 }
 
+# mots-clés espèces pour le fallback (sans IA)
+SPECIES_KEYWORDS = {
+    "dog": ["chien", "chiot", "canidé", "canide"],
+    "cat": ["chat", "chaton", "félin", "felin"],
+}
+
+# mapping simple texte->code symptôme pour le fallback (sans IA)
+SYM_TEXT_TO_CODE = {
+    # vomiting
+    "vomit": "vomiting", "vomissement": "vomiting", "vomissements": "vomiting",
+    "régurgite": "vomiting", "regurgite": "vomiting",
+    # fever
+    "fièvre": "fever", "fievre": "fever", "fièvre.": "fever",
+    # lethargy
+    "fatigué": "lethargy", "fatigue": "lethargy", "apathie": "lethargy", "mou": "lethargy",
+    # cough
+    "toux": "cough", "tousser": "cough",
+    # sneezing
+    "éternue": "sneezing", "éternuements": "sneezing", "eternuements": "sneezing",
+}
+
 
 def _map_symptom_code(code: str) -> str:
     c = (code or "").strip().lower()
@@ -50,6 +75,7 @@ def _log_error(err_type: str, message: str = "", payload: dict | None = None):
     try:
         ErrorLog.objects.create(type=err_type, message=message[:250], payload=payload or {})
     except Exception:
+        # on ne casse jamais la réponse pour un problème de log
         pass
 
 
@@ -57,6 +83,48 @@ def _append_legal_disclaimer(text: str) -> str:
     disclaimer = " Ce service n’est pas un diagnostic. Consultez votre vétérinaire."
     return (text or "").rstrip() + disclaimer
 
+
+def _fallback_extract(user_text: str) -> dict:
+    """
+    Plan B sans IA: on devine species, breed="" et quelques symptoms par mots-clés.
+    On essaie aussi de capter une durée en jours s'il y a "depuis X jour(s)".
+    """
+    txt = (user_text or "").lower()
+
+    # species
+    species = "unknown"
+    for sp, kws in SPECIES_KEYWORDS.items():
+        if any(kw in txt for kw in kws):
+            species = sp
+            break
+
+    # duration_days rudimentaire
+    duration_days = None
+    m = re.search(r"depuis\s+(\d+)\s*jour", txt)
+    if m:
+        try:
+            duration_days = int(m.group(1))
+        except Exception:
+            duration_days = None
+
+    # symptoms (uniques)
+    found_codes = []
+    for needle, code in SYM_TEXT_TO_CODE.items():
+        if needle in txt and code not in found_codes:
+            found_codes.append(code)
+
+    # construit la liste détaillée
+    sym_list = []
+    for code in found_codes:
+        item = {"code": code}
+        if code == "vomiting" and duration_days is not None:
+            item["duration_days"] = duration_days
+        sym_list.append(item)
+
+    return {"species": species, "breed": "", "symptoms": sym_list}
+
+
+# --------- Views ---------
 
 class ParseView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -71,19 +139,20 @@ class ParseView(APIView):
         ser.is_valid(raise_exception=True)
         user_text = ser.validated_data["text"]
 
-        # Appel LLM -> JSON strict, journalisation erreurs
+        raw = None
+        # 1) Tentative IA -> JSON strict
         try:
             raw = LLMClient.generate_json(SYSTEM_JSON_EXTRACTOR, build_parse_prompt(user_text))
         except Exception as e:
             _log_error(ErrorLog.TYPE_LLM_ERROR, message="parse_generate_failed", payload={"detail": str(e)})
-            return Response(
-                {"detail": "Erreur d’analyse automatique."},
-                status=status.HTTP_502_BAD_GATEWAY
-            )
 
-        data = self._normalize_parse_output(raw)
+        # 2) Si IA KO -> fallback déterministe
+        if raw is None:
+            data = _fallback_extract(user_text)
+        else:
+            data = self._normalize_parse_output(raw)
 
-        # mapping codes → référentiel interne
+        # 3) mapping codes → référentiel interne
         cleaned = []
         known_codes = set(Symptom.objects.values_list("code", flat=True))
         unknowns = []
@@ -138,12 +207,12 @@ class ParseView(APIView):
 
 class TriageView(APIView):
     permission_classes = [permissions.AllowAny]
+
     @swagger_auto_schema(
         request_body=TriageInputSerializer,
         responses={200: TriageOutputSerializer},
         operation_description="Calcule un triage (low/medium/high) + hypothèses + conseils."
     )
-
     def post(self, request):
         ser = TriageInputSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
@@ -176,7 +245,7 @@ class TriageView(APIView):
         # 3) conseil par défaut
         advice = "Donnez de l’eau en petites quantités, observez 6–12h. Consultez si des signaux d’alerte apparaissent."
 
-        # 4) reformulation IA
+        # 4) reformulation IA (facultatif)
         try:
             expl = LLMClient.generate(
                 SYSTEM_TRIAGE,
@@ -202,8 +271,10 @@ class TriageView(APIView):
             triage=triage,
             differential=differential,
             advice=advice,
-            model_trace={"engine": "ollama" if getattr(settings, "LLM_PROVIDER", "ollama") != "transformers" else "hf",
-                         "model": getattr(settings, "OLLAMA_MODEL", "unknown")}
+            model_trace={
+                "engine": "ollama" if getattr(settings, "LLM_PROVIDER", "ollama") != "transformers" else "hf",
+                "model": getattr(settings, "OLLAMA_MODEL", "unknown")
+            }
         )
 
         out = TriageOutputSerializer({
@@ -215,7 +286,8 @@ class TriageView(APIView):
         return Response(out, status=status.HTTP_200_OK)
 
 
-# listes utilitaires
+# --------- Listes utilitaires ---------
+
 class SpeciesListView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -256,15 +328,16 @@ class DiseaseBySpeciesView(APIView):
         return Response(DiseaseDebugSerializer(data, many=True).data)
 
 
-# feedback
+# --------- Feedback & Stats ---------
+
 class FeedbackView(APIView):
     permission_classes = [permissions.AllowAny]
+
     @swagger_auto_schema(
         request_body=FeedbackInputSerializer,
         responses={201: FeedbackOutputSerializer},
         operation_description="Enregistre un feedback utilisateur/vétérinaire sur un case."
     )
-
     def post(self, request):
         ser = FeedbackInputSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
@@ -274,7 +347,7 @@ class FeedbackView(APIView):
         if not case:
             return Response({"detail": "Case introuvable."}, status=status.HTTP_404_NOT_FOUND)
 
-        fb = Feedback.objects.create(
+        Feedback.objects.create(
             case=case,
             useful=ser.validated_data.get("useful", None),
             validated_diagnosis=ser.validated_data.get("validated_diagnosis", "") or "",
@@ -282,12 +355,10 @@ class FeedbackView(APIView):
             note=ser.validated_data.get("note", "") or ""
         )
 
-        # Rien à recalculer ici; l’apprentissage se fera via la commande management "vetbot_learn"
         out = FeedbackOutputSerializer({"status": "ok", "message": "Feedback enregistré."}).data
         return Response(out, status=status.HTTP_201_CREATED)
 
 
-# stats (protégé admin)
 class StatsView(APIView):
     permission_classes = [permissions.IsAdminUser]
 
