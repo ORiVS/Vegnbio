@@ -12,6 +12,7 @@ class SupplierOfferSerializer(serializers.ModelSerializer):
     supplier_id = serializers.IntegerField(source="supplier.id", read_only=True)
     allergens = serializers.PrimaryKeyRelatedField(queryset=Allergen.objects.all(), many=True, required=False)
     avg_rating = serializers.SerializerMethodField()
+    supplier_name = serializers.SerializerMethodField()
 
     # ⬇️ pour refléter l’optionnalité côté API
     min_order_qty = serializers.DecimalField(
@@ -22,12 +23,22 @@ class SupplierOfferSerializer(serializers.ModelSerializer):
         model = SupplierOffer
         fields = [
             "id", "supplier", "supplier_id",
-            "product_name", "description", "is_bio", "producer_name", "region", "allergens",
+            "product_name", "description", "is_bio", "producer_name", "supplier_name", "region", "allergens",
             "unit", "price", "min_order_qty", "stock_qty",
             "available_from", "available_to",
             "status", "avg_rating", "created_at",
         ]
         read_only_fields = ["status", "avg_rating", "created_at", "supplier_id"]
+
+    def get_supplier_name(self, obj):
+        u = getattr(obj, "supplier", None)
+        if not u:
+            return None
+        prof = getattr(u, "profile", None)
+        # essaie business_name (ou équivalent), sinon prénom/nom, sinon email
+        business = getattr(prof, "business_name", None) or getattr(prof, "company_name", None)
+        full = f"{getattr(u, 'first_name', '')} {getattr(u, 'last_name', '')}".strip()
+        return business or (full if full else None) or getattr(u, "email", None)
 
     def get_avg_rating(self, obj):
         ratings = list(obj.reviews.all().values_list("rating", flat=True))
